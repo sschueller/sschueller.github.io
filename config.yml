@@ -1,0 +1,85 @@
+baseURL: "https://sschueller.github.io"
+title: "Stefan Schüller"
+paginate: 5
+theme: loveit
+
+languageCode: "en"
+languageName: "English"
+copyright: ""
+
+enableRobotsTXT: true
+enableEmoji: true
+
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+author:
+  name: "Stefan Schüller"
+  email: ""
+  link: "https://github.com/sschueller/"
+
+params:
+  defaultTheme: "light"
+  title: "Stefan Schüller"
+  description: ""
+  images: ["/logo.png"]
+  dateFormat: "2006-01-02"
+
+  header:
+    title: 
+      name: "Stefan Schüller"
+
+  home:
+    profile:
+      enable: true
+      avatarURL: "https://avatars.githubusercontent.com/u/1180107?s=400&v=4"
+      typeit: false
+      social: true
+
+
+      subtitle: "My Random Projects"
+
+ # Social config about the author
+  social:
+    GitHub: "https://github.com/sschueller/"
+    Linkedin: ""
+
+  page:   
+    share:
+      enable: true
+      Twitter: true
+      Facebook: true
+      Linkedin: false
+      Whatsapp: false
+      Pinterest: false
+      Tumblr: false
+      HackerNews: true
+      Reddit: true
+      VK: false
+      Buffer: false
+      Xing: false
+      Line: true
+      Instapaper: false
+      Pocket: false
+      Flipboard: false
+      Weibo: true
+      Blogger: false
+      Baidu: false
+      Odnoklassniki: false
+      Evernote: false
+      Skype: false
+      Trello: false
+      Mix: false
+
+    toc:
+      # whether to enable the table of the contents
+      enable: true
+      # LoveIt NEW | 0.2.9 whether to keep the static table of the contents in front of the post
+      keepStatic: false
+      # whether to make the table of the contents in the sidebar automatically collapsed
+      auto: true

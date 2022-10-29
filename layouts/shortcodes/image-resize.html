@@ -1,0 +1,13 @@
+
+{{ $imagename := (.Get 0) }}
+{{ $options := .Get 1 }}
+{{ $alt := .Get 2 }}
+
+
+{{ $image := resources.Get $imagename }}
+{{ with ($image.Resize $options) }}
+<img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ printf "%#v" $alt }}">
+{{ end }} 
+
+
+  
