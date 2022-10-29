@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>FTTH - Tag - Stefan Schüller</title>
+        <link>https://sschueller.github.io/tags/ftth/</link>
+        <description>FTTH - Tag - Stefan Schüller</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 29 Oct 2022 16:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/tags/ftth/" rel="self" type="application/rss+xml" /><item>
+    <title>Wiring my home with Fiber</title>
+    <link>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</link>
+    <pubDate>Sat, 29 Oct 2022 16:37:16 &#43;0200</pubDate>
+    <author>Stefan Schüller</author>
+    <guid>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/ftth" referrerpolicy="no-referrer">
+            </div>]]></description>
+</item>
+</channel>
+</rss>
