@@ -10,8 +10,11 @@ draft: false
 
 featuredImage: "ftth"
 resources:
-- name: "ftth"
-  src: "ftth.jpg"
+  - name: ftth
+    src: ftth.jpg
+  - name: network-diagram
+    src: /images/network-diag.png
+
 
 tags: ["Fiber", "FTTH", "Network"]
 categories: ["projects"]
@@ -20,6 +23,10 @@ toc:
   auto: false
 math:
   enable: true
+
+images: 
+  - network-diagram
+
 
 ---
 

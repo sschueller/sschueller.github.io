@@ -27,7 +27,7 @@ params:
   defaultTheme: "light"
   title: "Stefan Schüller"
   description: ""
-  images: ["/logo.png"]
+  # images: ["/logo.png"]
   dateFormat: "2006-01-02"
 
   header:
