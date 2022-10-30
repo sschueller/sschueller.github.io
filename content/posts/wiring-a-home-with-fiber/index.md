@@ -117,7 +117,7 @@ The router requires a SFP28 module to connect to the ISPs 25gibt line which was 
 
 #### BiDi
 
-I also decided to go withe BiDi modules which can do RX and TX on the same fiber on two different wavelengths. To archive this however you need opposite modules on each end so you need to plan a bit. This also allows me to run just one fiber into each room instead of two making it easier in tight situations. The ISP also uses BiDi modules for their FTTH.
+I also decided to go withe BiDi modules which can do RX and TX on the same fiber on two different wavelengths. To achieve this however you need opposite modules on each end so you need to plan a bit. The ISP also uses BiDi modules for their FTTH.
 
 ![SFP+ BiDi module](/images/fs-sfp-sm-bidi.jpg)
 
@@ -156,7 +156,7 @@ In order to use the SFP+ modules you need the correct PCIe cards on your PC. I w
 
 ### SFP switches
 
-Generaly SFP+ Switches are not cheap and quite loud but thanks to Mikrotik there is a fanless switch with 4 ports which is more than enogh for me. I am using one of these per floor which covers my needs. It also has one RJ45 copper gigabit port so I can split of into another switch for devices that don't need 10gbit (Printers..).
+Generally SFP+ Switches are not cheap and quite loud but thanks to Mikrotik there is a fan-less switch with 4 ports which is more than enough for me. I am using one of these per floor which covers my needs. It also has one RJ45 copper gigabit port so I can split of into another switch for devices that don't need 10gbit (Printers..).
 
 ![Mikrotik CRS305](/images/mikrotik-crs305-1g-4s-in-gigabit-switch.png)
 
