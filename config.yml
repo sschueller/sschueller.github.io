@@ -46,7 +46,8 @@ params:
 
  # Social config about the author
   social:
-    GitHub: "https://github.com/sschueller/"
+    GitHub: "sschueller"
+    Twitter: "sschueller"
     Linkedin: ""
 
   page:   
