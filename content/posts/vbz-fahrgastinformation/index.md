@@ -428,6 +428,8 @@ My colored version using the {{< person url="https://twitter.com/vbz_zueri_linie
 
 - Trim destination depending on actual length and not number or characters.
 
+- Design a 3d printed wall mount
+
 ## Source
 
 The source code is available here: https://github.com/sschueller/vbz-fahrgastinformation
