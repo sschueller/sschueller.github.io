@@ -38,7 +38,7 @@ math:
   enable: true
 
 images: 
-  - P_20221106_172806.jpg
+  - /posts/vbz-fahrgastinformation/P_20221106_172806.jpg
 
 ---
 
