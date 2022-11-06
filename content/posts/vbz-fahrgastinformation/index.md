@@ -424,6 +424,10 @@ My colored version using the {{< person url="https://twitter.com/vbz_zueri_linie
 
 - Fix spacing issues
 
+- Fix umlauts in font to be at the correct ASCII position
+
+- Trim destination depending on actual length and not number or characters.
+
 ## Source
 
 The source code is available here: https://github.com/sschueller/vbz-fahrgastinformation
