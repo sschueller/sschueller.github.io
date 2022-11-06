@@ -391,12 +391,21 @@ I used a NTP client to get the current time as well as the popular AutoConnect w
 The closest I could get to the original. I don't know what color exactly is used.
 ![Clone](P_20221106_140836.jpg)
 
-
 My colored version using the {{< person url="https://twitter.com/vbz_zueri_linie" name="VBZ" picture="https://pbs.twimg.com/profile_images/1453296421948563459/7M1osliH_400x400.jpg" >}} Tram colors. 
 ![Colored](P_20221106_172708.jpg)
 
 ![Colored from side](P_20221106_172806.jpg)
 
+## Cost Breakdown
+
+| Part      | Cost      | 
+| ------------  | ------------ | 
+| [ESP32 WeMos CP2104](https://www.aliexpress.com/item/32858054775.html)       | CHF 5.07    | 
+| [P2 128x64 LED Matrix Module](https://www.aliexpress.com/item/1005004519022015.html)       | CHF 34.68    | 
+| [5V 4A Power Supply](https://www.aliexpress.com/item/32908431212.html)       | CHF 10.20    | 
+| [PCBs (5) via JLCPCB](https://jlcpcb.com)       | CHF 5.70    | 
+| BOM for PCB       | ~ CHF 2.00    | 
+| **Total** | **CHF 57.65** |
 
 ## Todo
 
