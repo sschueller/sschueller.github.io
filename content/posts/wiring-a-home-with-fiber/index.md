@@ -25,7 +25,7 @@ math:
   enable: true
 
 images: 
-  - network-diagram
+  - /images/network-diag.png
 
 
 ---
