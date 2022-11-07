@@ -226,7 +226,7 @@ From which I am interested in:
 These displays have a very unique font and I wanted it to be identical. The only way to achieve this was to build a font from scratch using photos I made of different routes and if I was lucky extra messages with rare characters.
 
 
-```
+{{< highlight bash >}}
 ░░ ▓▓ ▓▓ ▓▓ ▓▓ ▓▓ ▓▓ ░░ 12
 ▓▓ ░░ ░░ ░░ ░░ ░░ ░░ ▓▓ 11
 ▓▓ ▓▓ ▓▓ ▓▓ ▓▓ ▓▓ ▓▓ ▓▓ 10
@@ -240,10 +240,11 @@ These displays have a very unique font and I wanted it to be identical. The only
 ░░ ▓▓ ░░ ░░ ░░ ░░ ▓▓ ░░ 2
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 1
 1  2  3  4  5  6  7  8
-```
+{{< / highlight >}}
+
 - At Station Icon, is shown when the time to arrival is 0
 
-```
+{{< highlight bash >}}
 ░░ ░░ ░░ ▓▓ ▓▓ ░░ ░░ ░░ ░░ ░░ 12
 ░░ ░░ ░░ ▓▓ ▓▓ ░░ ░░ ░░ ░░ ░░ 11
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 10
@@ -257,12 +258,12 @@ These displays have a very unique font and I wanted it to be identical. The only
 ░░ ░░ ▓▓ ▓▓ ▓▓ ░░ ░░ ░░ ▓▓ ▓▓ 2
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 1
 1  2  3  4  5  6  7  8  9  10
-```
+{{< / highlight >}}
 - Accessibility Icon, shown for buses and trams with level entry. 
 - This also appears to be largest symbol
 
 
-```
+{{< highlight bash >}}
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ▓▓ ▓▓ ░░ ░░ ▓▓ ▓▓ 12
 ▓▓ ▓▓ ▓▓ ▓▓ ▓▓ ▓▓ ░░ ▓▓ ▓▓ ░░ ░░ ▓▓ ▓▓ 11
 ▓▓ ▓▓ ░░ ░░ ▓▓ ▓▓ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 10
@@ -276,13 +277,13 @@ These displays have a very unique font and I wanted it to be identical. The only
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 2
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 1
 1  2  3  4  5  6  7  8  9  10 11 12 13
-```
+{{< / highlight >}}
 - All Text is within a 12 pixel heigh frame
 - Width depends on the character
 - There is alway 1 pixel space between characters
 
 
-```
+{{< highlight bash >}}
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 12
 ▓▓ ▓▓ ░░ ░░ ░░ ░░ ░░ ░░ ▓▓ ▓▓ 11
 ▓▓ ▓▓ ░░ ░░ ░░ ░░ ░░ ░░ ▓▓ ▓▓ 10
@@ -296,10 +297,10 @@ These displays have a very unique font and I wanted it to be identical. The only
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 2
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 1
 1  2  3  4  5  6  7  8  9  10
-```
+{{< / highlight >}}
 - Time to arrival, there is a 2 pixel space between it and the back tic if the time is less than 10
 
-```
+{{< highlight bash >}}
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 12
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ▓▓ ▓▓ ▓▓ ▓▓ ░░ ░░ ░░ ▓▓ ▓▓ 11
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ▓▓ ▓▓ ░░ ░░ ▓▓ ▓▓ ░░ ░░ ▓▓ ▓▓ 10
@@ -341,7 +342,7 @@ These displays have a very unique font and I wanted it to be identical. The only
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 2
 ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ 1
 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17
-```
+{{< / highlight >}}
 - Spacing between lines is 2 pixels
 - If two digits are shown the space to the tic is only 1
 - The 1 is offset from the right by an extra pixel
