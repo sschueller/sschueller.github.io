@@ -2,7 +2,7 @@
 weight: 2
 title: "Building a VBZ Display Clone"
 date: 2022-11-06T16:37:16+02:00
-lastmod: 2022-11-06T16:37:16+02:00
+lastmod: 2022-11-12T18:37:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
@@ -425,8 +425,6 @@ My colored version using the {{< person url="https://twitter.com/vbz_zueri_linie
 - Fix spacing issues
 
 - Fix umlauts in font to be at the correct ASCII position
-
-- Trim destination depending on actual length and not number or characters.
 
 - Design a 3d printed wall mount
 
