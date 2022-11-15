@@ -49,32 +49,34 @@ params:
     GitHub: "sschueller"
     Twitter: "sschueller"
     Linkedin: ""
+    Matrix: "@sschueller:chat.tei.li"
+
 
   page:   
     share:
       enable: true
       Twitter: true
       Facebook: true
-      Linkedin: false
-      Whatsapp: false
+      Linkedin: true
+      Whatsapp: true
       Pinterest: false
-      Tumblr: false
+      Tumblr: true
       HackerNews: true
       Reddit: true
-      VK: false
+      VK: true
       Buffer: false
-      Xing: false
+      Xing: true
       Line: true
       Instapaper: false
       Pocket: false
       Flipboard: false
       Weibo: true
       Blogger: false
-      Baidu: false
+      Baidu: true
       Odnoklassniki: false
       Evernote: false
-      Skype: false
-      Trello: false
+      Skype: true
+      Trello: true
       Mix: false
 
     toc:
