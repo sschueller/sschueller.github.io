@@ -7,6 +7,7 @@ author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
 draft: false
+enableEmoji: true
 
 featuredImage: "ftth"
 resources:
@@ -33,7 +34,11 @@ images:
 
 <!--more-->
 
-> Many thanks to {{< person url="https://michael.stapelberg.ch/" name="Michale Stapelberg" picture="https://michael.stapelberg.ch/logo1x.jpg" >}} for the inspiration and information about his setup. Also thanks to [Init7](https://www.init7.net/en/internet/fiber7/) (for the great service), [r/FiberOptics](https://old.reddit.com/r/FiberOptics/), [FS](https://www.fs.com) and [Netshop24](https://www.netshop24.ch) for providing me with what I needed to get this setup going.
+> Many thanks to {{< person url="https://michael.stapelberg.ch/" name="Michale Stapelberg" picture="https://michael.stapelberg.ch/logo1x.jpg" >}} for the inspiration and information about his setup. Also thanks to [Init7](https://www.init7.net/de/init7-empfehlen/) (for the great service), [r/FiberOptics](https://old.reddit.com/r/FiberOptics/), [FS](https://www.fs.com) and [Netshop24](https://www.netshop24.ch) for providing me with what I needed to get this setup going.
+
+{{< admonition about "Init7 Discount" true >}}
+If you find this article useful and you are considering [Init7](https://www.init7.net/en/init7-empfehlen/) as your provider you can use my referral code "20700408098" to get CHF 111.- off hardware and also support me paying off the splicer :smile:.
+{{< /admonition >}}
 
 {{< admonition warning "Warning" true >}}
 I am by no means an expert when it comes to fiber. This page describes what I did but it may all be wrong and not the right way to do this. 
