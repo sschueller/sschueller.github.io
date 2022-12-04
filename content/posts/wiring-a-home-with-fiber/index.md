@@ -283,6 +283,17 @@ On the PC side it is a simple PCIe card and SFP+ module. Patch coord I purchased
 
 Generally I am very happy with how everything turned out but it did cost more than I wanted to spend. 
 
+### Speed tests.
+
+Here are some initial tests I have run. I do still need to tune my router and proxmox/opnsense.
+
+**Router to ISP**
+[![Speedtest, pc to ISP](https://www.speedtest.net/result/c/b3548b67-bbf8-4b26-bfdd-21557c95ae57.png)](https://www.speedtest.net/result/c/b3548b67-bbf8-4b26-bfdd-21557c95ae57)
+
+
+**PC to ISP**
+[![Speedtest, Router to ISP](https://www.speedtest.net/result/c/c48584ab-f123-4648-85c8-952268bc00fb.png)](https://www.speedtest.net/result/c/c48584ab-f123-4648-85c8-952268bc00fb)
+
 ### Rough cost breakdown
 | Part      | Cost      | 
 | ------------  | ------------ | 
