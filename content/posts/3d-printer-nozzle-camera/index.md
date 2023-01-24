@@ -75,9 +75,13 @@ I was luckily able to turn the focus ring under a microscope just enough to get 
 
 ![](nozzle-camera-mount-on-sherpa)
 
+Source: https://github.com/sschueller/sschueller.github.io/raw/master/content/posts/3d-printer-nozzle-camera/sherpa-cowel-v2.step
+
 To mount the camera I created a little mounting bracket which screws onto my tool head. I have a modded sherpa tool head with extra 3mm inserts allowing me to mount things to my tool like an accelerometer from input shaping or this case the camera.
 
 ![](nozzle-camera-mount)
+
+Source: https://github.com/sschueller/sschueller.github.io/raw/master/content/posts/3d-printer-nozzle-camera/cam-mount-v2.step
 
 The tool head does hit the front door of the V0.1 if I go all the way to the end of the bed.
 
