@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Voron - Tag - Stefan Schüller</title>
+        <link>https://sschueller.github.io/tags/voron/</link>
+        <description>Voron - Tag - Stefan Schüller</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 23 Jan 2023 17:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/tags/voron/" rel="self" type="application/rss+xml" /><item>
+    <title>3D Printer Nozzle Camera</title>
+    <link>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</link>
+    <pubDate>Mon, 23 Jan 2023 17:37:16 &#43;0200</pubDate>
+    <author>Stefan Schüller</author>
+    <guid>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/nozzle-camera-close-up" referrerpolicy="no-referrer">
+            </div><p>(please ignore the horrible layer lines, this is just a prototype)</p>]]></description>
+</item>
+</channel>
+</rss>
