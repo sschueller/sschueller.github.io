@@ -1,0 +1,305 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>CI/CD with KiCad and Gitlab - Stefan Schüller</title><meta name=Description content><meta property="og:title" content="CI/CD with KiCad and Gitlab"><meta property="og:description" content="(Blender Render of KiCad Exported PCB)"><meta property="og:type" content="article"><meta property="og:url" content="https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-05-12T17:37:16+02:00"><meta property="article:modified_time" content="2023-05-12T17:37:16+02:00"><meta property="og:site_name" content="Stefan Schüller"><meta name=twitter:card content="summary"><meta name=twitter:title content="CI/CD with KiCad and Gitlab"><meta name=twitter:description content="(Blender Render of KiCad Exported PCB)"><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><link rel=prev href=https://sschueller.github.io/posts/3d-printer-nozzle-camera/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script defer data-domain=sschueller.github.io src=https://stats.tei.li/js/script.js></script>
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"CI/CD with KiCad and Gitlab","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/sschueller.github.io\/posts\/ci-cd-with-kicad-and-gitlab\/"},"genre":"posts","keywords":"PCB, KiCod, EE, Gitlab, JLCPCB, LCSC","wordcount":1248,"url":"https:\/\/sschueller.github.io\/posts\/ci-cd-with-kicad-and-gitlab\/","datePublished":"2023-05-12T17:37:16+02:00","dateModified":"2023-05-12T17:37:16+02:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Stefan Schüller"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"light"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"light"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Stefan Schüller">Stefan Schüller</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Stefan Schüller">Stefan Schüller</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class="toc-content always-active" id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CI/CD with KiCad and Gitlab</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://github.com/sschueller/ title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Stefan Schüller</a></span>&nbsp;<span class=post-category>included in <a href=/categories/projects/><i class="far fa-folder fa-fw" aria-hidden=true></i>projects</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-05-12>2023-05-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1248 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;6 minutes&nbsp;</div></div><div class=featured-image><img class=lazyload src=/svg/loading.min.svg data-src=/posts/ci-cd-with-kicad-and-gitlab/render.png data-srcset="/posts/ci-cd-with-kicad-and-gitlab/render.png, /posts/ci-cd-with-kicad-and-gitlab/render.png 1.5x, /posts/ci-cd-with-kicad-and-gitlab/render.png 2x" data-sizes=auto alt=/posts/ci-cd-with-kicad-and-gitlab/render.png title=/posts/ci-cd-with-kicad-and-gitlab/render.png width=1920 height=1080></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#git>Git</a></li><li><a href=#kicad-setup>KiCad Setup</a></li><li><a href=#gitlab-setup>GitLab Setup</a><ul><li><a href=#gitlab-ci>Gitlab CI</a></li><li><a href=#kibot>KiBot</a></li></ul></li><li><a href=#fabrication>Fabrication</a></li><li><a href=#todo>TODO</a></li><li><a href=#eye-candy>Eye-Candy</a></li></ul></nav></div></div><div class=content id=content><p>(Blender Render of KiCad Exported PCB)</p><h2 id=introduction>Introduction</h2><p>I make many small projects and usually order PCBs at some place. Generating Gerber files and checking everything is in order before ordering can be tedious. Additionally the more complex the board the more parts I need and most likely I will also need a reference in order to place the parts.</p><p>So I decided to setup a gitlab pipeline to automate the whole process.</p><p>After I commit into the master the gitlab pipeline will run tests on the schematic and on the PCB. If those pass it will generate the Gerbers I need for the specific fab I use (JLCPCB in this case) and also generate a BOM which I can use to order parts at LCSC. Additionally it will generate a fancy <a href=https://openscopeproject.org/InteractiveHtmlBomDemo/ target=_blank rel="noopener noreffer">KiCad Interactive HTML BOM</a>, position file for JLCPCB (if you want them to do assembly) and a <a href=https://github.com/sschueller/sschueller.github.io/raw/master/content/posts/ci-cd-with-kicad-and-gitlab/shades-schematic-1.pdf target=_blank rel="noopener noreffer">PDF of the schematic</a>
+. All these artifacts are commited back into the master and a version is applied. I also have a CHANGELOG.md which is automatically filled from commit messages (I used conventional commits to format my commit messages)</p><h2 id=git>Git</h2><p>In order for this to work you need to keep your KiCad project in a git repository. To do this I use the following <code>.gitignore</code> (KiCad makes tons of files but you don&rsquo;t need to commit all of them) and file structure.</p><p><strong>Folder Structure</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>├── ci/               <span style=color:#75715e># Files specific to CI (colors for PDF etc.)</span>
+</span></span><span style=display:flex><span>├── datasheets/       <span style=color:#75715e># Data sheets of items I used in this project</span>
+</span></span><span style=display:flex><span>├── Fabrication/      <span style=color:#75715e># Fabrication output</span>
+</span></span><span style=display:flex><span>├── footprints/       <span style=color:#75715e># KiCad footprints (only for this project)</span>
+</span></span><span style=display:flex><span>├── library/          <span style=color:#75715e># KiCad libraries (only for this project)</span>
+</span></span><span style=display:flex><span>├── packages3d/       <span style=color:#75715e># KiCad 3d packages (only for this project)</span>
+</span></span><span style=display:flex><span>├── VERSION.txt       <span style=color:#75715e># version (Auto updated)</span>
+</span></span><span style=display:flex><span>├── CHANGELOG.md      <span style=color:#75715e># changelog (Auto generated)</span>
+</span></span><span style=display:flex><span>├── README.md         
+</span></span><span style=display:flex><span>├── output.kibot.yaml <span style=color:#75715e># KiBot output configuration, gerbers, BOM etc. </span>
+</span></span><span style=display:flex><span>├── test.kibot.yaml   <span style=color:#75715e># KiBot Tests</span>
+</span></span><span style=display:flex><span>├── .gitignore
+</span></span><span style=display:flex><span>└── .gitlab-ci.yml    <span style=color:#75715e># Gitlab CI file</span>
+</span></span></code></pre></div><p><strong>.gitignore</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># For PCBs designed using KiCad: http://www.kicad-pcb.org/</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Format documentation: http://kicad-pcb.org/help/file-formats/</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Temporary files</span>
+</span></span><span style=display:flex><span>*.000
+</span></span><span style=display:flex><span>*.bak
+</span></span><span style=display:flex><span>*.bck
+</span></span><span style=display:flex><span>*.kicad_pcb-bak
+</span></span><span style=display:flex><span>*.kicad_sch-bak
+</span></span><span style=display:flex><span>*.kicad_prl
+</span></span><span style=display:flex><span>*.sch-bak
+</span></span><span style=display:flex><span>*~
+</span></span><span style=display:flex><span>_autosave-*
+</span></span><span style=display:flex><span>*.tmp
+</span></span><span style=display:flex><span>*-save.pro
+</span></span><span style=display:flex><span>*-save.kicad_pcb
+</span></span><span style=display:flex><span>fp-info-cache
+</span></span><span style=display:flex><span>*-backups/
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Netlist files (exported from Eeschema)</span>
+</span></span><span style=display:flex><span>*.net
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Autorouter files (exported from Pcbnew)</span>
+</span></span><span style=display:flex><span>*.dsn
+</span></span><span style=display:flex><span>*.ses
+</span></span><span style=display:flex><span>*.rules
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Exported BOM files</span>
+</span></span><span style=display:flex><span>*.xml
+</span></span><span style=display:flex><span>*.csv
+</span></span><span style=display:flex><span>export-*
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Rendered output</span>
+</span></span><span style=display:flex><span>3d/Render/*
+</span></span></code></pre></div><h2 id=kicad-setup>KiCad Setup</h2><p>When adding components, add &ldquo;LCSC&rdquo; to overall schematic (BOM export will fail if added to each part separately (join issue)) and the part number in each part to the part in order to use the JLCPCB assembly service. Only parts with LCSC column are exported in the JLCPCB BOMs.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png data-srcset="/posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png, /posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png 1.5x, /posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png 2x" data-sizes=auto alt=/posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png title="KiCad Schematic Preferences" width=604 height=424></p><p>Now when adding parts fill in the LCSC field.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/posts/ci-cd-with-kicad-and-gitlab/kicad-part.png data-srcset="/posts/ci-cd-with-kicad-and-gitlab/kicad-part.png, /posts/ci-cd-with-kicad-and-gitlab/kicad-part.png 1.5x, /posts/ci-cd-with-kicad-and-gitlab/kicad-part.png 2x" data-sizes=auto alt=/posts/ci-cd-with-kicad-and-gitlab/kicad-part.png title="KiCad Part Edit" width=753 height=294></p><h2 id=gitlab-setup>GitLab Setup</h2><p><img class=lazyload src=/svg/loading.min.svg data-src=/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png data-srcset="/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png, /posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png 1.5x, /posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png 2x" data-sizes=auto alt=/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png title=/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png width=830 height=280></p><p>I use a general gitlab setup with docker runners and <a href=https://levelup.gitconnected.com/semantic-versioning-and-release-automation-on-gitlab-9ba16af0c21 target=_blank rel="noopener noreffer">semantic releases</a></p><h3 id=gitlab-ci>Gitlab CI</h3><p>.gitlab-ci.yml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>stages</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>fetch-version</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>testing</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>gen_fab</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>publish</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#https://levelup.gitconnected.com/semantic-versioning-and-release-automation-on-gitlab-9ba16af0c21</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>fetch-semantic-version</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>node:18</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>fetch-version</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>only</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>alpha</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span> <span style=color:#75715e># This matches maintenance branches</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span> <span style=color:#75715e># This matches pre-releases</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npx semantic-release --generate-notes false --dry-run</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>VERSION.txt</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>generate-non-semantic-version</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>fetch-version</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>except</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>alpha</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span> <span style=color:#75715e># This matches maintenance branches</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span> <span style=color:#75715e># This matches pre-releases</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>echo build-$CI_PIPELINE_ID &gt; VERSION.txt</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>VERSION.txt</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>tests</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/inti-cmnb/kicad7_auto:1.6.2</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>testing</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#e6db74>&#34;[ -f *.kicad_pcb ] &amp;&amp; kibot -c test.kibot.yaml&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>pcb_outputs</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/inti-cmnb/kicad7_auto:1.6.2</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>gen_fab</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#e6db74>&#34;[ -f *.kicad_pcb ] &amp;&amp; kibot -c output.kibot.yaml&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>only</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>alpha</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># This matches maintenance branches</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># This matches pre-releases</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ </span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>when</span>: <span style=color:#ae81ff>always</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>Fabrication/</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>release</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>publish</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>node:18</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>only</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>alpha</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># This matches maintenance branches</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># This matches pre-releases</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ </span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npx semantic-release</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span></code></pre></div><h3 id=kibot>KiBot</h3><p><a href=https://github.com/INTI-CMNB/KiBot target=_blank rel="noopener noreffer">KiBot</a> lets you automate almost anything that KiCad can do. I use it with docker to be able to run it in gitlab.</p><p>Here is the test and output configrations I use which are specific for JLCPCB but can be adjusted to almost any fab. There are also many <a href=https://github.com/INTI-CMNB/KiBot/tree/master/docs/samples target=_blank rel="noopener noreffer">examples</a> on the KiBot github for other fabs.</p><p>test.kibot.yaml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>kibot</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>version</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>preflight</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>run_erc</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>update_xml</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>run_drc</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>check_zone_fills</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ignore_unconnected</span>: <span style=color:#66d9ef>false</span>
+</span></span></code></pre></div><p>output.kibot.yaml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># Gerber and drill files for JLCPCB, without stencil</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># URL: https://jlcpcb.com/</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kibot</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>version</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>globals</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>resources_dir</span>: <span style=color:#ae81ff>ci</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>filters</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>only_jlc_parts</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#39;Only parts with JLC (LCSC) code&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>generic</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>include_only</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>column</span>: <span style=color:#e6db74>&#39;LCSC&#39;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>regex</span>: <span style=color:#e6db74>&#39;^C\d+&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>variants</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rotated</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#39;Just a place holder for the rotation filter&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>kibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>variant</span>: <span style=color:#ae81ff>rotated</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>pre_transform</span>: <span style=color:#ae81ff>_rot_footprint</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># JLCPCB Gerber Output</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>outputs</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>JLCPCB_gerbers</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>Gerbers compatible with JLCPCB</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>gerber</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>JLCPCB</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>: <span style=color:#75715e>&amp;gerber_options</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>exclude_edge_layer</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>exclude_pads_from_silkscreen</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>plot_sheet_reference</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>plot_footprint_refs</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>plot_footprint_values</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>force_plot_invisible_refs_vals</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>tent_vias</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>use_protel_extensions</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>create_gerber_job_file</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>disable_aperture_macros</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>gerber_precision</span>: <span style=color:#ae81ff>4.6</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>use_gerber_x2_attributes</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>use_gerber_net_attributes</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>line_width</span>: <span style=color:#ae81ff>0.1</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>subtract_mask_from_silk</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>layers</span>:
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Note: a more generic approach is to use &#39;copper&#39; but then the filenames</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># are slightly different.</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>F.Cu</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>B.Cu</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>F.Paste</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>B.Paste</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>F.SilkS</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>B.SilkS</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>F.Mask</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>B.Mask</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>Edge.Cuts</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># JLCPCB drill files</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>JLCPCB_drill</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>Drill files compatible with JLCPCB</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>excellon</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>JLCPCB</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>pth_and_npth_single_file</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>pth_id</span>: <span style=color:#e6db74>&#39;-PTH&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>npth_id</span>: <span style=color:#e6db74>&#39;-NPTH&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>metric_units</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>output</span>: <span style=color:#e6db74>&#34;%f%i.%x&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># zip all JLCPCB gerber and drill files together</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>JLCPCB</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>ZIP file for JLCPCB</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>compress</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/JLCPCB</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>files</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>from_output</span>: <span style=color:#ae81ff>JLCPCB_gerbers</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>dest</span>: <span style=color:#ae81ff>/</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>from_output</span>: <span style=color:#ae81ff>JLCPCB_drill</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>dest</span>: <span style=color:#ae81ff>/</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># html ibom</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>Interactive BOM</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ibom </span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/ibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>dark_mode</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>name_format</span>: <span style=color:#e6db74>&#39;index&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># JLCPCB assembly positions of components</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#39;JLCPCB_position&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;Pick and place file, JLCPCB style&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>position</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/JLCPCB-BOM</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>variant</span>: <span style=color:#ae81ff>rotated</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>output</span>: <span style=color:#e6db74>&#39;%f_cpl_jlc.%x&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>format</span>: <span style=color:#ae81ff>CSV</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>units</span>: <span style=color:#ae81ff>millimeters</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>separate_files_for_front_and_back</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>only_smd</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>columns</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>Ref</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Designator</span>
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>Val</span>
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>Package</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>PosX</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;Mid X&#34;</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>PosY</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;Mid Y&#34;</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>Rot</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Rotation</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>Side</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Layer</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># JLCPCB Bom for assembly or for LCSC order</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#39;JLCPCB_bom&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;BoM for JLCPCB&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>bom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/JLCPCB-BOM    </span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>output</span>: <span style=color:#e6db74>&#39;%f_%i_jlc.%x&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>exclude_filter</span>: <span style=color:#e6db74>&#39;only_jlc_parts&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>ref_separator</span>: <span style=color:#e6db74>&#39;,&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>columns</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#ae81ff>Value</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Comment</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#ae81ff>References</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Designator</span>
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>Footprint</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#e6db74>&#39;LCSC&#39;</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#39;LCSC part number&#39;</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#e6db74>&#39;Quantity Per PCB&#39;</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#39;QTY&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>csv</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>hide_pcb_info</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>hide_stats_info</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>quote_all</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># PDF of Schematic with dracula theme</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#39;SchPrint&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;Print schematic PDF&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>pdf_sch_print</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/PDFs</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>color_theme</span>: <span style=color:#ae81ff>dracula</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>background_color</span>: <span style=color:#66d9ef>true</span>
+</span></span></code></pre></div><h2 id=fabrication>Fabrication</h2><p>After the pipeline runs successfully I have the following files in my repositories Fabrication folder:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>├── ibom
+</span></span><span style=display:flex><span>│   └── myproject-ibom.html      <span style=color:#75715e># interactive BOM</span>
+</span></span><span style=display:flex><span>├── JLCPCB
+</span></span><span style=display:flex><span>│   └── myproject-JLCPCB.zip     <span style=color:#75715e># gerbers for PCB order</span>
+</span></span><span style=display:flex><span>├── JLCPCB-BOM
+</span></span><span style=display:flex><span>│   ├── myproject_bom_jlc.csv    <span style=color:#75715e># BOM for assembly or LCDC order</span>
+</span></span><span style=display:flex><span>│   └── myproject_cpl_jlc.csv    <span style=color:#75715e># Assembly position file</span>
+</span></span><span style=display:flex><span>└── PDFs
+</span></span><span style=display:flex><span>    └── myproject-schematic.pdf  <span style=color:#75715e># PDF of schematic</span>
+</span></span></code></pre></div><h2 id=todo>TODO</h2><ul><li>I have not used JLCPCB&rsquo;s assembly service with this export so it may not be correct</li><li>The DRC appears to be using the KiCad defaults and not the options I set in KiCad, I may need to pass the designs rules to KiBot somehow.</li><li>A PDF of the PCB would also be useful but requires defining which layers etc. in the config above.</li><li>I would like the interactive BOM be upload to a gitlab page</li><li>3d export?</li></ul><h2 id=eye-candy>Eye-Candy</h2><p>This is an export from KiCad into Blender which textures applied as well as animated.</p><div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden><iframe src=https://www.youtube.com/embed/svU7NyfJJKY style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 allowfullscreen title="YouTube Video"></iframe></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-05-12</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-via=sschueller data-hashtags=PCB,KiCod,EE,Gitlab,JLCPCB,LCSC><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-hashtag=PCB><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><i class="fab fa-linkedin fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Tumblr" data-sharer=tumblr data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-tags=PCB,KiCod,EE,Gitlab,JLCPCB,LCSC><i class="fab fa-tumblr fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on VK" data-sharer=vk data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-image=rendered-esp32-base><i class="fab fa-vk fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Xing" data-sharer=xing data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><i class="fab fa-xing fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-image=rendered-esp32-base><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 百度" data-sharer=baidu data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Skype" data-sharer=skype data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><i class="fab fa-skype fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Trello" data-sharer=trello data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-description><i class="fab fa-trello fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/pcb/>PCB</a>,&nbsp;<a href=/tags/kicod/>KiCod</a>,&nbsp;<a href=/tags/ee/>EE</a>,&nbsp;<a href=/tags/gitlab/>Gitlab</a>,&nbsp;<a href=/tags/jlcpcb/>JLCPCB</a>,&nbsp;<a href=/tags/lcsc/>LCSC</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/3d-printer-nozzle-camera/ class=prev rel=prev title="3D Printer Nozzle Camera"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>3D Printer Nozzle Camera</a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://github.com/sschueller/ target=_blank>Stefan Schüller</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
