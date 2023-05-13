@@ -1,7 +1,7 @@
 baseURL: "https://sschueller.github.io"
 title: "Stefan Schüller"
 paginate: 5
-theme: loveit
+theme: LoveItAgain
 
 languageCode: "en"
 languageName: "English"
