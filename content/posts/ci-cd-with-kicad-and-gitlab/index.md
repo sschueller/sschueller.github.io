@@ -23,7 +23,7 @@ resources:
 
 
 
-tags: ["PCB", "KiCod", "EE", "Gitlab", "JLCPCB", "LCSC"]
+tags: ["PCB", "KiCad", "EE", "Gitlab", "JLCPCB", "LCSC"]
 categories: ["projects"]
 
 toc:
