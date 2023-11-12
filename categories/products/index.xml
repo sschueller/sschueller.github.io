@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>products - Category - Stefan Schüller</title>
+        <link>https://sschueller.github.io/categories/products/</link>
+        <description>products - Category - Stefan Schüller</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/categories/products/" rel="self" type="application/rss+xml" /><item>
+    <title>Turning a project into a product</title>
+    <link>https://sschueller.github.io/posts/turning-a-project-into-a-product/</link>
+    <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/posts/turning-a-project-into-a-product/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/turning-a-project-into-a-product/Display26-small.jpg" referrerpolicy="no-referrer">
+            </div><p>A step by step account of how I turned a <a href="/posts/vbz-fahrgastinformation/" rel="">project</a> of mine into a polished product that can be purchased over at <a href="https://www.stationdisplay.com/" target="_blank" rel="noopener noreferrer">stationdisplay.com</a>.</p>]]></description>
+</item></channel>
+</rss>

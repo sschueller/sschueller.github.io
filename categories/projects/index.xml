@@ -3,45 +3,50 @@
         <title>projects - Category - Stefan Schüller</title>
         <link>https://sschueller.github.io/categories/projects/</link>
         <description>projects - Category - Stefan Schüller</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 12 May 2023 17:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/categories/projects/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/categories/projects/" rel="self" type="application/rss+xml" /><item>
+    <title>Turning a project into a product</title>
+    <link>https://sschueller.github.io/posts/turning-a-project-into-a-product/</link>
+    <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/posts/turning-a-project-into-a-product/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/turning-a-project-into-a-product/Display26-small.jpg" referrerpolicy="no-referrer">
+            </div><p>A step by step account of how I turned a <a href="/posts/vbz-fahrgastinformation/" rel="">project</a> of mine into a polished product that can be purchased over at <a href="https://www.stationdisplay.com/" target="_blank" rel="noopener noreferrer">stationdisplay.com</a>.</p>]]></description>
+</item><item>
     <title>CI/CD with KiCad and Gitlab</title>
     <link>https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/</link>
-    <pubDate>Fri, 12 May 2023 17:37:16 &#43;0200</pubDate>
-    <author>Stefan Schüller</author>
-    <guid>https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/</guid>
+    <pubDate>Fri, 12 May 2023 17:37:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/rendered-esp32-base" referrerpolicy="no-referrer">
+                <img src="/posts/ci-cd-with-kicad-and-gitlab/render.png" referrerpolicy="no-referrer">
             </div><p>(Blender Render of KiCad Exported PCB)</p>]]></description>
-</item>
-<item>
+</item><item>
     <title>3D Printer Nozzle Camera</title>
     <link>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</link>
-    <pubDate>Mon, 23 Jan 2023 17:37:16 &#43;0200</pubDate>
-    <author>Stefan Schüller</author>
-    <guid>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</guid>
+    <pubDate>Mon, 23 Jan 2023 17:37:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/nozzle-camera-close-up" referrerpolicy="no-referrer">
+                <img src="/posts/3d-printer-nozzle-camera/nozzle-camera-close-up.jpg" referrerpolicy="no-referrer">
             </div><p>(please ignore the horrible layer lines, this is just a prototype)</p>]]></description>
-</item>
-<item>
+</item><item>
     <title>Building a VBZ Display Clone</title>
     <link>https://sschueller.github.io/posts/vbz-fahrgastinformation/</link>
-    <pubDate>Sun, 06 Nov 2022 16:37:16 &#43;0200</pubDate>
-    <author>Stefan Schüller</author>
-    <guid>https://sschueller.github.io/posts/vbz-fahrgastinformation/</guid>
+    <pubDate>Sun, 06 Nov 2022 16:37:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/posts/vbz-fahrgastinformation/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/vbz-anzeige" referrerpolicy="no-referrer">
+                <img src="/posts/vbz-fahrgastinformation/20191127_211847.jpg" referrerpolicy="no-referrer">
             </div>]]></description>
-</item>
-<item>
+</item><item>
     <title>Wiring my home with Fiber</title>
     <link>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</link>
-    <pubDate>Sat, 29 Oct 2022 16:37:16 &#43;0200</pubDate>
-    <author>Stefan Schüller</author>
-    <guid>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</guid>
+    <pubDate>Sat, 29 Oct 2022 16:37:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/ftth" referrerpolicy="no-referrer">
+                <img src="/posts/wiring-a-home-with-fiber/ftth.jpg" referrerpolicy="no-referrer">
             </div>]]></description>
-</item>
-</channel>
+</item></channel>
 </rss>

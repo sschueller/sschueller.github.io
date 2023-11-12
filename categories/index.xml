@@ -3,13 +3,19 @@
         <title>Categories - Category - Stefan Schüller</title>
         <link>https://sschueller.github.io/categories/</link>
         <description>Categories - Category - Stefan Schüller</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 12 May 2023 17:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>products</title>
+    <link>https://sschueller.github.io/categories/products/</link>
+    <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/categories/products/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>projects</title>
     <link>https://sschueller.github.io/categories/projects/</link>
-    <pubDate>Fri, 12 May 2023 17:37:16 &#43;0200</pubDate>
-    <author>Stefan Schüller</author>
-    <guid>https://sschueller.github.io/categories/projects/</guid>
+    <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/categories/projects/</guid>
     <description><![CDATA[]]></description>
-</item>
-</channel>
+</item></channel>
 </rss>
