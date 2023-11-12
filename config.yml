@@ -1,7 +1,7 @@
 baseURL: "https://sschueller.github.io"
 title: "Stefan Schüller"
 paginate: 5
-theme: LoveItAgain
+theme: DoIt
 
 languageCode: "en"
 languageName: "English"
@@ -31,7 +31,7 @@ params:
   dateFormat: "2006-01-02"
 
   header:
-    title: 
+    title:
       name: "Stefan Schüller"
 
   home:
@@ -41,18 +41,20 @@ params:
       typeit: false
       social: true
 
-
       subtitle: "My Random Projects"
 
- # Social config about the author
+  # Social config about the author
   social:
     GitHub: "sschueller"
     Twitter: "sschueller"
-    Linkedin: ""
+    #    Linkedin: "stefanschueller"
+    #    instagram: "sschueller"
+    #    hackernews: "sschueller"
+    Telegram: "sschueller"
     Matrix: "@sschueller:chat.tei.li"
+    #youtubechannel: "UCyP5sKiTFQEx9il9aJmT4-Q"
 
-
-  page:   
+  page:
     share:
       enable: true
       Twitter: true
@@ -78,6 +80,17 @@ params:
       Skype: true
       Trello: true
       Mix: false
+
+    comment:
+      enable: true
+      utterances:
+        enable: true
+        # owner/repo
+        repo: "sschueller/sschueller.github.io"
+        issueTerm: "pathname"
+        label: "Comment"
+        lightTheme: "github-light"
+        darkTheme: "github-dark"
 
     toc:
       # whether to enable the table of the contents

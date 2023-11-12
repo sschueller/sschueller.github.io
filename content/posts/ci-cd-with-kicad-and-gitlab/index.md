@@ -20,9 +20,6 @@ resources:
   - name: kicad-part
     src: kicad-part.png
 
-
-
-
 tags: ["PCB", "KiCad", "EE", "Gitlab", "JLCPCB", "LCSC"]
 categories: ["projects"]
 
@@ -30,18 +27,15 @@ toc:
   auto: false
 math:
   enable: true
-
-
 ---
-(Blender Render of KiCad Exported PCB)
 
+(Blender Render of KiCad Exported PCB)
 
 <!--more-->
 
-
 ## Introduction
 
-I make many small projects and usually order PCBs at some place. Generating Gerber files and checking everything is in order before ordering can be tedious. Additionally the more complex the board the more parts I need and most likely I will also need a reference in order to place the parts. 
+I make many small projects and usually order PCBs at some place. Generating Gerber files and checking everything is in order before ordering can be tedious. Additionally the more complex the board the more parts I need and most likely I will also need a reference in order to place the parts.
 
 So I decided to setup a gitlab pipeline to automate the whole process.
 
@@ -50,9 +44,10 @@ After I commit into the master the gitlab pipeline will run tests on the schemat
 
 ## Git
 
-In order for this to work you need to keep your KiCad project in a git repository. To do this I use the following ```.gitignore``` (KiCad makes tons of files but you don't need to commit all of them) and file structure.
+In order for this to work you need to keep your KiCad project in a git repository. To do this I use the following `.gitignore` (KiCad makes tons of files but you don't need to commit all of them) and file structure.
 
 **Folder Structure**
+
 ```bash
 ├── ci/               # Files specific to CI (colors for PDF etc.)
 ├── datasheets/       # Data sheets of items I used in this project
@@ -62,14 +57,15 @@ In order for this to work you need to keep your KiCad project in a git repositor
 ├── packages3d/       # KiCad 3d packages (only for this project)
 ├── VERSION.txt       # version (Auto updated)
 ├── CHANGELOG.md      # changelog (Auto generated)
-├── README.md         
-├── output.kibot.yaml # KiBot output configuration, gerbers, BOM etc. 
+├── README.md
+├── output.kibot.yaml # KiBot output configuration, gerbers, BOM etc.
 ├── test.kibot.yaml   # KiBot Tests
 ├── .gitignore
 └── .gitlab-ci.yml    # Gitlab CI file
 ```
 
 **.gitignore**
+
 ```bash
 # For PCBs designed using KiCad: http://www.kicad-pcb.org/
 # Format documentation: http://kicad-pcb.org/help/file-formats/
@@ -117,8 +113,6 @@ Now when adding parts fill in the LCSC field.
 
 ![KiCad Part Edit](kicad-part)
 
-
-
 ## GitLab Setup
 
 ![](gitlab-pipeline)
@@ -128,6 +122,7 @@ I use a general gitlab setup with docker runners and [semantic releases](https:/
 ### Gitlab CI
 
 .gitlab-ci.yml
+
 ```yaml
 stages:
   - fetch-version
@@ -141,16 +136,16 @@ fetch-semantic-version:
   stage: fetch-version
   only:
     refs:
-    - master
-    - alpha
-    - /^(([0-9]+)\.)?([0-9]+)\.x/ # This matches maintenance branches
-    - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ # This matches pre-releases
+      - master
+      - alpha
+      - /^(([0-9]+)\.)?([0-9]+)\.x/ # This matches maintenance branches
+      - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ # This matches pre-releases
   script:
     - npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D
     - npx semantic-release --generate-notes false --dry-run
   artifacts:
     paths:
-    - VERSION.txt
+      - VERSION.txt
   tags:
     - docker
 
@@ -158,15 +153,15 @@ generate-non-semantic-version:
   stage: fetch-version
   except:
     refs:
-    - master
-    - alpha
-    - /^(([0-9]+)\.)?([0-9]+)\.x/ # This matches maintenance branches
-    - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ # This matches pre-releases
+      - master
+      - alpha
+      - /^(([0-9]+)\.)?([0-9]+)\.x/ # This matches maintenance branches
+      - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ # This matches pre-releases
   script:
     - echo build-$CI_PIPELINE_ID > VERSION.txt
   artifacts:
     paths:
-    - VERSION.txt
+      - VERSION.txt
   tags:
     - docker
 
@@ -185,12 +180,12 @@ pcb_outputs:
     - "[ -f *.kicad_pcb ] && kibot -c output.kibot.yaml"
   only:
     refs:
-    - master
-    - alpha
-    # This matches maintenance branches
-    - /^(([0-9]+)\.)?([0-9]+)\.x/
-    # This matches pre-releases
-    - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ 
+      - master
+      - alpha
+      # This matches maintenance branches
+      - /^(([0-9]+)\.)?([0-9]+)\.x/
+      # This matches pre-releases
+      - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
   artifacts:
     when: always
     paths:
@@ -203,19 +198,18 @@ release:
   image: node:18
   only:
     refs:
-    - master
-    - alpha
-    # This matches maintenance branches
-    - /^(([0-9]+)\.)?([0-9]+)\.x/
-    # This matches pre-releases
-    - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ 
+      - master
+      - alpha
+      # This matches maintenance branches
+      - /^(([0-9]+)\.)?([0-9]+)\.x/
+      # This matches pre-releases
+      - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
   script:
     - npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D
     - npx semantic-release
   tags:
     - docker
-``` 
-
+```
 
 ### KiBot
 
@@ -224,6 +218,7 @@ release:
 Here is the test and output configrations I use which are specific for JLCPCB but can be adjusted to almost any fab. There are also many [examples](https://github.com/INTI-CMNB/KiBot/tree/master/docs/samples) on the KiBot github for other fabs.
 
 test.kibot.yaml
+
 ```yaml
 kibot:
   version: 1
@@ -236,7 +231,8 @@ preflight:
   ignore_unconnected: false
 ```
 
-output.kibot.yaml 
+output.kibot.yaml
+
 ```yaml
 # Gerber and drill files for JLCPCB, without stencil
 # URL: https://jlcpcb.com/
@@ -248,15 +244,15 @@ globals:
 
 filters:
   - name: only_jlc_parts
-    comment: 'Only parts with JLC (LCSC) code'
+    comment: "Only parts with JLC (LCSC) code"
     type: generic
     include_only:
-      - column: 'LCSC'
+      - column: "LCSC"
         regex: '^C\d+'
 
 variants:
   - name: rotated
-    comment: 'Just a place holder for the rotation filter'
+    comment: "Just a place holder for the rotation filter"
     type: kibom
     variant: rotated
     pre_transform: _rot_footprint
@@ -296,19 +292,19 @@ outputs:
       - B.Mask
       - Edge.Cuts
 
-# JLCPCB drill files
+  # JLCPCB drill files
   - name: JLCPCB_drill
     comment: Drill files compatible with JLCPCB
     type: excellon
     dir: JLCPCB
     options:
       pth_and_npth_single_file: false
-      pth_id: '-PTH'
-      npth_id: '-NPTH'
+      pth_id: "-PTH"
+      npth_id: "-NPTH"
       metric_units: false
       output: "%f%i.%x"
 
-# zip all JLCPCB gerber and drill files together
+  # zip all JLCPCB gerber and drill files together
   - name: JLCPCB
     comment: ZIP file for JLCPCB
     type: compress
@@ -320,23 +316,23 @@ outputs:
         - from_output: JLCPCB_drill
           dest: /
 
-# html ibom
+  # html ibom
   - name: ibom
     comment: Interactive BOM
-    type: ibom 
+    type: ibom
     dir: Fabrication/ibom
     options:
       dark_mode: true
-      name_format: 'index'
+      name_format: "index"
 
-# JLCPCB assembly positions of components
-  - name: 'JLCPCB_position'
+  # JLCPCB assembly positions of components
+  - name: "JLCPCB_position"
     comment: "Pick and place file, JLCPCB style"
     type: position
     dir: Fabrication/JLCPCB-BOM
     options:
       variant: rotated
-      output: '%f_cpl_jlc.%x'
+      output: "%f_cpl_jlc.%x"
       format: CSV
       units: millimeters
       separate_files_for_front_and_back: false
@@ -355,41 +351,39 @@ outputs:
         - id: Side
           name: Layer
 
-# JLCPCB Bom for assembly or for LCSC order
-  - name: 'JLCPCB_bom'
+  # JLCPCB Bom for assembly or for LCSC order
+  - name: "JLCPCB_bom"
     comment: "BoM for JLCPCB"
     type: bom
-    dir: Fabrication/JLCPCB-BOM    
+    dir: Fabrication/JLCPCB-BOM
     options:
-      output: '%f_%i_jlc.%x'
-      exclude_filter: 'only_jlc_parts'
-      ref_separator: ','
+      output: "%f_%i_jlc.%x"
+      exclude_filter: "only_jlc_parts"
+      ref_separator: ","
       columns:
         - field: Value
           name: Comment
         - field: References
           name: Designator
         - Footprint
-        - field: 'LCSC'
-          name: 'LCSC part number'
-        - field: 'Quantity Per PCB'
-          name: 'QTY'
+        - field: "LCSC"
+          name: "LCSC part number"
+        - field: "Quantity Per PCB"
+          name: "QTY"
       csv:
         hide_pcb_info: true
         hide_stats_info: true
         quote_all: true
 
-# PDF of Schematic with dracula theme
-  - name: 'SchPrint'
+  # PDF of Schematic with dracula theme
+  - name: "SchPrint"
     comment: "Print schematic PDF"
     type: pdf_sch_print
     dir: Fabrication/PDFs
     options:
       color_theme: dracula
       background_color: true
-
 ```
-
 
 ## Fabrication
 
@@ -417,6 +411,6 @@ After the pipeline runs successfully I have the following files in my repositori
 
 ## Eye-Candy
 
-This is an export from KiCad into Blender which textures applied as well as animated. 
+This is an export from KiCad into Blender which textures applied as well as animated.
 
 {{< youtube svU7NyfJJKY >}}
