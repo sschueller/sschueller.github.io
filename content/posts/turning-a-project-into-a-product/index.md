@@ -63,6 +63,10 @@ A step by step account of how I turned a [project](/posts/vbz-fahrgastinformatio
 
 <!--more-->
 
+{{< admonition about "Certification" true >}}
+This article does not go into CH / CE certification. I Will be writing another separate article about it.
+{{< /admonition >}}
+
 ## Introduction
 
 As some of you may know I built this [LED sign](/posts/vbz-fahrgastinformation/) a while back. There was quite a bit of feedback and questions as to where one can buy their own. Initially I indicated that I will not be making a product as I know the amount of work involved may not be worth my time.
