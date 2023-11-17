@@ -63,7 +63,7 @@ A step by step account of how I turned a [project](/posts/vbz-fahrgastinformatio
 
 <!--more-->
 
-{{< admonition about "Certification" true >}}
+{{< admonition about "Notice" true >}}
 This article does not go into CH / CE certification. I Will be writing another separate article about it.
 {{< /admonition >}}
 
