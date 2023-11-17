@@ -90,7 +90,7 @@ I compiled the following list of what I definitely had to change:
 
 ### The case
 
-![Frame Closeup](Display29-small)
+{{< image src="Display29-small" caption="[Foto by Foto-Press](https://www.foto-press.ch/)" alt="Frame Closeup" >}}
 
 A case was a must requirement to protect the LEDs. You can easily nock them off and soldering them is difficult.
 
@@ -219,9 +219,9 @@ A website if of course required to show what it even is and what the customer ca
 
 ### Photos
 
-![Frame on Wall](Display13-small)
+{{< image src="Display13-small" caption="[Foto by Foto-Press](https://www.foto-press.ch/)" alt="Frame on Wall" >}}
 
-For the Photos I went with a local product photographer ([Foto Press](https://www.foto-press.ch/)) which I was very glad to have found as my attempts to photograph the sign were disastrous. It is very hard to photograph LEDs that have a specific refresh rate through a piece of plexiglass.
+For the Photos I went with a local product photographer ([Foto-Press](https://www.foto-press.ch/)) which I was very glad to have found as my attempts to photograph the sign were disastrous. It is very hard to photograph LEDs that have a specific refresh rate through a piece of plexiglass.
 
 ### Webshop
 
