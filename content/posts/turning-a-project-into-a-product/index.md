@@ -59,7 +59,7 @@ images:
 
 [Foto by Foto-Press](https://www.foto-press.ch/)
 
-A step by step account of how I turned a [project](/posts/vbz-fahrgastinformation/) of mine into a polished product that can be purchased over at [stationdisplay.com](https://www.stationdisplay.com/).
+A step by step account of how I turned a [project](/posts/vbz-fahrgastinformation/) of mine into a polished product that will be available for purchase over at [stationdisplay.com](https://www.stationdisplay.com/).
 
 <!--more-->
 
