@@ -57,6 +57,8 @@ images:
   - /posts/turning-a-project-into-a-product/Display26-small.jpg
 ---
 
+[Foto by Foto-Press](https://www.foto-press.ch/)
+
 A step by step account of how I turned a [project](/posts/vbz-fahrgastinformation/) of mine into a polished product that can be purchased over at [stationdisplay.com](https://www.stationdisplay.com/).
 
 <!--more-->
