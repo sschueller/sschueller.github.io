@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Zürich - Tag - Stefan Schüller</title>
+        <link>https://sschueller.github.io/tags/z%C3%BCrich/</link>
+        <description>Zürich - Tag - Stefan Schüller</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 29 Aug 2023 18:00:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/tags/z%C3%BCrich/" rel="self" type="application/rss+xml" /><item>
+    <title>Zürich&#39;s new 74 bus fast charging station</title>
+    <link>https://sschueller.github.io/posts/74-eletric-bus-charging-station/</link>
+    <pubDate>Tue, 29 Aug 2023 18:00:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/posts/74-eletric-bus-charging-station/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/74-eletric-bus-charging-station/P_20230828_174539.jpg" referrerpolicy="no-referrer">
+            </div><p>VBZs new 74 Electric Bus charging setup.</p>]]></description>
+</item></channel>
+</rss>

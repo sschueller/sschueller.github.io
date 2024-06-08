@@ -4,18 +4,32 @@
         <link>https://sschueller.github.io/categories/</link>
         <description>Categories - Category - Stefan Schüller</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/categories/" rel="self" type="application/rss+xml" /><item>
-    <title>products</title>
+    <title>Products</title>
     <link>https://sschueller.github.io/categories/products/</link>
     <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
         <name>Stefan Schüller</name>
     </author><guid>https://sschueller.github.io/categories/products/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>projects</title>
+    <title>Projects</title>
     <link>https://sschueller.github.io/categories/projects/</link>
     <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
         <name>Stefan Schüller</name>
     </author><guid>https://sschueller.github.io/categories/projects/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Tours</title>
+    <link>https://sschueller.github.io/categories/tours/</link>
+    <pubDate>Tue, 29 Aug 2023 18:00:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/categories/tours/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Vbz</title>
+    <link>https://sschueller.github.io/categories/vbz/</link>
+    <pubDate>Tue, 29 Aug 2023 18:00:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/categories/vbz/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>
