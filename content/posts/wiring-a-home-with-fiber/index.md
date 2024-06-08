@@ -30,7 +30,7 @@ images:
 
 <!--more-->
 
-> Many thanks to [Michale Stapelberg](https://michael.stapelberg.ch/) for the inspiration and information about his setup. Also thanks to [Init7](https://www.init7.net/de/init7-empfehlen/) (for the great service), [r/FiberOptics](https://old.reddit.com/r/FiberOptics/), [FS](https://www.fs.com) and [Netshop24](https://www.netshop24.ch) for providing me with what I needed to get this setup going.
+> Many thanks to [Michale Stapelberg](https://michael.stapelberg.ch/) for the inspiration and information about his setup. Also thanks to [Init7](https://www.init7.net/de/init7-empfehlen/) (for the great service), [r/FiberOptics](https://old.reddit.com/r/FiberOptics/) and [FS](https://www.fs.com) for providing me with what I needed to get this setup going.
 
 {{< admonition about "Init7 Discount" true >}}
 If you find this article useful and you are considering [Init7](https://www.init7.net/en/init7-empfehlen/) as your provider you can use my referral code "20700408098" to get CHF 111.- off hardware and also support me paying off the splicer :smile:.
@@ -102,7 +102,7 @@ My plan was to buy pre-terminated fibers however it turned out that the conduits
 
 ![Fiber Spool](/images/P_20221004_142707.jpg)
 
-For material I chose a G.657.A1 4 core fiber with a 2.2mm LSFH jacket [FTTH-IHK-GE-2.2-0500](https://www.netshop24.ch/ftth/ftth-kabel/ftth-ihk-ge-2-2-0500.html?userId=a2e105ed-1e37-472b-82de-39cfac7ad2f1) The minimum turning radius for G.657.A1 is 10mm which should also be enough.
+For material I chose a G.657.A1 4 core fiber with a 2.2mm LSFH jacket. The minimum turning radius for G.657.A1 is 10mm which should also be enough.
 
 ![Fiber Radius](/images/radius.jpg)
 
@@ -290,7 +290,7 @@ Here are some initial tests I have run. I do still need to tune my router and pr
 | 10 x Patch Coords           | CHF 20.-        |
 | Splice enclosure            | CHF 15.-        |
 | APC Couplers                | CHF 15.-        |
-| Keystone inserts            | CHF 8.-         |
+| Keystone inserts            | CHF 8.-         |:
 | Keystone wall-plate         | CHF 3.-         |
 | FTTH Squeeze OTO wall-plate | CHF 34.-        |
 

@@ -55,7 +55,7 @@ math:
 
 ## Introduction
 
-This is a step by step of how I export my PCBs from KiCad and then import them into Blender in order to produce fancy looking renders. Most of it is based on this [fantastic 4.5 hour video](https://www.youtube.com/watch?v=1Pjr0xkuyhU) by {{< person url="https://twitter.com/diconx" name="Sebastian Staacks" picture="https://pbs.twimg.com/profile_images/1439617218585763844/L4gtnhTs_400x400.jpg" >}} however a few things have become simpler due to KiCad doing a better job at exporting. If you get stuck I recommend watching the video, I have summarized what I use but there is a lot of good information in the video especially if you aren't very familiar with Blender.
+This is a step by step of how I export my PCBs from KiCad and then import them into Blender in order to produce fancy looking renders. Most of it is based on this [fantastic 4.5 hour video](https://www.youtube.com/watch?v=1Pjr0xkuyhU) by  however a few things have become simpler due to KiCad doing a better job at exporting. If you get stuck I recommend watching the video, I have summarized what I use but there is a lot of good information in the video especially if you aren't very familiar with Blender.
 
 ## Preparation in KiCad
 
