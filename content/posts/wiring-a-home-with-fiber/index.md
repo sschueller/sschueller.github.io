@@ -2,7 +2,7 @@
 weight: 2
 title: "Wiring my home with Fiber"
 date: 2022-10-29T16:37:16+02:00
-lastmod: 2022-10-29T16:37:16+02:00
+lastmod: 2025-03-03T16:37:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
@@ -34,6 +34,10 @@ images:
 
 {{< admonition about "Init7 Discount" true >}}
 If you find this article useful and you are considering [Init7](https://www.init7.net/en/init7-empfehlen/) as your provider you can use my referral code "20700408098" to get CHF 111.- off hardware and also support me paying off the splicer :smile:.
+{{< /admonition >}}
+
+{{< admonition about "Rent a Splicer" true >}}
+You can also now rent my Splicer if you are located in Switzerland. Visit [Sharely](https://www.sharely.ch/de/mieten/ftth-fiber-optic-fusion-splicer-e6f25eea-6533-4a21-85ab-74ee0bbb62d1-78772c2d-779e-4130-a6d1-b0dccd4e3b28) for more information
 {{< /admonition >}}
 
 {{< admonition warning "Warning" true >}}

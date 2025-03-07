@@ -2,7 +2,7 @@
 weight: 2
 title: "Turning a project into a product"
 date: 2023-11-11T10:37:16+02:00
-lastmod: 2023-11-11T10:37:16+02:00
+lastmod: 2025-02-09T10:37:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
@@ -259,7 +259,6 @@ For packaging I also went with something of the shelve as for so few units it do
 
 If I sell more than a few I would be interested in adding more features which I decided not to include in this version or I would have never finished it. Some of those include:
 
-- Service alerts, although I did build this into the sign itself the data is currently difficult to process and I am hoping for a GTFS service alerts provided by [Open data platform mobility Switzerland](https://opentransportdata.swiss/)
 - Add other countries/cities that have open GTFS data
 - Possibly a USB-C powered version
 - Outdoor version

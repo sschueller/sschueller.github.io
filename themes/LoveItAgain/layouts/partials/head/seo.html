@@ -30,7 +30,7 @@
         {{- with .Site.LanguageCode -}}
             "inLanguage": "{{ . }}",
         {{- end -}}
-        {{- with .Site.Author.name -}}
+        {{- with .Site.Params.Author.name -}}
             "author": {
                 "@type": "Person",
                 "name": {{ . | safeHTML }}
@@ -126,7 +126,7 @@
         {{- with .Site.Copyright -}}
             "license": {{ . | safeHTML }},
         {{- end -}}
-        {{- $publisher := .Params.author | default .Site.Author.name | default (T "author") | dict "name" -}}
+        {{- $publisher := .Params.author | default .Site.Params.Author.name | default (T "author") | dict "name" -}}
         {{- $publisher = $params.seo.publisher | default dict | merge $publisher -}}
         "publisher": {
             "@type": "Organization",
@@ -145,7 +145,7 @@
                 {{- end -}}
             {{- end -}}
         },
-        {{- with .Params.author | default .Site.Author.name | default (T "author") -}}
+        {{- with .Params.author | default .Site.Params.Author.name | default (T "author") -}}
             "author": {
                 "@type": "Person",
                 "name": {{ . | safeHTML }}
