@@ -10,7 +10,15 @@ draft: false
 enableEmoji: true
 
 featuredImage: "ms-01"
-
+resources:
+  - name: ai-argument
+    src: IMG_20250426_232730_329.jpg
+  - name: ms-01
+    src: P_20250516_210518_1.jpg
+  - name: interfaces
+    src: interfaces.png
+  - name: vlans
+    src: vlans.png
 
 tags: ["VyOS", "router", "firewall", "FTTH", "Network"]
 categories: ["projects"]
@@ -21,15 +29,9 @@ math:
   enable: true
 
 
-resources:
-  - name: ai-argument
-    src: IMG_20250426_232730_329.jpg
-  - name: ms-01
-    src: P_20250516_210518_1.jpg
-  - name: interfaces
-    src: interfaces.png
-  - name: vlans
-    src: vlans.png
+images:
+  - '/posts/vyos-router-update/P_20250516_210518_1.jpg'
+
 
 ---
 
