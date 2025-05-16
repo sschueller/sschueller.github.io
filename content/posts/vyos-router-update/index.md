@@ -35,14 +35,13 @@ resources:
 
 
 
-It has been a while since I setup my [original router for my 25gbit internet connection](/posts/wiring-a-home-with-fiber). I decided it was time to upgrade but since I have some services running I did not want to be down for too long and decided to purchase some new hardware which would allow me to experiment with [VyOS](https://vyos.io/) without effecting my current setup.
+It has been a while since I setup my [original router for my 25gbit internet connection](/posts/wiring-a-home-with-fiber). I decided it was time to upgrade but since I have some services running I did not want to be down for too long and purchased some new hardware which would allow me to experiment with [VyOS](https://vyos.io/) without effecting my current setup.
 
 <!--more-->
 
-There has been a lot of wirwin around the [MS-01](https://minisforumpc.eu/en/products/ms-01) since it came out about a year ago so I decided to purchase one. Additionly I purchased a used [Mellanox SFP28](https://www.nvidia.com/en-in/networking/ethernet/connectx-4-lx/) card from aliexpress.
+There has been a lot of talk around the [MS-01](https://minisforumpc.eu/en/products/ms-01) since it came out about a year ago, so I decided to purchase one. Additionly I purchased a cheap (CHF 42.-) used [Mellanox SFP28](https://www.nvidia.com/en-in/networking/ethernet/connectx-4-lx/) card from aliexpress.
 
 The following post contains specific types of configurations I needed and how I set those up.
-
 
 {{< admonition about "Init7 Discount" true >}}
 If you find this article useful and you are considering [Init7](https://www.init7.net/en/init7-empfehlen/) as your provider you can use my referral code "20700408098" to get CHF 111.- off hardware.
@@ -439,7 +438,7 @@ set load-balancing wan rule 40 protocol 'all'
 
 ### TODO: 
 
-#### Special routing
+#### More special routing
 
 Like under opnsense I would like to be able to connect to my WAN2 and WAN3 routers even if the current WAN is Init7.
 
