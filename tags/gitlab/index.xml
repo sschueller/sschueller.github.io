@@ -1,16 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Gitlab - Tag - Stefan Schüller</title>
-        <link>https://sschueller.github.io/tags/gitlab/</link>
-        <description>Gitlab - Tag - Stefan Schüller</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 12 May 2023 17:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/tags/gitlab/" rel="self" type="application/rss+xml" /><item>
-    <title>CI/CD with KiCad and Gitlab</title>
-    <link>https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/</link>
-    <pubDate>Fri, 12 May 2023 17:37:16 &#43;0200</pubDate><author>
-        <name>Stefan Schüller</name>
-    </author><guid>https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/posts/ci-cd-with-kicad-and-gitlab/render.png" referrerpolicy="no-referrer">
-            </div><p>(Blender Render of KiCad Exported PCB)</p>]]></description>
-</item></channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gitlab on Stefan Schüller</title>
+    <link>https://sschueller.github.io/tags/gitlab/</link>
+    <description>Recent content in Gitlab on Stefan Schüller</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 12 May 2023 17:37:16 +0200</lastBuildDate>
+    <atom:link href="https://sschueller.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CI/CD with KiCad and Gitlab</title>
+      <link>https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/</link>
+      <pubDate>Fri, 12 May 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/</guid>
+      <description>&lt;p&gt;(Blender Render of KiCad Exported PCB)&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

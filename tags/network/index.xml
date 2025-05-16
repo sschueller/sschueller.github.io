@@ -1,16 +1,26 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Network - Tag - Stefan Schüller</title>
-        <link>https://sschueller.github.io/tags/network/</link>
-        <description>Network - Tag - Stefan Schüller</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 29 Oct 2022 16:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/tags/network/" rel="self" type="application/rss+xml" /><item>
-    <title>Wiring my home with Fiber</title>
-    <link>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</link>
-    <pubDate>Sat, 29 Oct 2022 16:37:16 &#43;0200</pubDate><author>
-        <name>Stefan Schüller</name>
-    </author><guid>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/posts/wiring-a-home-with-fiber/ftth.jpg" referrerpolicy="no-referrer">
-            </div>]]></description>
-</item></channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Network on Stefan Schüller</title>
+    <link>https://sschueller.github.io/tags/network/</link>
+    <description>Recent content in Network on Stefan Schüller</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 May 2025 16:37:16 +0200</lastBuildDate>
+    <atom:link href="https://sschueller.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Upgrading my 25gbit internet router to VyOS</title>
+      <link>https://sschueller.github.io/posts/vyos-router-update/</link>
+      <pubDate>Fri, 16 May 2025 16:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/posts/vyos-router-update/</guid>
+      <description>&lt;p&gt;It has been a while since I setup my &lt;a href=&#34;https://sschueller.github.io/posts/wiring-a-home-with-fiber&#34; rel=&#34;&#34;&gt;original router for my 25gbit internet connection&lt;/a&gt;. I decided it was time to upgrade but since I have some services running I did not want to be down for too long and decided to purchase some new hardware which would allow me to experiment with &lt;a href=&#34;https://vyos.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;VyOS&lt;/a&gt; without effecting my current setup.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Wiring my home with Fiber</title>
+      <link>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</link>
+      <pubDate>Sat, 29 Oct 2022 16:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</guid>
+      <description></description>
+    </item>
+  </channel>
 </rss>

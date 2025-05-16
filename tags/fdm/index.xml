@@ -1,16 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>FDM - Tag - Stefan Schüller</title>
-        <link>https://sschueller.github.io/tags/fdm/</link>
-        <description>FDM - Tag - Stefan Schüller</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 23 Jan 2023 17:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/tags/fdm/" rel="self" type="application/rss+xml" /><item>
-    <title>3D Printer Nozzle Camera</title>
-    <link>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</link>
-    <pubDate>Mon, 23 Jan 2023 17:37:16 &#43;0200</pubDate><author>
-        <name>Stefan Schüller</name>
-    </author><guid>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/posts/3d-printer-nozzle-camera/nozzle-camera-close-up.jpg" referrerpolicy="no-referrer">
-            </div><p>(please ignore the horrible layer lines, this is just a prototype)</p>]]></description>
-</item></channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>FDM on Stefan Schüller</title>
+    <link>https://sschueller.github.io/tags/fdm/</link>
+    <description>Recent content in FDM on Stefan Schüller</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 23 Jan 2023 17:37:16 +0200</lastBuildDate>
+    <atom:link href="https://sschueller.github.io/tags/fdm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>3D Printer Nozzle Camera</title>
+      <link>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</link>
+      <pubDate>Mon, 23 Jan 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</guid>
+      <description>&lt;p&gt;(please ignore the horrible layer lines, this is just a prototype)&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

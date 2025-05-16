@@ -1,77 +1,159 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Tags - Tag - Stefan Schüller</title>
-        <link>https://sschueller.github.io/tags/</link>
-        <description>Tags - Tag - Stefan Schüller</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</lastBuildDate><atom:link href="https://sschueller.github.io/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>ESP32</title>
-    <link>https://sschueller.github.io/tags/esp32/</link>
-    <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/esp32/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>LED</title>
-    <link>https://sschueller.github.io/tags/led/</link>
-    <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/led/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>OpenData</title>
-    <link>https://sschueller.github.io/tags/opendata/</link>
-    <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/opendata/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>VBZ</title>
-    <link>https://sschueller.github.io/tags/vbz/</link>
-    <pubDate>Sat, 11 Nov 2023 10:37:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/vbz/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>Public Transport</title>
-    <link>https://sschueller.github.io/tags/public-transport/</link>
-    <pubDate>Tue, 29 Aug 2023 18:00:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/public-transport/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>Zürich</title>
-    <link>https://sschueller.github.io/tags/z%C3%BCrich/</link>
-    <pubDate>Tue, 29 Aug 2023 18:00:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/z%C3%BCrich/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>EE</title>
-    <link>https://sschueller.github.io/tags/ee/</link>
-    <pubDate>Fri, 12 May 2023 17:37:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/ee/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>Gitlab</title>
-    <link>https://sschueller.github.io/tags/gitlab/</link>
-    <pubDate>Fri, 12 May 2023 17:37:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/gitlab/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>JLCPCB</title>
-    <link>https://sschueller.github.io/tags/jlcpcb/</link>
-    <pubDate>Fri, 12 May 2023 17:37:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/jlcpcb/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>KiCad</title>
-    <link>https://sschueller.github.io/tags/kicad/</link>
-    <pubDate>Fri, 12 May 2023 17:37:16 &#43;0200</pubDate><author>
-        <name>Author</name>
-    </author><guid>https://sschueller.github.io/tags/kicad/</guid>
-    <description><![CDATA[]]></description>
-</item></channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Stefan Schüller</title>
+    <link>https://sschueller.github.io/tags/</link>
+    <description>Recent content in Tags on Stefan Schüller</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 May 2025 16:37:16 +0200</lastBuildDate>
+    <atom:link href="https://sschueller.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Firewall</title>
+      <link>https://sschueller.github.io/tags/firewall/</link>
+      <pubDate>Fri, 16 May 2025 16:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/firewall/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>FTTH</title>
+      <link>https://sschueller.github.io/tags/ftth/</link>
+      <pubDate>Fri, 16 May 2025 16:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/ftth/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Network</title>
+      <link>https://sschueller.github.io/tags/network/</link>
+      <pubDate>Fri, 16 May 2025 16:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/network/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Router</title>
+      <link>https://sschueller.github.io/tags/router/</link>
+      <pubDate>Fri, 16 May 2025 16:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/router/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VyOS</title>
+      <link>https://sschueller.github.io/tags/vyos/</link>
+      <pubDate>Fri, 16 May 2025 16:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/vyos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ESP32</title>
+      <link>https://sschueller.github.io/tags/esp32/</link>
+      <pubDate>Sat, 11 Nov 2023 10:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/esp32/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LED</title>
+      <link>https://sschueller.github.io/tags/led/</link>
+      <pubDate>Sat, 11 Nov 2023 10:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/led/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OpenData</title>
+      <link>https://sschueller.github.io/tags/opendata/</link>
+      <pubDate>Sat, 11 Nov 2023 10:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/opendata/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VBZ</title>
+      <link>https://sschueller.github.io/tags/vbz/</link>
+      <pubDate>Sat, 11 Nov 2023 10:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/vbz/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Public Transport</title>
+      <link>https://sschueller.github.io/tags/public-transport/</link>
+      <pubDate>Tue, 29 Aug 2023 18:00:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/public-transport/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Zürich</title>
+      <link>https://sschueller.github.io/tags/z%C3%BCrich/</link>
+      <pubDate>Tue, 29 Aug 2023 18:00:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/z%C3%BCrich/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>EE</title>
+      <link>https://sschueller.github.io/tags/ee/</link>
+      <pubDate>Fri, 12 May 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/ee/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Gitlab</title>
+      <link>https://sschueller.github.io/tags/gitlab/</link>
+      <pubDate>Fri, 12 May 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/gitlab/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>JLCPCB</title>
+      <link>https://sschueller.github.io/tags/jlcpcb/</link>
+      <pubDate>Fri, 12 May 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/jlcpcb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>KiCad</title>
+      <link>https://sschueller.github.io/tags/kicad/</link>
+      <pubDate>Fri, 12 May 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/kicad/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LCSC</title>
+      <link>https://sschueller.github.io/tags/lcsc/</link>
+      <pubDate>Fri, 12 May 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/lcsc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PCB</title>
+      <link>https://sschueller.github.io/tags/pcb/</link>
+      <pubDate>Fri, 12 May 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/pcb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>3d-Printer</title>
+      <link>https://sschueller.github.io/tags/3d-printer/</link>
+      <pubDate>Mon, 23 Jan 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/3d-printer/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>FDM</title>
+      <link>https://sschueller.github.io/tags/fdm/</link>
+      <pubDate>Mon, 23 Jan 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/fdm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Voron</title>
+      <link>https://sschueller.github.io/tags/voron/</link>
+      <pubDate>Mon, 23 Jan 2023 17:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/voron/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fiber</title>
+      <link>https://sschueller.github.io/tags/fiber/</link>
+      <pubDate>Sat, 29 Oct 2022 16:37:16 +0200</pubDate>
+      <guid>https://sschueller.github.io/tags/fiber/</guid>
+      <description></description>
+    </item>
+  </channel>
 </rss>
