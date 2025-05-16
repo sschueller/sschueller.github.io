@@ -13,7 +13,7 @@
       <link>https://sschueller.github.io/posts/vyos-router-update/</link>
       <pubDate>Fri, 16 May 2025 16:37:16 +0200</pubDate>
       <guid>https://sschueller.github.io/posts/vyos-router-update/</guid>
-      <description>&lt;p&gt;It has been a while since I setup my &lt;a href=&#34;https://sschueller.github.io/posts/wiring-a-home-with-fiber&#34; rel=&#34;&#34;&gt;original router for my 25gbit internet connection&lt;/a&gt;. I decided it was time to upgrade but since I have some services running I did not want to be down for too long and decided to purchase some new hardware which would allow me to experiment with &lt;a href=&#34;https://vyos.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;VyOS&lt;/a&gt; without effecting my current setup.&lt;/p&gt;</description>
+      <description>&lt;p&gt;It has been a while since I setup my &lt;a href=&#34;https://sschueller.github.io/posts/wiring-a-home-with-fiber&#34; rel=&#34;&#34;&gt;original router for my 25gbit internet connection&lt;/a&gt;. I decided it was time to upgrade but since I have some services running I did not want to be down for too long and purchased some new hardware which would allow me to experiment with &lt;a href=&#34;https://vyos.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;VyOS&lt;/a&gt; without effecting my current setup.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Turning a project into a product</title>
