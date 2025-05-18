@@ -2,7 +2,7 @@
 weight: 2
 title: "Upgrading my 25gbit internet router to VyOS"
 date: 2025-05-16T16:37:16+02:00
-lastmod: 2025-05-16T16:37:16+02:00
+lastmod: 2025-05-18T16:37:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
@@ -44,10 +44,6 @@ It has been a while since I setup my [original router for my 25gbit internet con
 There has been a lot of talk around the [MS-01](https://minisforumpc.eu/en/products/ms-01) since it came out about a year ago, so I decided to purchase one. Additionly I purchased a cheap (CHF 42.-) used [Mellanox SFP28](https://www.nvidia.com/en-in/networking/ethernet/connectx-4-lx/) card from aliexpress.
 
 The following post contains specific types of configurations I needed and how I set those up.
-
-{{< admonition about "Init7 Discount" true >}}
-If you find this article useful and you are considering [Init7](https://www.init7.net/en/init7-empfehlen/) as your provider you can use my referral code "20700408098" to get CHF 111.- off hardware.
-{{< /admonition >}}
 
 ## The Plan
 
@@ -242,6 +238,12 @@ set nat destination rule 10443 inbound-interface name 'eth2'
 set nat destination rule 10443 protocol 'tcp_udp'
 set nat destination rule 10443 translation address '10.20.10.200'
 set nat destination rule 10443 translation port '443'
+```
+
+Preserve IPs for nginx proxy x-forwarded-for header
+
+```shell
+set load-balancing wan disable-source-nat
 ```
 
 #### Special routing
