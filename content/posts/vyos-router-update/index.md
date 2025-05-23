@@ -39,17 +39,17 @@ images:
 
 
 
-It has been a while since I setup my [original router for my 25gbit internet connection](/posts/wiring-a-home-with-fiber). I decided it was time to upgrade but since I have some services running I did not want to be down for too long and purchased some new hardware which would allow me to experiment with [VyOS](https://vyos.io/) without effecting my current setup.
+It has been a while since I set up my [original router for my 25gbit internet connection](/posts/wiring-a-home-with-fiber). I decided it was time to upgrade, but since I have some services running, I did not want to be down for too long and purchased some new hardware which would allow me to experiment with [VyOS](https://vyos.io/) without affecting my current setup.
 
 <!--more-->
 
-There has been a lot of talk around the [MS-01](https://minisforumpc.eu/en/products/ms-01) since it came out about a year ago, so I decided to purchase one. Additionly I purchased a cheap (CHF 42.-) used [Mellanox SFP28](https://www.nvidia.com/en-in/networking/ethernet/connectx-4-lx/) card from aliexpress.
+There has been a lot of talk around the [MS-01](https://minisforumpc.eu/en/products/ms-01) since it came out about a year ago, so I decided to purchase one. Additionally, I purchased a cheap (CHF 42.-) used [Mellanox SFP28](https://www.nvidia.com/en-in/networking/ethernet/connectx-4-lx/) card from AliExpress.
 
-The following post contains specific types of configurations I needed and how I set those up.
+The following post contains specific types of configurations I needed and how I set them up.
 
 ## The Plan
 
-My plan was to install proxmox on the MS-01 just like on the "old" server/router and run VyOS on as a VM. Primary reason for this is to make upgrading and backup easier. 
+My plan was to install Proxmox on the MS-01, just like on the "old" server/router, and run VyOS as a VM. The primary reason for this is to make upgrading and backup easier.
 
 ## Interface configuration
 
@@ -57,33 +57,33 @@ My plan was to install proxmox on the MS-01 just like on the "old" server/router
 
 ![MS-01 Interfaces](interfaces)
 
-I use PCI passthrough to the VyOS VM for the onboard SFP+ and the Mellonox SFP28 PCIe card. One onboard 2.5G is bridged in via proxmox as well as a bridge with not physical NICs to connect VMs running on MS-01 with VyOS.
+I use PCI passthrough to the VyOS VM for the onboard SFP+ and the Mellanox SFP28 PCIe card. One onboard 2.5G is bridged in via Proxmox as well as a bridge with no physical NICs to connect VMs running on MS-01 with VyOS.
 
 ### VLANs and bridges
 
 ![VyOS VLANs](vlans)
 
-The only reason I am even using VLANs is because one of the WANS is located at another part of the house and I did not want to use more than one fiber (would require more SFP+ modules etc.) to get that WAN to the router.
+The only reason I am even using VLANs is because one of the WANs is located at another part of the house and I did not want to use more than one fiber (which would require more SFP+ modules etc.) to get that WAN to the router.
 
 I have several VLANs at this time which are:
  
 - 100 LAN
 - 150 Swisscom WAN
-- 200 DMZ (This one did not exist in the old setup, I used it to connect a trunk between the two instances of proxmox I now have)
+- 200 DMZ (This one did not exist in the old setup, I used it to connect a trunk between the two instances of Proxmox I now have)
 - 900 Management
 
 I decided to use bridges in VyOS to connect VLANs and physical interfaces together as well as apply firewall/routing rules
 
 
-## Hardware Stuff
+## Hardware Issues
 
-### Mellanox ConnectX-4 LX compatability
+### Mellanox ConnectX-4 LX compatibility
 
-Unlike the Broadcom card in the other server the Mellonox initally did not work with the SFP28 module from FlexOptix which the ISP (Init7) provided. One option would have been to re-program the SFP28 using a programmer which we have at work but I did not want to have to re-program the SFP28 everytime I wanted to switch which PC it was in.
+Unlike the Broadcom card in the other server, the Mellanox initially did not work with the SFP28 module from FlexOptix which the ISP (Init7) provided. One option would have been to re-program the SFP28 using a programmer which we have at work, but I did not want to have to re-program the SFP28 every time I wanted to switch which PC it was in.
 
-The solution was the switch to another firmware version of the Mellonox card which did not care about the SFP28 vendor id. 
+The solution was to switch to another firmware version of the Mellanox card which did not care about the SFP28 vendor ID.
 
-> Thank you to the [Init7 community on reddit](https://old.reddit.com/r/init7/) for this tip. :)
+> Thank you to the [Init7 community on reddit](https://old.reddit.com/r/init7/) for this tip.:)
 
 I downgraded to version: `fw-ConnectX4Lx-rel-14_24_1000-MCX4121A-ACA_Ax-UEFI-14.17.11-FlexBoot-3.5.603.bin`
 
@@ -123,22 +123,22 @@ I went from `108°C` to `45°C`...
 
 ## VyOS Setup
 
-> Many thanks to [John Howard](https://www.problemofnetwork.com/posts/updating-my-fiber7-vyos-config-to-1dot5/) for the example vyos setup he has posted which got me going in the right direction.
+> Many thanks to [John Howard](https://www.problemofnetwork.com/posts/updating-my-fiber7-vyos-config-to-1dot5/) for the example VyOS setup he posted, which got me going in the right direction.
 
 I am new to VyOS so here are a few things that I "learned" setting up my VM. 
 
 {{< admonition info "VyOS Configuration" true >}}
-If you get stuck and your configuration looks good yet it doesn't work I highly suggest you reset your vyos. I have had a situation were my configuration commit fine but it didn't work as expected. Only once I reset and tried to load the full configuration I was given an error which lead me to fix my issue.
+If you get stuck and your configuration looks good yet it doesn't work, I highly suggest you reset your VyOS. I have had a situation where my configuration committed fine but didn't work as expected. Only once I reset and tried to load the full configuration was I given an error which led me to fix my issue.
 
-I also recommend to use the quarterly LTS version and not the rolling release which may have issues.
+I also recommend using the quarterly LTS version and not the rolling release which may have issues.
 {{< /admonition >}}
 
 
 ### Initial Setup
 
-I configured the VyOS with 4 sockets and 4 cores as well as 4GB of ram (probably overkill at this time). After booting the live enviroment of the ISO I ran the setup process to install vyos to disk.
+I configured VyOS with 4 sockets and 4 cores as well as 4GB of RAM (probably overkill at this time). After booting the live environment of the ISO, I ran the setup process to install VyOS to disk.
 
-In order to make my life easier and not having to type my entire config into the kvm shell I added a `virtiofs` file system. This allows me to edit the file via a SSH session to the proxmox server and then load it into VyOS until I have SSH access directly into the VyOS VM. 
+In order to make my life easier and not having to type my entire config into the KVM shell, I added a `virtiofs` file system. This allows me to edit the file via an SSH session to the Proxmox server and then load it into VyOS until I have SSH access directly into the VyOS VM.
 
 I only need to enter `sudo mount -t virtiofs vyos-config /mnt` in VyOS via the shell and then run `load /mnt/myconfig` in the `configure` mode. 
 
@@ -151,9 +151,9 @@ vyos-config /mnt virtiofs rw,relatime 0 0
 
 ### Interfaces
 
-I re-mapped my interfaces to match the order I wanted and if for any reason VyOS detects them in a different order after an update I am not affected. 
+I remapped my interfaces to match the order I wanted, and if for any reason VyOS detects them in a different order after an update, I am not affected.
 
-In order for this to work I had to copy out the auto generated `/config/config.boot`, edited the mac addresses, names and then copied it back. After a restart the interfaces were then correctly assigned as I wanted them.
+In order for this to work, I had to copy out the auto-generated `/config/config.boot`, edit the MAC addresses and names, and then copy it back. After a restart, the interfaces were then correctly assigned as I wanted them.
 
 ```
 interfaces {
@@ -174,9 +174,9 @@ interfaces {
 
 ### VLANs / Bridges
 
-I setup several bridges (non VLAN aware) which connected the VLANs together. 
+I set up several bridges (non-VLAN aware) which connected the VLANs together.
 
-For example the br200 which is my DMZ connected the trunk port going to my "old server" as well as the trunk going to proxmox iteslf on which vyos is running so I can connect service running on there as well.
+For example, the br200, which is my DMZ, connected the trunk port going to my "old server" as well as the trunk going to Proxmox itself on which VyOS is running so I can connect services running on there as well.
 
 ```shell
 interfaces {
@@ -248,18 +248,18 @@ set load-balancing wan rule 12 inbound-interface 'br200'
 
 ### Backup
 
-For backup at this time I have two cronjobs in the VyOS VM to export the structure config and the commands config. These also go into the `virtiofs` mount.
+For backup at this time, I have two cronjobs in the VyOS VM to export the structure config and the commands config. These also go into the `virtiofs` mount.
 
 ```shell
 0 0 * * * /opt/vyatta/bin/vyatta-op-cmd-wrapper show configuration commands > /mnt/backups/config.commands.$(date --iso-8601=seconds)
 0 0 * * * cp /config/config.boot /mnt/backups/vyos-config.$(date --iso-8601=seconds)
 ```
 
-The second export can be loaded into vyos via `load` command
+The second export can be loaded into VyOS via `load` command
 
 ### DDNS
 
-I do not have a fixed IP (althought it doesn't really change very often) so I also send updates to a external DDNS/DNS server of mine.
+I do not have a fixed IP (although it doesn't really change very often) so I also send updates to an external DDNS/DNS server of mine.
 
 ```shell
 set service dns dynamic name dedyn description 'Dynamic dns service'
@@ -275,9 +275,9 @@ set service dns dynamic interval 300
 
 ### DMZ (Hosted sites)
 
-For the services I am hosting directly from my connection like Matrix server and Mastadon I have a DMZ setup. All the services are behind a nginx reverse proxy which also deals with SSL certificates.
+For the services I am hosting directly from my connection, like Matrix server and Mastodon, I have a DMZ setup. All the services are behind an nginx reverse proxy which also deals with SSL certificates.
 
-I have a NAT rule going to the proxy as well as the approriate firewall settings
+I have a NAT rule going to the proxy as well as the appropriate firewall settings
 
 ```shell
 set nat destination rule 10443 description 'HTTPS to Ingress'
@@ -307,9 +307,9 @@ So for example:
 set system static-host-mapping host-name mywebsite.com inet '10.20.10.99'
 ```
 
-This did cause an issue with my gitlab server when using SSH as it would send traffic to my proxy and not my actuall gitlab server. 
+This caused an issue with my GitLab server when using SSH as it would send traffic to my proxy and not my actual GitLab server.
 
-To solve this I setup a "SSH Proxy" on my nginx proxy like so:
+To solve this, I set up a "SSH Proxy" on my nginx proxy like so:
 
 ```shell
 stream {
@@ -415,7 +415,7 @@ As I mentioned above, I used [John's blog](https://www.problemofnetwork.com/post
 
 ## Wireguard
 
-Standard road-warior setup for laptops and phones as well as some remote fixed locations.
+Standard road-warrior setup for laptops and phones as well as some remote fixed locations.
 
 ```shell
 set interfaces wireguard wg1 address '10.25.30.1/24'
