@@ -11,7 +11,7 @@
     </author><guid>https://sschueller.github.io/posts/vyos-router-update/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/posts/vyos-router-update/P_20250516_210518_1.jpg" referrerpolicy="no-referrer">
-            </div><p>It has been a while since I setup my <a href="/posts/wiring-a-home-with-fiber" rel="">original router for my 25gbit internet connection</a>. I decided it was time to upgrade but since I have some services running I did not want to be down for too long and purchased some new hardware which would allow me to experiment with <a href="https://vyos.io/" target="_blank" rel="noopener noreferrer">VyOS</a> without effecting my current setup.</p>]]></description>
+            </div><p>It has been a while since I set up my <a href="/posts/wiring-a-home-with-fiber" rel="">original router for my 25gbit internet connection</a>. I decided it was time to upgrade, but since I have some services running, I did not want to be down for too long and purchased some new hardware which would allow me to experiment with <a href="https://vyos.io/" target="_blank" rel="noopener noreferrer">VyOS</a> without affecting my current setup.</p>]]></description>
 </item><item>
     <title>Turning a project into a product</title>
     <link>https://sschueller.github.io/posts/turning-a-project-into-a-product/</link>
