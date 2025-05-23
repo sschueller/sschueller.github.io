@@ -2,7 +2,7 @@
 weight: 2
 title: "Upgrading my 25gbit internet router to VyOS"
 date: 2025-05-16T16:37:16+02:00
-lastmod: 2025-05-18T16:37:16+02:00
+lastmod: 2025-05-23T20:30:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
@@ -19,6 +19,8 @@ resources:
     src: interfaces.png
   - name: vlans
     src: vlans.png
+  - name: fan
+    src: P_20250523_154448.jpg
 
 tags: ["VyOS", "router", "firewall", "FTTH", "Network"]
 categories: ["projects"]
@@ -68,10 +70,56 @@ I have several VLANs at this time which are:
 - 100 LAN
 - 150 Swisscom WAN
 - 200 DMZ (This one did not exist in the old setup, I used it to connect a trunk between the two instances of proxmox I now have)
-- 900 Managment
+- 900 Management
 
 I decided to use bridges in VyOS to connect VLANs and physical interfaces together as well as apply firewall/routing rules
 
+
+## Hardware Stuff
+
+### Mellanox ConnectX-4 LX compatability
+
+Unlike the Broadcom card in the other server the Mellonox initally did not work with the SFP28 module from FlexOptix which the ISP (Init7) provided. One option would have been to re-program the SFP28 using a programmer which we have at work but I did not want to have to re-program the SFP28 everytime I wanted to switch which PC it was in.
+
+The solution was the switch to another firmware version of the Mellonox card which did not care about the SFP28 vendor id. 
+
+> Thank you to the [Init7 community on reddit](https://old.reddit.com/r/init7/) for this tip. :)
+
+I downgraded to version: `fw-ConnectX4Lx-rel-14_24_1000-MCX4121A-ACA_Ax-UEFI-14.17.11-FlexBoot-3.5.603.bin`
+
+Flashing process:
+
+```shell
+# get the tool
+apt install proxmox-default-headers linux-headers linux-headers-generic linux-headers-amd64
+wget https://www.mellanox.com/downloads/MFT/mft-4.31.0-149-x86_64-deb.tgz
+tar -vxzf mft-4.31.0-149-x86_64-deb.tgz 
+cd mft-4.31.0-149-x86_64-deb/
+./install.sh 
+mst start
+# find card id
+lspci | grep Mellanox
+# list current version
+flint -d 01:00.0 q full
+# download version
+wget https://www.mellanox.com/downloads/firmware/fw-ConnectX4Lx-rel-14_24_1000-MCX4121A-ACA_Ax-UEFI-14.17.11-FlexBoot-3.5.603.bin.zip
+unzip fw-ConnectX4Lx-rel-14_24_1000-MCX4121A-ACA_Ax-UEFI-14.17.11-FlexBoot-3.5.603.bin.zip
+# flash other version
+flint -d 01:00.0 -i fw-ConnectX4Lx-rel-14_24_1000-MCX4121A-ACA_Ax-UEFI-14.17.11-FlexBoot-3.5.603.bin b
+```
+
+### Heat
+
+After using the MS-01 for a while I noticed that the heat of the PCIe card is not dealt with correctly. I added Nactua 5V fan which includes a USB adapter to the outside of the case to deal with this. 
+
+```shell
+# check temp
+mget_temp -d 01:00.0
+```
+
+![MS-01 Nactua USB Fan](fan)
+
+I went from `108°C` to `45°C`...
 
 ## VyOS Setup
 
@@ -336,7 +384,28 @@ set load-balancing wan rule 13 exclude
 set load-balancing wan rule 13 inbound-interface 'br900'
 ```
 
+For traffic from vyos like ddns calls and wireguard the next-hop distance needs to be adjusted or you will have traffic going out random routes. Since all my WANs are DHCP I can not set static routes so I set the route distance in the DHCP client.
 
+```shell
+set interfaces ethernet eth2 dhcp-options default-route-distance 10
+set interfaces bridge br150 dhcp-options default-route-distance 20
+set interfaces ethernet eth6 dhcp-options default-route-distance 30
+```
+
+This will result in routes like this:
+```shell
+vyos@ch3# run show ip route
+Codes: K - kernel route, C - connected, S - static, R - RIP,
+       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+S>* 0.0.0.0/0 [10/0] via 212.xxx.xxx.1, eth2, weight 1, 00:00:09
+S   0.0.0.0/0 [30/0] via 192.168.8.1, eth5, weight 1, 00:00:11
+S   0.0.0.0/0 [20/0] via 192.168.10.1, br150, weight 1, 00:00:13
+```
 
 ### Routing / Firewall
 
