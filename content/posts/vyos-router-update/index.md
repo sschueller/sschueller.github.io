@@ -461,6 +461,15 @@ set firewall ipv4 name wan-wg-v4 rule 1 state 'related'
 set firewall ipv4 name wan-wg-v4 rule 1 state 'established'
 set firewall ipv4 name wan-wg-v4 rule 2 action 'drop'
 set firewall ipv4 name wan-wg-v4 rule 2 state 'invalid'
+
+set firewall ipv4 name wg-lan-v4 description 'WAN to LAN IPv4'
+set firewall ipv4 name wg-lan-v4 default-action 'drop'
+set firewall ipv4 name wg-lan-v4 default-log
+set firewall ipv4 name wg-lan-v4 rule 1 action 'accept'
+set firewall ipv4 name wg-lan-v4 rule 1 state 'related'
+set firewall ipv4 name wg-lan-v4 rule 1 state 'established'
+set firewall ipv4 name wg-lan-v4 rule 2 action 'drop'
+set firewall ipv4 name wg-lan-v4 rule 2 state 'invalid'
 set firewall ipv4 name wg-lan-v4 rule 10 action 'accept'
 set firewall ipv4 name wg-lan-v4 rule 10 description 'wg to server in LAN'
 set firewall ipv4 name wg-lan-v4 rule 10 destination group address-group 'SERVER_IN_LAN'
@@ -507,7 +516,16 @@ set load-balancing wan rule 40 interface eth5 weight '50'
 set load-balancing wan rule 40 protocol 'all'
 ```
 
+#### Exclude traffic going to LAN from load balancer
+```shell
+set load-balancing wan rule 13 destination address '10.25.30.0/24'
+set load-balancing wan rule 13 exclude
+set load-balancing wan rule 13 inbound-interface 'br100'
 
+set load-balancing wan rule 14 destination address '10.10.10.0/24'
+set load-balancing wan rule 14 exclude
+set load-balancing wan rule 14 inbound-interface 'wg1'
+```
 
 ### TODO: 
 
