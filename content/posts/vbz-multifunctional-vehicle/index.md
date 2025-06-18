@@ -53,6 +53,9 @@ resources:
   - name: tierspital
     src: VBZ-Tierspital.jpg
 
+  - name: crane-module
+    src: P_20250616_183944.jpg
+
 tags: ["Public Transport", "Zürich", "VBZ", "Unimog", "Müller Technologie"]
 categories: ["tours", "vbz"]
 
