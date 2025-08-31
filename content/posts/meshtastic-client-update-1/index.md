@@ -59,7 +59,7 @@ math:
 
 
 images:
-  - '/posts/vyos-router-update/P_20250516_210518_1.jpg'
+  - '/posts/meshtastic-client-update-1/P_20250829_200306.jpg'
 
 
 ---
