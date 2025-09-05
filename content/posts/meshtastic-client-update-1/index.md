@@ -64,7 +64,7 @@ images:
 
 ---
 
-My goal with this project is to build a fully open-source Meshtastic/Meshcore compatible client that is more "rugged" than what is currently available on the market. If there is enough interest, I will consider manufacturing a few and getting CE etc. certification done. If you are interested, please join the mailing list below.
+My goal with this project is to build a fully open-source [Meshtastic](https://meshtastic.org/)/[Meshcore](https://meshcore.co.uk/) compatible client that is more "rugged" than what is currently available on the market. If there is enough interest, I will consider manufacturing a few and getting CE etc. certification done. If you are interested, please join the mailing list below.
 
 <!--more-->
 
