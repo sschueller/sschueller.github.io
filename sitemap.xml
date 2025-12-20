@@ -2,6 +2,7 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>https://sschueller.github.io/posts/how-to-not-end-up-in-a-louis-rossmann-video/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/posts/meshtastic-client-update-1/</loc><lastmod>2025-08-29T18:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/posts/vbz-multifunctional-vehicle/</loc><lastmod>2025-06-17T20:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/posts/vyos-router-update/</loc><lastmod>2025-05-23T20:30:16&#43;02:00</lastmod></url><url>
@@ -11,14 +12,20 @@
             <loc>https://sschueller.github.io/posts/3d-printer-nozzle-camera/</loc><lastmod>2023-01-23T17:37:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/posts/vbz-fahrgastinformation/</loc><lastmod>2022-11-12T18:37:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/posts/wiring-a-home-with-fiber/</loc><lastmod>2025-03-03T16:37:16&#43;02:00</lastmod></url><url>
-            <loc>https://sschueller.github.io/categories/</loc><lastmod>2025-08-29T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/categories/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/tags/esp32/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/tags/led/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/tags/opendata/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/posts/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/categories/products/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/categories/projects/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/tags/right-to-repair/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/tags/station-display/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
+            <loc>https://sschueller.github.io/tags/</loc><lastmod>2025-12-19T18:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/lora/</loc><lastmod>2025-08-29T18:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/meshcore/</loc><lastmod>2025-08-29T18:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/meshtastic/</loc><lastmod>2025-08-29T18:30:16&#43;02:00</lastmod></url><url>
-            <loc>https://sschueller.github.io/posts/</loc><lastmod>2025-08-29T18:30:16&#43;02:00</lastmod></url><url>
-            <loc>https://sschueller.github.io/categories/projects/</loc><lastmod>2025-08-29T18:30:16&#43;02:00</lastmod></url><url>
-            <loc>https://sschueller.github.io/</loc><lastmod>2025-08-29T18:30:16&#43;02:00</lastmod></url><url>
-            <loc>https://sschueller.github.io/tags/</loc><lastmod>2025-08-29T18:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/m%C3%BCller-technologie/</loc><lastmod>2025-06-17T20:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/public-transport/</loc><lastmod>2025-06-17T20:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/categories/tours/</loc><lastmod>2025-06-17T20:30:16&#43;02:00</lastmod></url><url>
@@ -31,10 +38,6 @@
             <loc>https://sschueller.github.io/tags/network/</loc><lastmod>2025-05-23T20:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/router/</loc><lastmod>2025-05-23T20:30:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/vyos/</loc><lastmod>2025-05-23T20:30:16&#43;02:00</lastmod></url><url>
-            <loc>https://sschueller.github.io/tags/esp32/</loc><lastmod>2025-02-09T10:37:16&#43;02:00</lastmod></url><url>
-            <loc>https://sschueller.github.io/tags/led/</loc><lastmod>2025-02-09T10:37:16&#43;02:00</lastmod></url><url>
-            <loc>https://sschueller.github.io/tags/opendata/</loc><lastmod>2025-02-09T10:37:16&#43;02:00</lastmod></url><url>
-            <loc>https://sschueller.github.io/categories/products/</loc><lastmod>2025-02-09T10:37:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/ee/</loc><lastmod>2023-05-12T17:37:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/gitlab/</loc><lastmod>2023-05-12T17:37:16&#43;02:00</lastmod></url><url>
             <loc>https://sschueller.github.io/tags/jlcpcb/</loc><lastmod>2023-05-12T17:37:16&#43;02:00</lastmod></url><url>
