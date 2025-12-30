@@ -1,0 +1,359 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Updated CI/CD for KiCad 9 and Gitlab - Stefan Schüller</title><meta name=Description content><meta property="og:url" content="https://sschueller.github.io/posts/ci-cd-with-kicad-2025/"><meta property="og:site_name" content="Stefan Schüller"><meta property="og:title" content="Updated CI/CD for KiCad 9 and Gitlab"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-12-30T17:37:16+02:00"><meta property="article:modified_time" content="2025-12-30T17:37:16+02:00"><meta property="article:tag" content="PCB"><meta property="article:tag" content="KiCad"><meta property="article:tag" content="EE"><meta property="article:tag" content="Gitlab"><meta property="article:tag" content="JLCPCB"><meta property="article:tag" content="LCSC"><meta property="og:image" content="https://sschueller.github.io/posts/ci-cd-with-kicad-2025/P_20251230_192806.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://sschueller.github.io/posts/ci-cd-with-kicad-2025/P_20251230_192806.jpg"><meta name=twitter:title content="Updated CI/CD for KiCad 9 and Gitlab"><meta name=twitter:site content="@sschueller"><meta name=application-name content="Stefan Schüller"><meta name=apple-mobile-web-app-title content="Stefan Schüller"><meta name=theme-color content="#f8f8f8"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/><link rel=prev href=https://sschueller.github.io/posts/how-to-not-end-up-in-a-louis-rossmann-video/><link rel=stylesheet href=/css/main.css><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/color.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/fontawesome-free/all.min.css><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/animate/animate.min.css><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Updated CI/CD for KiCad 9 and Gitlab","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/sschueller.github.io\/posts\/ci-cd-with-kicad-2025\/"},"genre":"posts","keywords":"PCB, KiCad, EE, Gitlab, JLCPCB, LCSC","wordcount":1530,"url":"https:\/\/sschueller.github.io\/posts\/ci-cd-with-kicad-2025\/","datePublished":"2025-12-30T17:37:16+02:00","dateModified":"2025-12-30T17:37:16+02:00","publisher":{"@type":"Organization","name":"Stefan Schüller"},"author":{"@type":"Person","name":"Stefan Schüller"},"description":""}</script><script src=//instant.page/5.2.0 defer type=module integrity=sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z></script><script>var _paq=window._paq=window._paq||[];_paq.push(["trackPageView"]),_paq.push(["enableLinkTracking"]),function(){e="https://stats2.tei.li/",_paq.push(["setTrackerUrl",e+"mtr"]),_paq.push(["setSiteId","1"]);var e,n=document,t=n.createElement("script"),s=n.getElementsByTagName("script")[0];t.async=!0,t.src=e+"mts",s.parentNode.insertBefore(t,s)}()</script></head><body header-desktop header-mobile><script type=text/javascript>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark"),window.theme=e,window.isDark=window.theme!=="light"}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(e){const t=document.getElementsByTagName("meta");for(let n=0;n<t.length;n++)if(t[n].getAttribute("name")===e)return t[n];return""}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"||e==="black"?setTheme(e):setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}else"light"==="light"||"light"==="dark"||"light"==="black"?(setTheme("light"),saveTheme("light")):(saveTheme("auto"),setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));let metaColors={light:"#f8f8f8",dark:"#252627",black:"#000000"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")],window.switchThemeEventSet=new Set</script><div id=back-to-top></div><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Stefan Schüller">Stefan Schüller</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Stefan Schüller">Stefan Schüller</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class="toc-content always-active" id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#auto-adding-date-and-version-to-pcbschematic>Auto adding date and version to PCB/Schematic</a></li><li><a href=#added-lcsc-part-numbers-to-ibom>Added LCSC part numbers to iBom</a></li><li><a href=#auto-generating-bom-labels>Auto generating BOM labels</a></li><li><a href=#multi-pcb-per-project-support>Multi-PCB per project support</a></li><li><a href=#full-configurations>Full configurations</a></li></ul></nav></div></div><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Updated CI/CD for KiCad 9 and Gitlab</h1><div class=post-meta><div class=post-meta-line><span class=post-author><span class="author fas fa-user-circle fa-fw"></span><a href=https://github.com/sschueller/ title=Author target=_blank rel="noopener noreferrer author" class=author>Stefan Schüller</a>
+</span>&nbsp;<span class=post-category>included in </span>&nbsp;<span class=post-category>category <a href=/categories/projects/><i class="far fa-folder fa-fw"></i>Projects</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2025-12-30>2025-12-30</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2025-12-30>2025-12-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1530 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;8 minutes&nbsp;</div></div><div class=featured-image><img loading=eager src=/posts/ci-cd-with-kicad-2025/P_20251230_192806.jpg srcset="/posts/ci-cd-with-kicad-2025/P_20251230_192806.jpg, /posts/ci-cd-with-kicad-2025/P_20251230_192806.jpg 1.5x, /posts/ci-cd-with-kicad-2025/P_20251230_192806.jpg 2x" sizes=auto alt=/posts/ci-cd-with-kicad-2025/P_20251230_192806.jpg title=/posts/ci-cd-with-kicad-2025/P_20251230_192806.jpg height=1929 width=3432></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#auto-adding-date-and-version-to-pcbschematic>Auto adding date and version to PCB/Schematic</a></li><li><a href=#added-lcsc-part-numbers-to-ibom>Added LCSC part numbers to iBom</a></li><li><a href=#auto-generating-bom-labels>Auto generating BOM labels</a></li><li><a href=#multi-pcb-per-project-support>Multi-PCB per project support</a></li><li><a href=#full-configurations>Full configurations</a></li></ul></nav></div></div><div class=content id=content><h2 id=introduction class=headerLink><a href=#introduction class=header-mark></a>Introduction</h2><p><figure><a class=lightgallery href=/posts/ci-cd-with-kicad-2025/2025-12-30-195617_781x229_scrot.png title="CI Pipeline" data-thumbnail=/posts/ci-cd-with-kicad-2025/2025-12-30-195617_781x229_scrot.png><img loading=lazy src=/posts/ci-cd-with-kicad-2025/2025-12-30-195617_781x229_scrot.png srcset="/posts/ci-cd-with-kicad-2025/2025-12-30-195617_781x229_scrot.png, /posts/ci-cd-with-kicad-2025/2025-12-30-195617_781x229_scrot.png 1.5x, /posts/ci-cd-with-kicad-2025/2025-12-30-195617_781x229_scrot.png 2x" sizes=auto alt="CI Pipeline" height=229 width=781></a></figure></p><p>Here are some updates I have made since my original post about using KiCad with CI/CD. It is now using a kicad 9 docker image (ghcr.io/inti-cmnb/kicad9_auto:latest) and runs on the latest gitlab.</p><h2 id=auto-adding-date-and-version-to-pcbschematic class=headerLink><a href=#auto-adding-date-and-version-to-pcbschematic class=header-mark></a>Auto adding date and version to PCB/Schematic</h2><p><figure><a class=lightgallery href=/posts/ci-cd-with-kicad-2025/2025-12-30-201445_1377x904_scrot.png title="Version and Date on PCB" data-thumbnail=/posts/ci-cd-with-kicad-2025/2025-12-30-201445_1377x904_scrot.png><img loading=lazy src=/posts/ci-cd-with-kicad-2025/2025-12-30-201445_1377x904_scrot.png srcset="/posts/ci-cd-with-kicad-2025/2025-12-30-201445_1377x904_scrot.png, /posts/ci-cd-with-kicad-2025/2025-12-30-201445_1377x904_scrot.png 1.5x, /posts/ci-cd-with-kicad-2025/2025-12-30-201445_1377x904_scrot.png 2x" sizes=auto alt="Version and Date on PCB" height=904 width=1377></a></figure></p><p>I have added a small change to my CI file to replace the Revision and Date in the Schematic and PCB. This way I will always know exactly which version I ordered at the FAB, as it&rsquo;s auto-tagged in GitLab and printed on the PCB.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#75715e># exports the Version and Date into variables</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>export VERSION=`cat VERSION.txt` &amp;&amp; echo ${VERSION}</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>export CURRENT_DATE=`date +&#39;%Y-%m-%d&#39;` &amp;&amp; echo ${CURRENT_DATE}</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># simple sed replace in the schematic and PCB files</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#34;s/\t(rev \&#34;[^\&#34;]*\&#34;)/\t(rev \&#34;${VERSION}\&#34;)/g&#34; *.kicad_pcb</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#34;s/\t(rev \&#34;[^\&#34;]*\&#34;)/\t(rev \&#34;${VERSION}\&#34;)/g&#34; *.kicad_sch  </span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#34;s/\t(date \&#34;[^\&#34;]*\&#34;)/\t(date \&#34;${CURRENT_DATE}\&#34;)/g&#34; *.kicad_pcb</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#34;s/\t(date \&#34;[^\&#34;]*\&#34;)/\t(date \&#34;${CURRENT_DATE}\&#34;)/g&#34; *.kicad_sch    </span>
+</span></span><span style=display:flex><span><span style=color:#75715e># after this I run kibot to generate all the outputs</span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#75715e># also add schematic and PCB to the artifacts</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># and in the .releaserc.yml so they get commited</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>when</span>: <span style=color:#ae81ff>always</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>Fabrication/</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;*.kicad_pcb&#34;</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;*.kicad_sch&#34;</span>    
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>In Kicad I use the page variables in the text field.</p><p><figure><a class=lightgallery href=/posts/ci-cd-with-kicad-2025/2025-12-30-201833_666x406_scrot.png title="Text Property using variables" data-thumbnail=/posts/ci-cd-with-kicad-2025/2025-12-30-201833_666x406_scrot.png><img loading=lazy src=/posts/ci-cd-with-kicad-2025/2025-12-30-201833_666x406_scrot.png srcset="/posts/ci-cd-with-kicad-2025/2025-12-30-201833_666x406_scrot.png, /posts/ci-cd-with-kicad-2025/2025-12-30-201833_666x406_scrot.png 1.5x, /posts/ci-cd-with-kicad-2025/2025-12-30-201833_666x406_scrot.png 2x" sizes=auto alt="Text Property using variables" height=406 width=666></a></figure></p><h2 id=added-lcsc-part-numbers-to-ibom class=headerLink><a href=#added-lcsc-part-numbers-to-ibom class=header-mark></a>Added LCSC part numbers to iBom</h2><p>To make human pick and placing easier, I have added the LCSC part numbers to my iBom. This only required a small change to the configuration.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>preflight</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>update_xml</span>: <span style=color:#66d9ef>true</span> <span style=color:#75715e># needed to get the LCSC field</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>outputs</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>Interactive BOM</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/ibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>dark_mode</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>name_format</span>: <span style=color:#e6db74>&#34;index&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>extra_fields</span>: <span style=color:#e6db74>&#39;LCSC&#39;</span> <span style=color:#75715e># extra field</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>checkboxes</span>: <span style=color:#e6db74>&#39;Placed&#39;</span> <span style=color:#75715e># I only want the placed checkbox</span>
+</span></span></code></pre></div><h2 id=auto-generating-bom-labels class=headerLink><a href=#auto-generating-bom-labels class=header-mark></a>Auto generating BOM labels</h2><p>I usually order the BOM with the PCB, and I then have a box full of SMD components for a specific project. To make this easier to use than having to go through each bag every time I want to place a component, I have started to print <a href=https://www.printables.com/model/11909-smd-strip-bin-for-mx-smd-roll target=_blank rel="noopener noreferrer">these</a> SMD tape holders. They are small and make it easier to remove the tape.</p><p>I usually order the BOM with the PCB, and then I have a box full of SMD components for a specific project. To make this easier to use than having to go through each bag every time I want to place a component, I have started to print <a href=https://www.printables.com/model/11909-smd-strip-bin-for-mx-smd-roll target=_blank rel="noopener noreferrer">these</a> SMD tape holders. They are small and make it easier to remove the tape.</p><p><figure><a class=lightgallery href=/posts/ci-cd-with-kicad-2025/P_20251230_192636.jpg title="Part Labels" data-thumbnail=/posts/ci-cd-with-kicad-2025/P_20251230_192636.jpg><img loading=lazy src=/posts/ci-cd-with-kicad-2025/P_20251230_192636.jpg srcset="/posts/ci-cd-with-kicad-2025/P_20251230_192636.jpg, /posts/ci-cd-with-kicad-2025/P_20251230_192636.jpg 1.5x, /posts/ci-cd-with-kicad-2025/P_20251230_192636.jpg 2x" sizes=auto alt="Part Labels" height=1929 width=3432></a></figure></p><p>I used to manually import a CSV of the part numbers and then print those out, but I figured I might as well just write a small script to do this. Sadly, kibot can&rsquo;t print custom templates, but a simple Python script can manage it as well. I do have to install a Python library which is not included by default in the ghcr.io/inti-cmnb/kicad9_auto:latest image I use.</p><p>The result is a PDF with one label per page. I can then send this to my cheap label printer <a href=https://de.aliexpress.com/item/1005009489657919.html target=_blank rel="noopener noreferrer">HZ-D108B</a> (via my phone; Linux support is garbage) and print off the <a href=https://de.aliexpress.com/item/1005002017283862.html target=_blank rel="noopener noreferrer">20mm x 10mm labels</a>. They fit perfectly on the <a href=https://www.printables.com/model/11909-smd-strip-bin-for-mx-smd-roll target=_blank rel="noopener noreferrer">3D printed part</a> or one of these <a href=https://de.aliexpress.com/item/1005005622903601.html target=_blank rel="noopener noreferrer">SMD storage boxes</a>.</p><h2 id=multi-pcb-per-project-support class=headerLink><a href=#multi-pcb-per-project-support class=header-mark></a>Multi-PCB per project support</h2><p>My old CI script did not support multiple PCBs in the same project. I have fixed this now.</p><h2 id=full-configurations class=headerLink><a href=#full-configurations class=header-mark></a>Full configurations</h2><p>.gitlab-ci.yml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>stages</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>fetch-version</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>testing</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>gen_fab</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>publish</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>deploy</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>variables</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>KICAD9_3DMODEL_DIR</span>: <span style=color:#e6db74>&#34;$CI_PROJECT_DIR/packages3d&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>KICAD_USER_TEMPLATE_DIR</span>: <span style=color:#e6db74>&#34;$CI_PROJECT_DIR/templates&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># https://levelup.gitconnected.com/semantic-versioning-and-release-automation-on-gitlab-9ba16af0c21</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>fetch-semantic-version</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>node:24</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>fetch-version</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>only</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>alpha</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span> <span style=color:#75715e># This matches maintenance branches</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span> <span style=color:#75715e># This matches pre-releases</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npx semantic-release --generate-notes false --dry-run</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>VERSION.txt</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>generate-non-semantic-version</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>fetch-version</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>except</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>alpha</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span> <span style=color:#75715e># This matches maintenance branches</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span> <span style=color:#75715e># This matches pre-releases</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>echo build-$CI_PIPELINE_ID &gt; VERSION.txt</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>VERSION.txt</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>tests</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/inti-cmnb/kicad9_auto:latest</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>testing</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>pwd</span>
+</span></span><span style=display:flex><span>    - |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      for pcb in *.kicad_pcb; do
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        if [[ -f &#34;$pcb&#34; ]]; then
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          echo &#34;Testing PCB: $pcb&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          # Get the base name without extension
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          base_name=&#34;${pcb%.kicad_pcb}&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          sch_file=&#34;${base_name}.kicad_sch&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          if [[ -f &#34;$sch_file&#34; ]]; then
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            echo &#34;  Found matching schematic: $sch_file&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            # Both files exist, use project mode
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            kibot -c test.kibot.yaml -e &#34;$pcb&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          else
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            echo &#34;  No schematic found, using --no-check-sch&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            # No schematic, skip the check
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            kibot -c test.kibot.yaml -e &#34;$pcb&#34; --no-check-sch
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          fi
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        fi
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      done    </span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>pcb_outputs</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/inti-cmnb/kicad9_auto:latest</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>gen_fab</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>export VERSION=`cat VERSION.txt` &amp;&amp; echo ${VERSION}</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>export CURRENT_DATE=`date +&#39;%Y-%m-%d&#39;` &amp;&amp; echo ${CURRENT_DATE}</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#34;s/\t(rev \&#34;[^\&#34;]*\&#34;)/\t(rev \&#34;${VERSION}\&#34;)/g&#34; *.kicad_pcb</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#34;s/\t(rev \&#34;[^\&#34;]*\&#34;)/\t(rev \&#34;${VERSION}\&#34;)/g&#34; *.kicad_sch  </span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#34;s/\t(date \&#34;[^\&#34;]*\&#34;)/\t(date \&#34;${CURRENT_DATE}\&#34;)/g&#34; *.kicad_pcb</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#34;s/\t(date \&#34;[^\&#34;]*\&#34;)/\t(date \&#34;${CURRENT_DATE}\&#34;)/g&#34; *.kicad_sch      </span>
+</span></span><span style=display:flex><span>    - |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      for pcb in *.kicad_pcb; do
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        if [[ -f &#34;$pcb&#34; ]]; then
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          echo &#34;Processing PCB: $pcb&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          # Get the base name without extension
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          base_name=&#34;${pcb%.kicad_pcb}&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          sch_file=&#34;${base_name}.kicad_sch&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          if [[ -f &#34;$sch_file&#34; ]]; then
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            echo &#34;  Found matching schematic: $sch_file&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            # Both files exist, use project mode
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            kibot -c output.kibot.yaml -b &#34;$pcb&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            kibot -c jlcpcb.kibot.yaml -b &#34;$pcb&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            kibot -c pcbway.kibot.yaml -b &#34;$pcb&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          else
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            echo &#34;  No schematic found, using --no-check-sch&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            # No schematic, skip the check
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            kibot -c output.kibot.yaml -b &#34;$pcb&#34; --no-check-sch
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            kibot -c jlcpcb.kibot.yaml -b &#34;$pcb&#34; --no-check-sch
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            kibot -c pcbway.kibot.yaml -b &#34;$pcb&#34; --no-check-sch
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          fi
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        fi
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      done</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>apt-get update -y &amp;&amp; apt-get install -y python3-reportlab</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>python3 configs/gen-labels.py Fabrication/Labels/*.csv</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>only</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>alpha</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># This matches maintenance branches</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># This matches pre-releases</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>when</span>: <span style=color:#ae81ff>always</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>Fabrication/</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;*.kicad_pcb&#34;</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;*.kicad_sch&#34;</span>      
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>release</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>publish</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>node:24</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>only</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>alpha</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># This matches maintenance branches</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># This matches pre-releases</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npx semantic-release</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
+</span></span></code></pre></div><p>output.kibot.yaml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>kibot</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>version</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>globals</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>resources_dir</span>: <span style=color:#ae81ff>configs</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>preflight</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>update_xml</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>variants</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rotated</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;Just a place holder for the rotation filter&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>kibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>variant</span>: <span style=color:#ae81ff>rotated</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>pre_transform</span>: <span style=color:#ae81ff>_rot_footprint</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>outputs</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>Interactive BOM</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/ibom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>dark_mode</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>name_format</span>: <span style=color:#e6db74>&#34;index&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>extra_fields</span>: <span style=color:#e6db74>&#39;LCSC&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>checkboxes</span>: <span style=color:#e6db74>&#39;Placed&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;SchPrint&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;Print schematic PDF&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>pdf_sch_print</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/PDFs</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>color_theme</span>: <span style=color:#ae81ff>dracula</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>background_color</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>bom_labels</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;Print Labels&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>bom</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/Labels</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>format</span>: <span style=color:#ae81ff>KICAD</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>output</span>: <span style=color:#ae81ff>power-sheets-bom.csv</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>group_fields</span>: [<span style=color:#e6db74>&#39;LCSC&#39;</span>]
+</span></span><span style=display:flex><span>      <span style=color:#f92672>sort_style</span>: <span style=color:#ae81ff>ref</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>columns</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#ae81ff>LCSC</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Part</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#ae81ff>Value</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#ae81ff>Footprint</span>
+</span></span></code></pre></div><p>.releaserc.yml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>---
+</span></span><span style=display:flex><span><span style=color:#f92672>plugins</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#e6db74>&#34;@semantic-release/commit-analyzer&#34;</span>
+</span></span><span style=display:flex><span>  - - <span style=color:#e6db74>&#34;@semantic-release/release-notes-generator&#34;</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>linkReferences</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>linkCompare</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  - - <span style=color:#e6db74>&#34;@semantic-release/exec&#34;</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>verifyReleaseCmd</span>: <span style=color:#e6db74>&#34;echo ${nextRelease.version} &gt; VERSION.txt&#34;</span>
+</span></span><span style=display:flex><span>  - - <span style=color:#e6db74>&#34;@semantic-release/changelog&#34;</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>changelogFile</span>: <span style=color:#ae81ff>CHANGELOG.md</span>
+</span></span><span style=display:flex><span>  - - <span style=color:#e6db74>&#34;@semantic-release/git&#34;</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>assets</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#e6db74>&#39;CHANGELOG.md&#39;</span>
+</span></span><span style=display:flex><span>        - <span style=color:#e6db74>&#39;VERSION.txt&#39;</span>
+</span></span><span style=display:flex><span>        - <span style=color:#e6db74>&#39;Fabrication/&#39;</span>
+</span></span><span style=display:flex><span>        - <span style=color:#e6db74>&#39;*.kicad_pcb&#39;</span>
+</span></span><span style=display:flex><span>        - <span style=color:#e6db74>&#39;*.kicad_sch&#39;</span>        
+</span></span><span style=display:flex><span>      <span style=color:#f92672>message</span>: <span style=color:#e6db74>&#34;chore(release): ${nextRelease.version} [only cd]\n\n${nextRelease.notes}&#34;</span>
+</span></span><span style=display:flex><span>  - <span style=color:#e6db74>&#34;@semantic-release/gitlab&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>branches</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#e6db74>&#34;master&#34;</span>
+</span></span><span style=display:flex><span>  - <span style=color:#e6db74>&#34;+([0-9])?(.{+([0-9]),x}).x&#34;</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;alpha&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>prerelease</span>: <span style=color:#e6db74>&#34;alpha&#34;</span>
+</span></span></code></pre></div><p>configs/gen-labels.py</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python3</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> csv
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> sys
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> os
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> glob
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> pathlib <span style=color:#f92672>import</span> Path
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> reportlab.lib.pagesizes <span style=color:#f92672>import</span> mm
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> reportlab.pdfgen <span style=color:#f92672>import</span> canvas
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>csv_to_pdf_rows</span>(csv_file, pdf_file):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Custom page size: 20mm x 10mm</span>
+</span></span><span style=display:flex><span>    PAGE_WIDTH <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span> <span style=color:#f92672>*</span> mm
+</span></span><span style=display:flex><span>    PAGE_HEIGHT <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span> <span style=color:#f92672>*</span> mm
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    c <span style=color:#f92672>=</span> canvas<span style=color:#f92672>.</span>Canvas(pdf_file, pagesize<span style=color:#f92672>=</span>(PAGE_WIDTH, PAGE_HEIGHT))
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Read CSV data</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>with</span> open(csv_file, <span style=color:#e6db74>&#39;r&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>        reader <span style=color:#f92672>=</span> csv<span style=color:#f92672>.</span>reader(f)
+</span></span><span style=display:flex><span>        rows <span style=color:#f92672>=</span> list(reader)
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> len(rows) <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>3</span>:
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;CSV file has only </span><span style=color:#e6db74>{</span>len(rows)<span style=color:#e6db74>}</span><span style=color:#e6db74> rows, but we need at least 3 to skip first 2&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Skip first 2 rows: row 0 (empty) and row 1 (header line)</span>
+</span></span><span style=display:flex><span>    data_rows <span style=color:#f92672>=</span> rows[<span style=color:#ae81ff>2</span>:]
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Processing </span><span style=color:#e6db74>{</span>len(data_rows)<span style=color:#e6db74>}</span><span style=color:#e6db74> data rows (skipped first 2 rows)&#34;</span>)
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Create one page per row</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> row_index, row <span style=color:#f92672>in</span> enumerate(data_rows):
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Start new page (don&#39;t need c.showPage() for first page, but will add for consistency)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> row_index <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span>:
+</span></span><span style=display:flex><span>            c<span style=color:#f92672>.</span>showPage()
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Draw first column as header at top in larger font</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> row:  <span style=color:#75715e># Check if row has at least one column</span>
+</span></span><span style=display:flex><span>            first_cell <span style=color:#f92672>=</span> str(row[<span style=color:#ae81ff>0</span>])
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> len(first_cell) <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>25</span>:  <span style=color:#75715e># Allow longer text for header</span>
+</span></span><span style=display:flex><span>                first_cell <span style=color:#f92672>=</span> first_cell[:<span style=color:#ae81ff>22</span>] <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;...&#34;</span>
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            c<span style=color:#f92672>.</span>setFont(<span style=color:#e6db74>&#34;Helvetica-Bold&#34;</span>, <span style=color:#ae81ff>6</span>)  <span style=color:#75715e># Larger font for first column as header</span>
+</span></span><span style=display:flex><span>            c<span style=color:#f92672>.</span>drawString(<span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> mm, PAGE_HEIGHT <span style=color:#f92672>-</span> <span style=color:#ae81ff>3</span> <span style=color:#f92672>*</span> mm, first_cell)
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Draw separator line</span>
+</span></span><span style=display:flex><span>        c<span style=color:#f92672>.</span>line(<span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> mm, PAGE_HEIGHT <span style=color:#f92672>-</span> <span style=color:#ae81ff>4</span> <span style=color:#f92672>*</span> mm, PAGE_WIDTH <span style=color:#f92672>-</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> mm, PAGE_HEIGHT <span style=color:#f92672>-</span> <span style=color:#ae81ff>4</span> <span style=color:#f92672>*</span> mm)
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Draw remaining columns below in smaller font</span>
+</span></span><span style=display:flex><span>        c<span style=color:#f92672>.</span>setFont(<span style=color:#e6db74>&#34;Helvetica-Bold&#34;</span>, <span style=color:#ae81ff>4</span>)  <span style=color:#75715e># Smaller font for other columns</span>
+</span></span><span style=display:flex><span>        y_position <span style=color:#f92672>=</span> PAGE_HEIGHT <span style=color:#f92672>-</span> <span style=color:#ae81ff>6</span> <span style=color:#f92672>*</span> mm  <span style=color:#75715e># Start below separator</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Start from column 1 (second column)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> col_index <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>1</span>, min(<span style=color:#ae81ff>3</span>, len(row))):  <span style=color:#75715e># Limit to 2 more columns</span>
+</span></span><span style=display:flex><span>            cell <span style=color:#f92672>=</span> row[col_index]
+</span></span><span style=display:flex><span>            text <span style=color:#f92672>=</span> str(cell)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> len(text) <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>25</span>:
+</span></span><span style=display:flex><span>                text <span style=color:#f92672>=</span> text[:<span style=color:#ae81ff>22</span>] <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;...&#34;</span>
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            c<span style=color:#f92672>.</span>drawString(<span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> mm, y_position, text)
+</span></span><span style=display:flex><span>            y_position <span style=color:#f92672>-=</span> <span style=color:#ae81ff>1.5</span> <span style=color:#f92672>*</span> mm
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> y_position <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>*</span> mm:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    c<span style=color:#f92672>.</span>save()
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;PDF saved as </span><span style=color:#e6db74>{</span>pdf_file<span style=color:#e6db74>}</span><span style=color:#e6db74> with </span><span style=color:#e6db74>{</span>len(data_rows)<span style=color:#e6db74>}</span><span style=color:#e6db74> pages (one per data row)&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>process_csv_files</span>(input_pattern):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Process CSV files matching the input pattern&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Expand the pattern to get all matching files</span>
+</span></span><span style=display:flex><span>    csv_files <span style=color:#f92672>=</span> glob<span style=color:#f92672>.</span>glob(input_pattern)
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> csv_files:
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;No CSV files found matching pattern: </span><span style=color:#e6db74>{</span>input_pattern<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Found </span><span style=color:#e6db74>{</span>len(csv_files)<span style=color:#e6db74>}</span><span style=color:#e6db74> CSV file(s) to process:&#34;</span>)
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> csv_file <span style=color:#f92672>in</span> csv_files:
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Create output filename: same directory, same base name, .pdf extension</span>
+</span></span><span style=display:flex><span>        input_path <span style=color:#f92672>=</span> Path(csv_file)
+</span></span><span style=display:flex><span>        pdf_file <span style=color:#f92672>=</span> input_path<span style=color:#f92672>.</span>with_suffix(<span style=color:#e6db74>&#39;.pdf&#39;</span>)
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>Processing: </span><span style=color:#e6db74>{</span>csv_file<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Output will be: </span><span style=color:#e6db74>{</span>pdf_file<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            csv_to_pdf_rows(csv_file, str(pdf_file))
+</span></span><span style=display:flex><span>            print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;✓ Successfully created </span><span style=color:#e6db74>{</span>pdf_file<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span> <span style=color:#66d9ef>as</span> e:
+</span></span><span style=display:flex><span>            print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;✗ Error processing </span><span style=color:#e6db74>{</span>csv_file<span style=color:#e6db74>}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>{</span>e<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> len(sys<span style=color:#f92672>.</span>argv) <span style=color:#f92672>!=</span> <span style=color:#ae81ff>2</span>:
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>&#34;Usage: python3 gen-labels.py &lt;input_pattern&gt;&#34;</span>)
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>&#34;Examples:&#34;</span>)
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>&#34;  python3 gen-labels.py Fabrication/Labels/*.csv&#34;</span>)
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>&#34;  python3 gen-labels.py data.csv&#34;</span>)
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>&#34;  python3 gen-labels.py *.csv&#34;</span>)
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>&#34;  python3 gen-labels.py path/to/files/*.csv&#34;</span>)
+</span></span><span style=display:flex><span>        sys<span style=color:#f92672>.</span>exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    input_pattern <span style=color:#f92672>=</span> sys<span style=color:#f92672>.</span>argv[<span style=color:#ae81ff>1</span>]
+</span></span><span style=display:flex><span>    process_csv_files(input_pattern)
+</span></span></code></pre></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2025-12-30</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><button title="Share on Twitter" data-sharer=twitter data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab" data-via=sschueller data-hashtags=PCB,KiCad,EE,Gitlab,JLCPCB,LCSC><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer=facebook data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-hashtag=PCB><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on Linkedin" data-sharer=linkedin data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/><span class="fab fa-linkedin fa-fw"></span></button><button title="Share on WhatsApp" data-sharer=whatsapp data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Tumblr" data-sharer=tumblr data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab" data-tags=PCB,KiCad,EE,Gitlab,JLCPCB,LCSC><span class="fab fa-tumblr fa-fw"></span></button><button title="Share on Hacker News" data-sharer=hackernews data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab"><span class="fab fa-hacker-news fa-fw"></span></button><button title="Share on Reddit" data-sharer=reddit data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/><span class="fab fa-reddit fa-fw"></span></button><button title="Share on VK" data-sharer=vk data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab" data-image=P_20251230_192806><span class="fab fa-vk fa-fw"></span></button><button title="Share on Xing" data-sharer=xing data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab"><span class="fab fa-xing fa-fw"></span></button><button title="Share on Line" data-sharer=line data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab"><span data-svg-src=/lib/simple-icons/icons/line.min.svg></span></button><button title="Share on 微博" data-sharer=weibo data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab" data-image=P_20251230_192806><span class="fab fa-weibo fa-fw"></span></button><button title="Share on 百度" data-sharer=baidu data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab"><span data-svg-src=/lib/simple-icons/icons/baidu.min.svg></span></button><button title="Share on Skype" data-sharer=skype data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab"><span class="fab fa-skype fa-fw"></span></button><button title="Share on Trello" data-sharer=trello data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-2025/ data-title="Updated CI/CD for KiCad 9 and Gitlab" data-description><span class="fab fa-trello fa-fw"></span></button></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/pcb/>PCB</a>,&nbsp;<a href=/tags/kicad/>KiCad</a>,&nbsp;<a href=/tags/ee/>EE</a>,&nbsp;<a href=/tags/gitlab/>Gitlab</a>,&nbsp;<a href=/tags/jlcpcb/>JLCPCB</a>,&nbsp;<a href=/tags/lcsc/>LCSC</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/how-to-not-end-up-in-a-louis-rossmann-video/ class=prev rel=prev title="How to not end up in a Louis Rossmann video"><i class="fas fa-angle-left fa-fw"></i>How to not end up in a Louis Rossmann video</a></div></div><div id=comments><div id=utterances></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreferrer" title="Hugo 0.153.5">Hugo</a>&nbsp;|&nbsp;Theme - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreferrer" title="DoIt 0.4.0"><i class="far fa-edit fa-fw"></i> DoIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2025</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer"></a></span></div><div class=footer-line></div><div class=footer-line></div></div></footer></div><div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw"></i></a></div><div class=assets><link rel=stylesheet href=/lib/katex/katex.min.css><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"Comment",lightTheme:"github-light",repo:"sschueller/sschueller.github.io"}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},sharerjs:!0}</script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js defer></script><script type=text/javascript src=/lib/katex/auto-render.min.js defer></script><script type=text/javascript src=/js/katex.min.js defer></script><script type=text/javascript src=/js/theme.min.js defer></script><script type=text/javascript src=/js/utterances.min.js defer></script></div></body></html>
