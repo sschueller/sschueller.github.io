@@ -9,7 +9,7 @@ description: ""
 draft: false
 enableEmoji: true
 
-featuredImage: "P_20251231_144434"
+featuredImage: "P_20251231_144456"
 resources:
   - name: P_20251230_192636
     src: P_20251230_192636.jpg
@@ -25,10 +25,11 @@ resources:
     src: 2025-12-30-201833_666x406_scrot.png
   - name: P_20251231_144434
     src: P_20251231_144434.jpg
-
+  - name: P_20251231_144456
+    src: P_20251231_144456.jpg
 
 images:
-  - '/posts/ci-cd-with-kicad-2025/P_20251231_144434.jpg'
+  - '/posts/ci-cd-with-kicad-2025/P_20251231_144456.jpg'
 
 tags: ["PCB", "KiCad", "EE", "Gitlab", "JLCPCB", "LCSC"]
 categories: ["projects"]
