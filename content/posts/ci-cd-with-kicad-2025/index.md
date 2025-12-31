@@ -2,7 +2,7 @@
 weight: 2
 title: "Updated CI/CD for KiCad 9 and Gitlab"
 date: 2025-12-30T17:37:16+02:00
-lastmod: 2025-12-31T14:37:16+02:00
+lastmod: 2025-12-31T14:50:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
@@ -409,8 +409,8 @@ def csv_to_pdf_rows(csv_file, pdf_file):
         print(f"CSV file has only {len(rows)} rows, but we need at least 3 to skip first 2")
         return
     
-    # Skip first 2 rows: row 0 (empty) and row 1 (header line)
-    data_rows = rows[2:]
+    # Skip first 1 row: row 0 (empty) and row 1 (header line)
+    data_rows = rows[1:]
     
     print(f"Processing {len(data_rows)} data rows (skipped first 2 rows)")
     
