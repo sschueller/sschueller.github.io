@@ -2,14 +2,14 @@
 weight: 2
 title: "Updated CI/CD for KiCad 9 and Gitlab"
 date: 2025-12-30T17:37:16+02:00
-lastmod: 2025-12-30T17:37:16+02:00
+lastmod: 2025-12-31T14:37:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
 draft: false
 enableEmoji: true
 
-featuredImage: "P_20251230_192806"
+featuredImage: "P_20251231_144434"
 resources:
   - name: P_20251230_192636
     src: P_20251230_192636.jpg
@@ -23,9 +23,12 @@ resources:
     src: 2025-12-30-201855_719x289_scrot.png
   - name: 2025-12-30-201833_666x406_scrot
     src: 2025-12-30-201833_666x406_scrot.png
+  - name: P_20251231_144434
+    src: P_20251231_144434.jpg
+
 
 images:
-  - '/posts/ci-cd-with-kicad-2025/P_20251230_192806.jpg'
+  - '/posts/ci-cd-with-kicad-2025/P_20251231_144434.jpg'
 
 tags: ["PCB", "KiCad", "EE", "Gitlab", "JLCPCB", "LCSC"]
 categories: ["projects"]
