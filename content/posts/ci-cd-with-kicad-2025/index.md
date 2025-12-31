@@ -101,11 +101,38 @@ outputs:
 
 I usually order the BOM with the PCB, and I then have a box full of SMD components for a specific project. To make this easier to use than having to go through each bag every time I want to place a component, I have started to print [these](https://www.printables.com/model/11909-smd-strip-bin-for-mx-smd-roll) SMD tape holders. They are small and make it easier to remove the tape.
 
-I usually order the BOM with the PCB, and then I have a box full of SMD components for a specific project. To make this easier to use than having to go through each bag every time I want to place a component, I have started to print [these](https://www.printables.com/model/11909-smd-strip-bin-for-mx-smd-roll) SMD tape holders. They are small and make it easier to remove the tape.
-
 ![Part Labels](P_20251230_192636)
 
 I used to manually import a CSV of the part numbers and then print those out, but I figured I might as well just write a small script to do this. Sadly, kibot can't print custom templates, but a simple Python script can manage it as well. I do have to install a Python library which is not included by default in the ghcr.io/inti-cmnb/kicad9_auto:latest image I use.
+
+I first generate a CSV of the data I need in kibot:
+
+output.kibot.yaml
+
+```yaml
+  - name: bom_labels
+    comment: "Print Labels"
+    type: bom
+    dir: Fabrication/Labels
+    options:
+      format: KICAD
+      group_fields: ['LCSC']
+      sort_style: ref
+      columns:
+        - field: LCSC
+          name: Part
+        - field: Value
+        - field: Footprint
+```
+
+I then trigger the script in my pipeline:
+
+.gitlab-ci.yml
+
+```yaml
+    - apt-get update -y && apt-get install -y python3-reportlab
+    - python3 configs/gen-labels.py 'Fabrication/Labels/*.csv'
+```
 
 The result is a PDF with one label per page. I can then send this to my cheap label printer [HZ-D108B](https://de.aliexpress.com/item/1005009489657919.html) (via my phone; Linux support is garbage) and print off the [20mm x 10mm labels](https://de.aliexpress.com/item/1005002017283862.html). They fit perfectly on the [3D printed part](https://www.printables.com/model/11909-smd-strip-bin-for-mx-smd-roll) or one of these [SMD storage boxes](https://de.aliexpress.com/item/1005005622903601.html).
 
@@ -228,7 +255,7 @@ pcb_outputs:
         fi
       done
     - apt-get update -y && apt-get install -y python3-reportlab
-    - python3 configs/gen-labels.py Fabrication/Labels/*.csv
+    - python3 configs/gen-labels.py 'Fabrication/Labels/*.csv'
   only:
     refs:
       - master
@@ -310,7 +337,6 @@ outputs:
     dir: Fabrication/Labels
     options:
       format: KICAD
-      output: power-sheets-bom.csv
       group_fields: ['LCSC']
       sort_style: ref
       columns:
