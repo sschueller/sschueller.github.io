@@ -137,7 +137,7 @@ I then trigger the script in my pipeline:
     - python3 configs/gen-labels.py 'Fabrication/Labels/*.csv'
 ```
 
-The result is a PDF with one label per page. I can then send this to my cheap label printer [HZ-D108B](https://de.aliexpress.com/item/1005009489657919.html) (via my phone; Linux support is garbage) and print off the [20mm x 10mm labels](https://de.aliexpress.com/item/1005002017283862.html). They fit perfectly on the [3D printed part](https://www.printables.com/model/11909-smd-strip-bin-for-mx-smd-roll) or one of these [SMD storage boxes](https://de.aliexpress.com/item/1005005622903601.html).
+The result is a PDF with one label per page. I can then send this to my cheap label printer [HZ-D108B](https://de.aliexpress.com/item/1005009489657919.html) (via my phone; Linux support is garbage) and print off the [20mm x 10mm labels](https://de.aliexpress.com/item/1005002017283862.html). They fit perfectly on the [3D printed part](https://www.printables.com/model/1535784-smd-component-dispsense-cassette) or one of these [SMD storage boxes](https://de.aliexpress.com/item/1005005622903601.html).
 
 
 ## Multi-PCB per project support
