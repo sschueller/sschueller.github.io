@@ -2,7 +2,7 @@
 weight: 2
 title: "Updated CI/CD for KiCad 9 and Gitlab"
 date: 2025-12-30T17:37:16+02:00
-lastmod: 2025-12-31T14:50:16+02:00
+lastmod: 2026-01-03T14:50:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
@@ -107,7 +107,41 @@ I usually order the BOM with the PCB, and I then have a box full of SMD componen
 
 ![Part Labels](P_20251230_192636)
 
-I used to manually import a CSV of the part numbers and then print those out, but I figured I might as well just write a small script to do this. Sadly, kibot can't print custom templates, but a simple Python script can manage it as well. I do have to install a Python library which is not included by default in the ghcr.io/inti-cmnb/kicad9_auto:latest image I use.
+I used to manually import a CSV of the part numbers and then print those out, but I figured I might as well just write a small script to do this. ~~Sadly, kibot can't print custom templates~~, It is possible now to do this directly with kibot (Thank you [@set-soft](https://github.com/set-soft))
+
+Using the current dev image of kibot (ghcr.io/inti-cmnb/kicad9_auto:dev) you can generate the labels directly via:
+
+output.kibot.yaml
+
+```yaml
+  - name: basic_bom_labels
+    comment: BoM labels
+    type: bom_labels
+    dir: Fabrication/Labels
+    options:
+      bom: bom_labels
+
+  - name: bom_labels
+    comment: BoM to Print Labels
+    type: bom
+    run_by_default: false
+    dir: Fabrication/Labels
+    options:
+      format: CSV
+      output: bom_labels.%x
+      group_fields:
+      - LCSC
+      sort_style: ref
+      columns:
+      - LCSC
+      - Value
+      - Footprint
+      csv:
+        hide_pcb_info: true
+        hide_stats_info: true
+```
+
+Alternatively a simple Python script can manage it as well. You do have to install a Python library which is not included by default in the ghcr.io/inti-cmnb/kicad9_auto:latest image.
 
 I first generate a CSV of the data I need in kibot:
 
