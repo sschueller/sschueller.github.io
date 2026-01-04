@@ -1,6 +1,6 @@
 baseURL: "https://sschueller.github.io"
 title: "Stefan Schüller"
-pagination.pagerSize: 15
+pagination.pagerSize: 25
 theme: DoIt
 
 languageCode: "en"
