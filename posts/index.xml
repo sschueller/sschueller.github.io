@@ -22,15 +22,6 @@
                 <img src="/posts/how-to-not-end-up-in-a-louis-rossmann-video/Display11-small.jpg" referrerpolicy="no-referrer">
             </div><p>What I did to build a more consumer-friendly product without having to open-source everything.</p>]]></description>
 </item><item>
-    <title>Mesh client build log - part 2</title>
-    <link>https://sschueller.github.io/posts/meshtastic-client-update-2/</link>
-    <pubDate>Wed, 03 Sep 2025 18:30:16 &#43;0200</pubDate><author>
-        <name>Stefan Schüller</name>
-    </author><guid>https://sschueller.github.io/posts/meshtastic-client-update-2/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="mesh-1" referrerpolicy="no-referrer">
-            </div><p>The Main board and module PCBs</p>]]></description>
-</item><item>
     <title>Mesh client build log - part 1</title>
     <link>https://sschueller.github.io/posts/meshtastic-client-update-1/</link>
     <pubDate>Fri, 29 Aug 2025 18:30:16 &#43;0200</pubDate><author>
@@ -94,5 +85,14 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/posts/3d-printer-nozzle-camera/nozzle-camera-close-up.jpg" referrerpolicy="no-referrer">
             </div><p>(please ignore the horrible layer lines, this is just a prototype)</p>]]></description>
+</item><item>
+    <title>Building a VBZ Display Clone</title>
+    <link>https://sschueller.github.io/posts/vbz-fahrgastinformation/</link>
+    <pubDate>Sun, 06 Nov 2022 16:37:16 &#43;0200</pubDate><author>
+        <name>Stefan Schüller</name>
+    </author><guid>https://sschueller.github.io/posts/vbz-fahrgastinformation/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/vbz-fahrgastinformation/20191127_211847.jpg" referrerpolicy="no-referrer">
+            </div>]]></description>
 </item></channel>
 </rss>
