@@ -6,7 +6,7 @@ lastmod: 2025-09-03T18:30:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: "A build log of a Meshtastic/Meshcore client device"
-draft: false
+draft: true
 enableEmoji: true
 
 featuredImage: "mesh-1"
