@@ -1,0 +1,229 @@
+[home]
+  # amount of RSS pages
+  # RSS 文章数目
+  rss = 12
+  # Home page profile
+  # 主页个人信息
+  [home.profile]
+    enable = true
+    # Gravatar Email for preferred avatar in home page
+    # Gravatar 邮箱，用于优先在主页显示的头像
+    gravatarEmail = "sschueller@techdroid.com"
+    # URL of avatar shown in home page
+    # 主页显示头像的 URL
+    avatarURL = "/images/avatar.webp"
+    # URL the avatar links to
+    # 头像的链接指向的 URL
+    avatarLinkURL = "https://github.com/sschueller/"
+    # title shown in home page (HTML format is supported)
+    # 主页显示的网站标题 (支持 HTML 格式)
+    title = "My Random Projects"
+    # subtitle shown in home page
+    # 主页显示的网站副标题
+    subtitle = ""
+    # whether to use typeit animation for subtitle
+    # 是否为副标题显示打字机动画
+    typeit = false
+    # whether to show social links
+    # 是否显示社交账号
+    social = true
+    # disclaimer (HTML format is supported)
+    # 免责声明 (支持 HTML 格式)
+    disclaimer = ""
+  # Home page posts
+  # 主页文章列表
+  [home.posts]
+    enable = true
+    # special amount of posts in each home posts page
+    # 主页每页显示文章数量
+    paginate = 12
+# Social config in home page
+
+# 主页的社交信息设置
+[social]
+  Angellist = ""
+  Bandcamp = ""
+  Behance = ""
+  Bilibili = ""
+  Bitbucket = ""
+  BuyMeACoffee = ""
+  Codepen = ""
+  Deviantart = ""
+  Devto = ""
+  Douban = ""
+  Dribbble = ""
+  Email = ""
+  Facebook = ""
+  Fivehundredpx = ""
+  Flickr = ""
+  Foursquare = ""
+  FreeCodeCamp = ""
+  Gitea = ""
+  GitHub = "sschueller"
+  Gitlab = ""
+  Goodreads = ""
+  Googlescholar = ""
+  Hackernews = ""
+  Instagram = "sschueller"
+  Jsfiddle = ""
+  Keybase = ""
+  Kickstarter = ""
+  Ko-Fi = ""
+  Lastfm = ""
+  Liberapay = ""
+  Linkedin = "stefanschueller"
+  Linktree = ""
+  Matrix = "@sschueller:chat.tei.li"
+  Medium = ""
+  Mix = ""
+  Odnoklassniki = ""
+  ORCID = ""
+  Patreon = ""
+  Paypal = ""
+  Pinterest = ""
+  QQ = ""
+  QQGroup = ""
+  Quora = ""
+  Reddit = ""
+  Researchgate = ""
+  RSS = true
+  Skype = ""
+  Slidershare = ""
+  Snapchat = ""
+  Soundcloud = ""
+  Spotify = ""
+  Stackoverflow = ""
+  Steam = ""
+  Strava = ""
+  Telegram = "sschueller"
+  Thingiverse = ""
+  Tumblr = ""
+  Twitch = ""
+  Twitter = ""
+  Vine = ""
+  VK = ""
+  Weibo = ""
+  Whatsapp = ""
+  Wordpress = ""
+  Xing = ""
+  XMPP = ""
+  Youtubechannel = "UCyP5sKiTFQEx9il9aJmT4-Q"
+  Youtubecustom = ""
+  Youtubelegacy = ""
+  Zhihu = ""
+  Bluesky = ""
+  # [social.Mastodon]
+  #   id = ""
+  #   prefix = ""
+  # [social.Diaspora]
+  #   id = ""
+  #   prefix = ""
+# Sponsor config
+# 赞助设置
+[sponsor]
+  enable = false
+  bio = "If you find this post helpful, please consider sponsoring."
+  link = "https://github.com/sponsors/sschueller"
+  # custom = "<a href=\"https://www.buymeacoffee.com/PCloud\" target=\"_blank\"><img src=\"https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png\" alt=\"Buy Me A Coffee\" style=\"height: 40px !important;width: 145 !important;\" ></a>"
+[page]
+
+  rssFullText = false
+  # whether to enable series navigation
+  # 是否使用系列导航
+  seriesNavigation = true
+  # whether to enable last modified time
+  # 是否启用最后修改时间
+  enableLastMod = true
+  # whether to enable word count
+  # 是否启用字数统计
+  enableWordCount = true
+  # whether to enable reading time estimation
+  # 是否启用阅读时间估计
+  enableReadingTime = true
+
+  [page.toc]
+    # whether to enable the table of the contents
+    # 是否使用目录
+    enable = true
+    # whether to keep the static table of the contents in front of the post
+    # 是否保持使用文章前面的静态目录
+    keepStatic = false
+    # whether to make the table of the contents in the sidebar automatically collapsed
+    # 是否使侧边目录自动折叠展开
+    auto = true
+
+  [page.code]
+    # the maximum number of lines of displayed code by default
+    # 默认展开显示的代码行数
+    maxShownLines = 150
+    # whether to enable line numbers in the code block
+    # 是否显示代码行号
+    lineNos = true
+    # whether to enable line wrapping in the code block
+    # 是否开启代码换行
+    wrap = false
+    # whether to display the header in the code block
+    # 是否显示代码块标题
+    header = true
+
+  [page.share]
+    enable = true
+    Baidu = true
+    Blogger = true
+    Buffer = false
+    Digg = false
+    Evernote = true
+    Facebook = true
+    Flipboard = false
+    HackerNews = true
+    Instapaper = false
+    Line = true
+    Linkedin = true
+    Mix = false
+    Myspace = false
+    Odnoklassniki = false
+    Pinterest = false
+    Pocket = true
+    Reddit = true
+    Renren = false
+    Skype = true
+    Stumbleupon = false
+    Telegram = true
+    Trello = true
+    Tumblr = true
+    Twitter = true
+    VK = true
+    Weibo = true
+    Weixin = ""
+    Whatsapp = true
+    Xing = true
+    Mastodon = true
+
+  [page.comment]
+    enable = true
+
+    [page.comment.utterances]
+      enable = true
+      # owner/repo
+      repo = "sschueller/sschueller.github.io"
+      issueTerm = "pathname"
+      label = "Comment"
+      lightTheme = "github-light"
+      darkTheme = "github-dark"
+
+[analytics]
+  enable = true
+  [analytics.matomo]
+    enable = true
+    # matomo server URL
+    server = "https://stats2.tei.li/"
+    # matomo site ID
+    site_id = 1
+    # enable no js tracking
+    Track_no_js = true
+    # no cookie mode
+    # 无cookie模式
+    No_cookie = true
+    # respect the do not track setting of the browser
+    # 遵循浏览器的”要求网站不跟踪我“设定
+    Do_not_track = true

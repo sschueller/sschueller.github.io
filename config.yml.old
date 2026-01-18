@@ -1,6 +1,6 @@
 baseURL: "https://sschueller.github.io"
 title: "Stefan Schüller"
-pagination.pagerSize: 25
+
 theme: DoIt
 
 languageCode: "en"
@@ -10,6 +10,7 @@ copyright: ""
 enableRobotsTXT: true
 enableEmoji: true
 
+
 buildDrafts: false
 buildFuture: false
 buildExpired: false
@@ -18,12 +19,14 @@ minify:
   disableXML: true
   minifyOutput: true
 
-author:
-  name: "Stefan Schüller"
-  email: ""
-  link: "https://github.com/sschueller/"
 
 params:
+
+  author:
+    name: "Stefan Schüller"
+    email: ""
+    link: "https://github.com/sschueller/"
+
   defaultTheme: "light"
   title: "Stefan Schüller"
   description: ""

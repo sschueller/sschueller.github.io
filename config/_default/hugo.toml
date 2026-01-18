@@ -1,0 +1,9 @@
+baseURL = "https://sschueller.github.io"
+title = "Stefan Schüller"
+defaultContentLanguage = "en"
+
+enableRobotsTXT = true
+enableGitInfo = true
+enableEmoji = true
+
+theme = "DoIt"
