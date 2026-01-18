@@ -1,305 +1,593 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>CI/CD with KiCad and Gitlab - Stefan Schüller</title><meta name=Description content><meta property="og:url" content="https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/"><meta property="og:site_name" content="Stefan Schüller"><meta property="og:title" content="CI/CD with KiCad and Gitlab"><meta property="og:description" content="(Blender Render of KiCad Exported PCB)"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-05-12T17:37:16+02:00"><meta property="article:modified_time" content="2023-05-12T17:37:16+02:00"><meta property="article:tag" content="PCB"><meta property="article:tag" content="KiCad"><meta property="article:tag" content="EE"><meta property="article:tag" content="Gitlab"><meta property="article:tag" content="JLCPCB"><meta property="article:tag" content="LCSC"><meta name=twitter:card content="summary"><meta name=twitter:title content="CI/CD with KiCad and Gitlab"><meta name=twitter:description content="(Blender Render of KiCad Exported PCB)"><meta name=twitter:site content="@sschueller"><meta name=application-name content="Stefan Schüller"><meta name=apple-mobile-web-app-title content="Stefan Schüller"><meta name=theme-color content="#f8f8f8"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><link rel=prev href=https://sschueller.github.io/posts/3d-printer-nozzle-camera/><link rel=next href=https://sschueller.github.io/posts/74-eletric-bus-charging-station/><link rel=stylesheet href=/css/main.css><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/color.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/fontawesome-free/all.min.css><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/animate/animate.min.css><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"CI/CD with KiCad and Gitlab","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/sschueller.github.io\/posts\/ci-cd-with-kicad-and-gitlab\/"},"genre":"posts","keywords":"PCB, KiCad, EE, Gitlab, JLCPCB, LCSC","wordcount":1241,"url":"https:\/\/sschueller.github.io\/posts\/ci-cd-with-kicad-and-gitlab\/","datePublished":"2023-05-12T17:37:16+02:00","dateModified":"2023-05-12T17:37:16+02:00","publisher":{"@type":"Organization","name":"Stefan Schüller"},"author":{"@type":"Person","name":"Stefan Schüller"},"description":""}</script><script src=//instant.page/5.2.0 defer type=module integrity=sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z></script><script>var _paq=window._paq=window._paq||[];_paq.push(["trackPageView"]),_paq.push(["enableLinkTracking"]),function(){e="https://stats2.tei.li/",_paq.push(["setTrackerUrl",e+"mtr"]),_paq.push(["setSiteId","1"]);var e,n=document,t=n.createElement("script"),s=n.getElementsByTagName("script")[0];t.async=!0,t.src=e+"mts",s.parentNode.insertBefore(t,s)}()</script></head><body header-desktop header-mobile><script type=text/javascript>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark"),window.theme=e,window.isDark=window.theme!=="light"}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(e){const t=document.getElementsByTagName("meta");for(let n=0;n<t.length;n++)if(t[n].getAttribute("name")===e)return t[n];return""}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"||e==="black"?setTheme(e):setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}else"light"==="light"||"light"==="dark"||"light"==="black"?(setTheme("light"),saveTheme("light")):(saveTheme("auto"),setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));let metaColors={light:"#f8f8f8",dark:"#252627",black:"#000000"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")],window.switchThemeEventSet=new Set</script><div id=back-to-top></div><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Stefan Schüller">Stefan Schüller</a></div><div class=menu><div class=menu-inner><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Stefan Schüller">Stefan Schüller</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class="toc-content always-active" id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#git>Git</a></li><li><a href=#kicad-setup>KiCad Setup</a></li><li><a href=#gitlab-setup>GitLab Setup</a><ul><li><a href=#gitlab-ci>Gitlab CI</a></li><li><a href=#kibot>KiBot</a></li></ul></li><li><a href=#fabrication>Fabrication</a></li><li><a href=#todo>TODO</a></li><li><a href=#eye-candy>Eye-Candy</a></li></ul></nav></div></div><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CI/CD with KiCad and Gitlab</h1><div class=post-meta><div class=post-meta-line><span class=post-author><span class="author fas fa-user-circle fa-fw"></span><a href=https://github.com/sschueller/ title=Author target=_blank rel="noopener noreferrer author" class=author>Stefan Schüller</a>
-</span>&nbsp;<span class=post-category>included in </span>&nbsp;<span class=post-category>category <a href=/categories/projects/><i class="far fa-folder fa-fw"></i>Projects</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2023-05-12>2023-05-12</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2023-05-12>2023-05-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1241 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;6 minutes&nbsp;</div></div><div class=featured-image><img loading=eager src=/posts/ci-cd-with-kicad-and-gitlab/render.png srcset="/posts/ci-cd-with-kicad-and-gitlab/render.png, /posts/ci-cd-with-kicad-and-gitlab/render.png 1.5x, /posts/ci-cd-with-kicad-and-gitlab/render.png 2x" sizes=auto alt=/posts/ci-cd-with-kicad-and-gitlab/render.png title=/posts/ci-cd-with-kicad-and-gitlab/render.png height=1080 width=1920></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>Contents</span>
-<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#git>Git</a></li><li><a href=#kicad-setup>KiCad Setup</a></li><li><a href=#gitlab-setup>GitLab Setup</a><ul><li><a href=#gitlab-ci>Gitlab CI</a></li><li><a href=#kibot>KiBot</a></li></ul></li><li><a href=#fabrication>Fabrication</a></li><li><a href=#todo>TODO</a></li><li><a href=#eye-candy>Eye-Candy</a></li></ul></nav></div></div><div class=content id=content><p>(Blender Render of KiCad Exported PCB)</p><h2 id=introduction class=headerLink><a href=#introduction class=header-mark></a>Introduction</h2><p>I make many small projects and usually order PCBs at some place. Generating Gerber files and checking everything is in order before ordering can be tedious. Additionally the more complex the board the more parts I need and most likely I will also need a reference in order to place the parts.</p><p>So I decided to setup a gitlab pipeline to automate the whole process.</p><p>After I commit into the master the gitlab pipeline will run tests on the schematic and on the PCB. If those pass it will generate the Gerbers I need for the specific fab I use (JLCPCB in this case) and also generate a BOM which I can use to order parts at LCSC. Additionally it will generate a fancy <a href=https://openscopeproject.org/InteractiveHtmlBomDemo/ target=_blank rel="noopener noreferrer">KiCad Interactive HTML BOM</a>, position file for JLCPCB (if you want them to do assembly) and a <a href=https://github.com/sschueller/sschueller.github.io/raw/master/content/posts/ci-cd-with-kicad-and-gitlab/shades-schematic-1.pdf target=_blank rel="noopener noreferrer">PDF of the schematic</a>
-. All these artifacts are commited back into the master and a version is applied. I also have a CHANGELOG.md which is automatically filled from commit messages (I used conventional commits to format my commit messages)</p><h2 id=git class=headerLink><a href=#git class=header-mark></a>Git</h2><p>In order for this to work you need to keep your KiCad project in a git repository. To do this I use the following <code>.gitignore</code> (KiCad makes tons of files but you don&rsquo;t need to commit all of them) and file structure.</p><p><strong>Folder Structure</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>├── ci/               <span style=color:#75715e># Files specific to CI (colors for PDF etc.)</span>
-</span></span><span style=display:flex><span>├── datasheets/       <span style=color:#75715e># Data sheets of items I used in this project</span>
-</span></span><span style=display:flex><span>├── Fabrication/      <span style=color:#75715e># Fabrication output</span>
-</span></span><span style=display:flex><span>├── footprints/       <span style=color:#75715e># KiCad footprints (only for this project)</span>
-</span></span><span style=display:flex><span>├── library/          <span style=color:#75715e># KiCad libraries (only for this project)</span>
-</span></span><span style=display:flex><span>├── packages3d/       <span style=color:#75715e># KiCad 3d packages (only for this project)</span>
-</span></span><span style=display:flex><span>├── VERSION.txt       <span style=color:#75715e># version (Auto updated)</span>
-</span></span><span style=display:flex><span>├── CHANGELOG.md      <span style=color:#75715e># changelog (Auto generated)</span>
-</span></span><span style=display:flex><span>├── README.md
-</span></span><span style=display:flex><span>├── output.kibot.yaml <span style=color:#75715e># KiBot output configuration, gerbers, BOM etc.</span>
-</span></span><span style=display:flex><span>├── test.kibot.yaml   <span style=color:#75715e># KiBot Tests</span>
-</span></span><span style=display:flex><span>├── .gitignore
-</span></span><span style=display:flex><span>└── .gitlab-ci.yml    <span style=color:#75715e># Gitlab CI file</span>
-</span></span></code></pre></div><p><strong>.gitignore</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># For PCBs designed using KiCad: http://www.kicad-pcb.org/</span>
-</span></span><span style=display:flex><span><span style=color:#75715e># Format documentation: http://kicad-pcb.org/help/file-formats/</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># Temporary files</span>
-</span></span><span style=display:flex><span>*.000
-</span></span><span style=display:flex><span>*.bak
-</span></span><span style=display:flex><span>*.bck
-</span></span><span style=display:flex><span>*.kicad_pcb-bak
-</span></span><span style=display:flex><span>*.kicad_sch-bak
-</span></span><span style=display:flex><span>*.kicad_prl
-</span></span><span style=display:flex><span>*.sch-bak
-</span></span><span style=display:flex><span>*~
-</span></span><span style=display:flex><span>_autosave-*
-</span></span><span style=display:flex><span>*.tmp
-</span></span><span style=display:flex><span>*-save.pro
-</span></span><span style=display:flex><span>*-save.kicad_pcb
-</span></span><span style=display:flex><span>fp-info-cache
-</span></span><span style=display:flex><span>*-backups/
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># Netlist files (exported from Eeschema)</span>
-</span></span><span style=display:flex><span>*.net
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># Autorouter files (exported from Pcbnew)</span>
-</span></span><span style=display:flex><span>*.dsn
-</span></span><span style=display:flex><span>*.ses
-</span></span><span style=display:flex><span>*.rules
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># Exported BOM files</span>
-</span></span><span style=display:flex><span>*.xml
-</span></span><span style=display:flex><span>*.csv
-</span></span><span style=display:flex><span>export-*
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># Rendered output</span>
-</span></span><span style=display:flex><span>3d/Render/*
-</span></span></code></pre></div><h2 id=kicad-setup class=headerLink><a href=#kicad-setup class=header-mark></a>KiCad Setup</h2><p>When adding components, add &ldquo;LCSC&rdquo; to overall schematic (BOM export will fail if added to each part separately (join issue)) and the part number in each part to the part in order to use the JLCPCB assembly service. Only parts with LCSC column are exported in the JLCPCB BOMs.</p><p><figure><a class=lightgallery href=/posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png title="KiCad Schematic Preferences" data-thumbnail=/posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png><img loading=lazy src=/posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png srcset="/posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png, /posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png 1.5x, /posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png 2x" sizes=auto alt="KiCad Schematic Preferences" height=424 width=604></a></figure></p><p>Now when adding parts fill in the LCSC field.</p><p><figure><a class=lightgallery href=/posts/ci-cd-with-kicad-and-gitlab/kicad-part.png title="KiCad Part Edit" data-thumbnail=/posts/ci-cd-with-kicad-and-gitlab/kicad-part.png><img loading=lazy src=/posts/ci-cd-with-kicad-and-gitlab/kicad-part.png srcset="/posts/ci-cd-with-kicad-and-gitlab/kicad-part.png, /posts/ci-cd-with-kicad-and-gitlab/kicad-part.png 1.5x, /posts/ci-cd-with-kicad-and-gitlab/kicad-part.png 2x" sizes=auto alt="KiCad Part Edit" height=294 width=753></a></figure></p><h2 id=gitlab-setup class=headerLink><a href=#gitlab-setup class=header-mark></a>GitLab Setup</h2><p><figure><a class=lightgallery href=/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png title=/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png data-thumbnail=/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png><img loading=lazy src=/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png srcset="/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png, /posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png 1.5x, /posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png 2x" sizes=auto alt=/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png height=280 width=830></a></figure></p><p>I use a general gitlab setup with docker runners and <a href=https://levelup.gitconnected.com/semantic-versioning-and-release-automation-on-gitlab-9ba16af0c21 target=_blank rel="noopener noreferrer">semantic releases</a></p><h3 id=gitlab-ci class=headerLink><a href=#gitlab-ci class=header-mark></a>Gitlab CI</h3><p>.gitlab-ci.yml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>stages</span>:
-</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>fetch-version</span>
-</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>testing</span>
-</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>gen_fab</span>
-</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>publish</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>#https://levelup.gitconnected.com/semantic-versioning-and-release-automation-on-gitlab-9ba16af0c21</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>fetch-semantic-version</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>node:18</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>fetch-version</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>only</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>master</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>alpha</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span> <span style=color:#75715e># This matches maintenance branches</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span> <span style=color:#75715e># This matches pre-releases</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D</span>
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npx semantic-release --generate-notes false --dry-run</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>VERSION.txt</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>generate-non-semantic-version</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>fetch-version</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>except</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>master</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>alpha</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span> <span style=color:#75715e># This matches maintenance branches</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span> <span style=color:#75715e># This matches pre-releases</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>echo build-$CI_PIPELINE_ID &gt; VERSION.txt</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>VERSION.txt</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>tests</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/inti-cmnb/kicad7_auto:1.6.2</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>testing</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#e6db74>&#34;[ -f *.kicad_pcb ] &amp;&amp; kibot -c test.kibot.yaml&#34;</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>pcb_outputs</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/inti-cmnb/kicad7_auto:1.6.2</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>gen_fab</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#e6db74>&#34;[ -f *.kicad_pcb ] &amp;&amp; kibot -c output.kibot.yaml&#34;</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>only</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>master</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>alpha</span>
-</span></span><span style=display:flex><span>      <span style=color:#75715e># This matches maintenance branches</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span>
-</span></span><span style=display:flex><span>      <span style=color:#75715e># This matches pre-releases</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>when</span>: <span style=color:#ae81ff>always</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>Fabrication/</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>release</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>publish</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>node:18</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>only</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>refs</span>:
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>master</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>alpha</span>
-</span></span><span style=display:flex><span>      <span style=color:#75715e># This matches maintenance branches</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^(([0-9]+)\.)?([0-9]+)\.x/</span>
-</span></span><span style=display:flex><span>      <span style=color:#75715e># This matches pre-releases</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D</span>
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npx semantic-release</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
-</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>docker</span>
-</span></span></code></pre></div><h3 id=kibot class=headerLink><a href=#kibot class=header-mark></a>KiBot</h3><p><a href=https://github.com/INTI-CMNB/KiBot target=_blank rel="noopener noreferrer">KiBot</a> lets you automate almost anything that KiCad can do. I use it with docker to be able to run it in gitlab.</p><p>Here is the test and output configrations I use which are specific for JLCPCB but can be adjusted to almost any fab. There are also many <a href=https://github.com/INTI-CMNB/KiBot/tree/master/docs/samples target=_blank rel="noopener noreferrer">examples</a> on the KiBot github for other fabs.</p><p>test.kibot.yaml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>kibot</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>version</span>: <span style=color:#ae81ff>1</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>preflight</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>run_erc</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>update_xml</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>run_drc</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>check_zone_fills</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>ignore_unconnected</span>: <span style=color:#66d9ef>false</span>
-</span></span></code></pre></div><p>output.kibot.yaml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># Gerber and drill files for JLCPCB, without stencil</span>
-</span></span><span style=display:flex><span><span style=color:#75715e># URL: https://jlcpcb.com/</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>kibot</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>version</span>: <span style=color:#ae81ff>1</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>globals</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>resources_dir</span>: <span style=color:#ae81ff>ci</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>filters</span>:
-</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>only_jlc_parts</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;Only parts with JLC (LCSC) code&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>generic</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>include_only</span>:
-</span></span><span style=display:flex><span>      - <span style=color:#f92672>column</span>: <span style=color:#e6db74>&#34;LCSC&#34;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>regex</span>: <span style=color:#e6db74>&#39;^C\d+&#39;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>variants</span>:
-</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rotated</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;Just a place holder for the rotation filter&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>kibom</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>variant</span>: <span style=color:#ae81ff>rotated</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>pre_transform</span>: <span style=color:#ae81ff>_rot_footprint</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># JLCPCB Gerber Output</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>outputs</span>:
-</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>JLCPCB_gerbers</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>Gerbers compatible with JLCPCB</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>gerber</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>JLCPCB</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>: <span style=color:#75715e>&amp;gerber_options</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>exclude_edge_layer</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>exclude_pads_from_silkscreen</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>plot_sheet_reference</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>plot_footprint_refs</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>plot_footprint_values</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>force_plot_invisible_refs_vals</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>tent_vias</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>use_protel_extensions</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>create_gerber_job_file</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>disable_aperture_macros</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>gerber_precision</span>: <span style=color:#ae81ff>4.6</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>use_gerber_x2_attributes</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>use_gerber_net_attributes</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>line_width</span>: <span style=color:#ae81ff>0.1</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>subtract_mask_from_silk</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>layers</span>:
-</span></span><span style=display:flex><span>      <span style=color:#75715e># Note: a more generic approach is to use &#39;copper&#39; but then the filenames</span>
-</span></span><span style=display:flex><span>      <span style=color:#75715e># are slightly different.</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>F.Cu</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>B.Cu</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>F.Paste</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>B.Paste</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>F.SilkS</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>B.SilkS</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>F.Mask</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>B.Mask</span>
-</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>Edge.Cuts</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e># JLCPCB drill files</span>
-</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>JLCPCB_drill</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>Drill files compatible with JLCPCB</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>excellon</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>JLCPCB</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>pth_and_npth_single_file</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>pth_id</span>: <span style=color:#e6db74>&#34;-PTH&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>npth_id</span>: <span style=color:#e6db74>&#34;-NPTH&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>metric_units</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>output</span>: <span style=color:#e6db74>&#34;%f%i.%x&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e># zip all JLCPCB gerber and drill files together</span>
-</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>JLCPCB</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>ZIP file for JLCPCB</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>compress</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/JLCPCB</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>files</span>:
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>from_output</span>: <span style=color:#ae81ff>JLCPCB_gerbers</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>dest</span>: <span style=color:#ae81ff>/</span>
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>from_output</span>: <span style=color:#ae81ff>JLCPCB_drill</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>dest</span>: <span style=color:#ae81ff>/</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e># html ibom</span>
-</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ibom</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#ae81ff>Interactive BOM</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ibom</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/ibom</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>dark_mode</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>name_format</span>: <span style=color:#e6db74>&#34;index&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e># JLCPCB assembly positions of components</span>
-</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;JLCPCB_position&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;Pick and place file, JLCPCB style&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>position</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/JLCPCB-BOM</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>variant</span>: <span style=color:#ae81ff>rotated</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>output</span>: <span style=color:#e6db74>&#34;%f_cpl_jlc.%x&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>format</span>: <span style=color:#ae81ff>CSV</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>units</span>: <span style=color:#ae81ff>millimeters</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>separate_files_for_front_and_back</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>only_smd</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>columns</span>:
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>Ref</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Designator</span>
-</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>Val</span>
-</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>Package</span>
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>PosX</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;Mid X&#34;</span>
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>PosY</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;Mid Y&#34;</span>
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>Rot</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Rotation</span>
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>Side</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Layer</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e># JLCPCB Bom for assembly or for LCSC order</span>
-</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;JLCPCB_bom&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;BoM for JLCPCB&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>bom</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/JLCPCB-BOM</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>output</span>: <span style=color:#e6db74>&#34;%f_%i_jlc.%x&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>exclude_filter</span>: <span style=color:#e6db74>&#34;only_jlc_parts&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>ref_separator</span>: <span style=color:#e6db74>&#34;,&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>columns</span>:
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#ae81ff>Value</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Comment</span>
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#ae81ff>References</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Designator</span>
-</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>Footprint</span>
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#e6db74>&#34;LCSC&#34;</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;LCSC part number&#34;</span>
-</span></span><span style=display:flex><span>        - <span style=color:#f92672>field</span>: <span style=color:#e6db74>&#34;Quantity Per PCB&#34;</span>
-</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;QTY&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>csv</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>hide_pcb_info</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>hide_stats_info</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>quote_all</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e># PDF of Schematic with dracula theme</span>
-</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;SchPrint&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>comment</span>: <span style=color:#e6db74>&#34;Print schematic PDF&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>pdf_sch_print</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>dir</span>: <span style=color:#ae81ff>Fabrication/PDFs</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>color_theme</span>: <span style=color:#ae81ff>dracula</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>background_color</span>: <span style=color:#66d9ef>true</span>
-</span></span></code></pre></div><h2 id=fabrication class=headerLink><a href=#fabrication class=header-mark></a>Fabrication</h2><p>After the pipeline runs successfully I have the following files in my repositories Fabrication folder:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>├── ibom
-</span></span><span style=display:flex><span>│   └── myproject-ibom.html      <span style=color:#75715e># interactive BOM</span>
-</span></span><span style=display:flex><span>├── JLCPCB
-</span></span><span style=display:flex><span>│   └── myproject-JLCPCB.zip     <span style=color:#75715e># gerbers for PCB order</span>
-</span></span><span style=display:flex><span>├── JLCPCB-BOM
-</span></span><span style=display:flex><span>│   ├── myproject_bom_jlc.csv    <span style=color:#75715e># BOM for assembly or LCDC order</span>
-</span></span><span style=display:flex><span>│   └── myproject_cpl_jlc.csv    <span style=color:#75715e># Assembly position file</span>
-</span></span><span style=display:flex><span>└── PDFs
-</span></span><span style=display:flex><span>    └── myproject-schematic.pdf  <span style=color:#75715e># PDF of schematic</span>
-</span></span></code></pre></div><h2 id=todo class=headerLink><a href=#todo class=header-mark></a>TODO</h2><ul><li>I have not used JLCPCB&rsquo;s assembly service with this export so it may not be correct</li><li>The DRC appears to be using the KiCad defaults and not the options I set in KiCad, I may need to pass the designs rules to KiBot somehow.</li><li>A PDF of the PCB would also be useful but requires defining which layers etc. in the config above.</li><li>I would like the interactive BOM be upload to a gitlab page</li><li>3d export?</li></ul><h2 id=eye-candy class=headerLink><a href=#eye-candy class=header-mark></a>Eye-Candy</h2><p>This is an export from KiCad into Blender which textures applied as well as animated.</p><div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading=eager referrerpolicy=strict-origin-when-cross-origin src="https://www.youtube.com/embed/svU7NyfJJKY?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 title="YouTube video"></iframe></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-05-12</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><button title="Share on Twitter" data-sharer=twitter data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-via=sschueller data-hashtags=PCB,KiCad,EE,Gitlab,JLCPCB,LCSC><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer=facebook data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-hashtag=PCB><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on Linkedin" data-sharer=linkedin data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><span class="fab fa-linkedin fa-fw"></span></button><button title="Share on WhatsApp" data-sharer=whatsapp data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Tumblr" data-sharer=tumblr data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-tags=PCB,KiCad,EE,Gitlab,JLCPCB,LCSC><span class="fab fa-tumblr fa-fw"></span></button><button title="Share on Hacker News" data-sharer=hackernews data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><span class="fab fa-hacker-news fa-fw"></span></button><button title="Share on Reddit" data-sharer=reddit data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><span class="fab fa-reddit fa-fw"></span></button><button title="Share on VK" data-sharer=vk data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-image=rendered-esp32-base><span class="fab fa-vk fa-fw"></span></button><button title="Share on Xing" data-sharer=xing data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><span class="fab fa-xing fa-fw"></span></button><button title="Share on Line" data-sharer=line data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><span data-svg-src=/lib/simple-icons/icons/line.min.svg></span></button><button title="Share on 微博" data-sharer=weibo data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-image=rendered-esp32-base><span class="fab fa-weibo fa-fw"></span></button><button title="Share on 百度" data-sharer=baidu data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><span data-svg-src=/lib/simple-icons/icons/baidu.min.svg></span></button><button title="Share on Skype" data-sharer=skype data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><span class="fab fa-skype fa-fw"></span></button><button title="Share on Trello" data-sharer=trello data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-description><span class="fab fa-trello fa-fw"></span></button></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/pcb/>PCB</a>,&nbsp;<a href=/tags/kicad/>KiCad</a>,&nbsp;<a href=/tags/ee/>EE</a>,&nbsp;<a href=/tags/gitlab/>Gitlab</a>,&nbsp;<a href=/tags/jlcpcb/>JLCPCB</a>,&nbsp;<a href=/tags/lcsc/>LCSC</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/3d-printer-nozzle-camera/ class=prev rel=prev title="3D Printer Nozzle Camera"><i class="fas fa-angle-left fa-fw"></i>3D Printer Nozzle Camera</a>
-<a href=/posts/74-eletric-bus-charging-station/ class=next rel=next title="Zürich's new 74 bus fast charging station">Zürich's new 74 bus fast charging station<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=utterances></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreferrer" title="Hugo 0.154.2">Hugo</a>&nbsp;|&nbsp;Theme - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreferrer" title="DoIt 0.4.0"><i class="far fa-edit fa-fw"></i> DoIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2026</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer"></a></span></div><div class=footer-line></div><div class=footer-line></div></div></footer></div><div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw"></i>
-</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw"></i></a></div><div class=assets><link rel=stylesheet href=/lib/katex/katex.min.css><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"Comment",lightTheme:"github-light",repo:"sschueller/sschueller.github.io"}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},sharerjs:!0}</script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js defer></script><script type=text/javascript src=/lib/katex/auto-render.min.js defer></script><script type=text/javascript src=/js/katex.min.js defer></script><script type=text/javascript src=/js/theme.min.js defer></script><script type=text/javascript src=/js/utterances.min.js defer></script></div></body></html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>CI/CD with KiCad and Gitlab - Stefan Schüller</title><meta name=Description content><meta property="og:url" content="https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/"><meta property="og:site_name" content="Stefan Schüller"><meta property="og:title" content="CI/CD with KiCad and Gitlab"><meta property="og:description" content="(Blender Render of KiCad Exported PCB)"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-05-12T17:37:16+02:00"><meta property="article:modified_time" content="2023-11-12T10:49:19+00:00"><meta property="article:tag" content="PCB"><meta property="article:tag" content="KiCad"><meta property="article:tag" content="EE"><meta property="article:tag" content="Gitlab"><meta property="article:tag" content="JLCPCB"><meta property="article:tag" content="LCSC"><meta name=twitter:card content="summary"><meta name=twitter:title content="CI/CD with KiCad and Gitlab"><meta name=twitter:description content="(Blender Render of KiCad Exported PCB)"><meta name=application-name content="Stefan Schüller"><meta name=apple-mobile-web-app-title content="Stefan Schüller"><meta name=theme-color content="#f8f8f8"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><link rel=prev href=https://sschueller.github.io/posts/3d-printer-nozzle-camera/><link rel=next href=https://sschueller.github.io/posts/74-eletric-bus-charging-station/><link rel=stylesheet href=/css/main.min.css><link rel=stylesheet href=/css/style.min.css><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"CI/CD with KiCad and Gitlab","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/"},"image":[{"@type":"ImageObject","url":"https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/render.png","width":1920,"height":1080}],"genre":"posts","keywords":["PCB","KiCad","EE","Gitlab","JLCPCB","LCSC"],"wordcount":1247,"url":"https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/","datePublished":"2023-05-12T17:37:16+02:00","dateModified":"2023-11-12T10:49:19+00:00","publisher":{"@type":"Organization","name":"Stefan Schüller"},"author":{"@type":"Person","name":"Stefan Schüller","url":"https://github.com/sschueller/"},"description":""}</script></head><body data-instant-intensity=viewport class="tw-flex tw-min-h-screen tw-flex-col"><script>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.className=e,document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark"),e==="light"?document.documentElement.classList.remove("tw-dark"):document.documentElement.classList.add("tw-dark"),window.theme=e,window.isDark=window.theme!=="light"}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(e){const t=document.getElementsByTagName("meta");for(let n=0;n<t.length;n++)if(t[n].getAttribute("name")===e)return t[n];return""}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"?setTheme(e):setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}else""==="light"||""==="dark"?(setTheme(""),saveTheme("")):(saveTheme("auto"),setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));let metaColors={light:"#f8f8f8",dark:"#161b22"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")],window.switchThemeEventSet=new Set</script><div id=back-to-top></div><div id=mask></div><header class="desktop print:!tw-hidden" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Stefan Schüller">Stefan Schüller</a></div><div class=menu><div class=menu-inner><button class="menu-item theme-switch" aria-label="Switch Theme">
+<svg class="icon" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705.0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg></button></div></div></div></header><header class="mobile print:!tw-hidden" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Stefan Schüller">Stefan Schüller</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><button class="menu-item theme-switch tw-w-full" aria-label="Switch Theme">
+<svg class="icon" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705.0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg></button></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class="tw-mx-4 tw-flex-1"><div class="toc print:!tw-hidden" id=toc-auto><h2 class=toc-title>Contents</h2><div class="toc-content always-active" id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#git>Git</a></li><li><a href=#kicad-setup>KiCad Setup</a></li><li><a href=#gitlab-setup>GitLab Setup</a><ul><li><a href=#gitlab-ci>Gitlab CI</a></li><li><a href=#kibot>KiBot</a></li></ul></li><li><a href=#fabrication>Fabrication</a></li><li><a href=#todo>TODO</a></li><li><a href=#eye-candy>Eye-Candy</a></li></ul></nav></div></div><dialog id=toc-dialog class="tw-max-w-full tw-w-full tw-max-h-full tw-h-full tw-ml-16"><div class="toc tw-mx-4 tw-max-w-full"><h2 class="tw-mx-0 tw-my-6 tw-uppercase tw-text-2xl">Contents</h2><div class=toc-content><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#git>Git</a></li><li><a href=#kicad-setup>KiCad Setup</a></li><li><a href=#gitlab-setup>GitLab Setup</a><ul><li><a href=#gitlab-ci>Gitlab CI</a></li><li><a href=#kibot>KiBot</a></li></ul></li><li><a href=#fabrication>Fabrication</a></li><li><a href=#todo>TODO</a></li><li><a href=#eye-candy>Eye-Candy</a></li></ul></nav></div></div></dialog><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single print:!tw-w-full print:!tw-max-w-none print:!tw-m-0 print:!tw-p-0"><h1 class=single-title data-pagefind-meta=date:2023-05-12 data-pagefind-body>CI/CD with KiCad and Gitlab</h1><div class=post-meta><div class=post-meta-line><span class=post-author><svg class="icon" viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6.0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7.0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4.0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9s28-2.7 40.9-6.9c2.3-.7 4.7-1.1 7.1-1.1 42.9.0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href=https://github.com/sschueller/ title=Author target=_blank rel="noopener noreferrer author" class=author>Stefan Schüller</a>
+</span>&nbsp;<span class=post-category>included in </span>&nbsp;<span class=post-category>category <a href=/categories/projects/><svg class="icon" viewBox="0 0 512 512"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49.0 112v288c0 26.51 21.49 48 48 48h416c26.51.0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Projects</a></span></div><div class=post-meta-line><svg class="icon" viewBox="0 0 448 512"><path d="M148 288h-40c-6.6.0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h48c26.5.0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3.0 6-2.7 6-6z"/></svg>&nbsp;<time datetime=2023-05-12>2023-05-12</time>&nbsp;<svg class="icon" viewBox="0 0 576 512"><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1.0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7.0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174 402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7-43.2-43.2c-4.1-4.1-10.8-4.1-14.8.0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg>&nbsp;<time datetime=2023-11-12>2023-11-12</time>&nbsp;<svg class="icon" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3.0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9.0l60.1 60.1c18.8 18.7 18.8 49.1.0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3.0-17l-111-111c-4.8-4.7-12.4-4.7-17.1.0zM124.1 339.9c-5.5-5.5-5.5-14.3.0-19.8l154-154c5.5-5.5 14.3-5.5 19.8.0s5.5 14.3.0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8.0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;1247 words&nbsp;
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5.0-2e2-89.5-2e2-2e2S145.5 56 256 56s2e2 89.5 2e2 2e2-89.5 2e2-2e2 2e2zm61.8-104.4-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6.0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;6 minutes&nbsp;</div></div><div class=featured-image><img loading=eager src=/posts/ci-cd-with-kicad-and-gitlab/render.png height=1080 width=1920></div><div class="details toc print:!tw-block" id=toc-static kept><div class="details-summary toc-title"><span>Contents</span>
+<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#git>Git</a></li><li><a href=#kicad-setup>KiCad Setup</a></li><li><a href=#gitlab-setup>GitLab Setup</a><ul><li><a href=#gitlab-ci>Gitlab CI</a></li><li><a href=#kibot>KiBot</a></li></ul></li><li><a href=#fabrication>Fabrication</a></li><li><a href=#todo>TODO</a></li><li><a href=#eye-candy>Eye-Candy</a></li></ul></nav></div></div><div class=content id=content data-pagefind-body><p>(Blender Render of KiCad Exported PCB)</p><h2 id=introduction class=headerLink><a href=#introduction class=header-mark></a>Introduction</h2><p>I make many small projects and usually order PCBs at some place. Generating Gerber files and checking everything is in order before ordering can be tedious. Additionally the more complex the board the more parts I need and most likely I will also need a reference in order to place the parts.</p><p>So I decided to setup a gitlab pipeline to automate the whole process.</p><p>After I commit into the master the gitlab pipeline will run tests on the schematic and on the PCB. If those pass it will generate the Gerbers I need for the specific fab I use (JLCPCB in this case) and also generate a BOM which I can use to order parts at LCSC. Additionally it will generate a fancy <a href=https://openscopeproject.org/InteractiveHtmlBomDemo/ target=_blank rel="noopener noreferrer">KiCad Interactive HTML BOM</a>, position file for JLCPCB (if you want them to do assembly) and a <a href=https://github.com/sschueller/sschueller.github.io/raw/master/content/posts/ci-cd-with-kicad-and-gitlab/shades-schematic-1.pdf target=_blank rel="noopener noreferrer">PDF of the schematic</a>
+. All these artifacts are commited back into the master and a version is applied. I also have a CHANGELOG.md which is automatically filled from commit messages (I used conventional commits to format my commit messages)</p><h2 id=git class=headerLink><a href=#git class=header-mark></a>Git</h2><p>In order for this to work you need to keep your KiCad project in a git repository. To do this I use the following <code>.gitignore</code> (KiCad makes tons of files but you don&rsquo;t need to commit all of them) and file structure.</p><p><strong>Folder Structure</strong></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-1 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl>├── ci/               <span class=c1># Files specific to CI (colors for PDF etc.)</span>
+</span></span><span class=line><span class=cl>├── datasheets/       <span class=c1># Data sheets of items I used in this project</span>
+</span></span><span class=line><span class=cl>├── Fabrication/      <span class=c1># Fabrication output</span>
+</span></span><span class=line><span class=cl>├── footprints/       <span class=c1># KiCad footprints (only for this project)</span>
+</span></span><span class=line><span class=cl>├── library/          <span class=c1># KiCad libraries (only for this project)</span>
+</span></span><span class=line><span class=cl>├── packages3d/       <span class=c1># KiCad 3d packages (only for this project)</span>
+</span></span><span class=line><span class=cl>├── VERSION.txt       <span class=c1># version (Auto updated)</span>
+</span></span><span class=line><span class=cl>├── CHANGELOG.md      <span class=c1># changelog (Auto generated)</span>
+</span></span><span class=line><span class=cl>├── README.md
+</span></span><span class=line><span class=cl>├── output.kibot.yaml <span class=c1># KiBot output configuration, gerbers, BOM etc.</span>
+</span></span><span class=line><span class=cl>├── test.kibot.yaml   <span class=c1># KiBot Tests</span>
+</span></span><span class=line><span class=cl>├── .gitignore
+</span></span><span class=line><span class=cl>└── .gitlab-ci.yml    <span class=c1># Gitlab CI file</span></span></span></code></pre></div><p><strong>.gitignore</strong></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-2 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl><span class=c1># For PCBs designed using KiCad: http://www.kicad-pcb.org/</span>
+</span></span><span class=line><span class=cl><span class=c1># Format documentation: http://kicad-pcb.org/help/file-formats/</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Temporary files</span>
+</span></span><span class=line><span class=cl>*.000
+</span></span><span class=line><span class=cl>*.bak
+</span></span><span class=line><span class=cl>*.bck
+</span></span><span class=line><span class=cl>*.kicad_pcb-bak
+</span></span><span class=line><span class=cl>*.kicad_sch-bak
+</span></span><span class=line><span class=cl>*.kicad_prl
+</span></span><span class=line><span class=cl>*.sch-bak
+</span></span><span class=line><span class=cl>*~
+</span></span><span class=line><span class=cl>_autosave-*
+</span></span><span class=line><span class=cl>*.tmp
+</span></span><span class=line><span class=cl>*-save.pro
+</span></span><span class=line><span class=cl>*-save.kicad_pcb
+</span></span><span class=line><span class=cl>fp-info-cache
+</span></span><span class=line><span class=cl>*-backups/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Netlist files (exported from Eeschema)</span>
+</span></span><span class=line><span class=cl>*.net
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Autorouter files (exported from Pcbnew)</span>
+</span></span><span class=line><span class=cl>*.dsn
+</span></span><span class=line><span class=cl>*.ses
+</span></span><span class=line><span class=cl>*.rules
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Exported BOM files</span>
+</span></span><span class=line><span class=cl>*.xml
+</span></span><span class=line><span class=cl>*.csv
+</span></span><span class=line><span class=cl>export-*
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Rendered output</span>
+</span></span><span class=line><span class=cl>3d/Render/*</span></span></code></pre></div><h2 id=kicad-setup class=headerLink><a href=#kicad-setup class=header-mark></a>KiCad Setup</h2><p>When adding components, add &ldquo;LCSC&rdquo; to overall schematic (BOM export will fail if added to each part separately (join issue)) and the part number in each part to the part in order to use the JLCPCB assembly service. Only parts with LCSC column are exported in the JLCPCB BOMs.</p><p><img class=tw-inline loading=lazy src=/posts/ci-cd-with-kicad-and-gitlab/kicad-pref.png alt="KiCad Schematic Preferences" height=424 width=604></p><p>Now when adding parts fill in the LCSC field.</p><p><img class=tw-inline loading=lazy src=/posts/ci-cd-with-kicad-and-gitlab/kicad-part.png alt="KiCad Part Edit" height=294 width=753></p><h2 id=gitlab-setup class=headerLink><a href=#gitlab-setup class=header-mark></a>GitLab Setup</h2><p><img class=tw-inline loading=lazy src=/posts/ci-cd-with-kicad-and-gitlab/gitlab-pipeline.png height=280 width=830></p><p>I use a general gitlab setup with docker runners and <a href=https://levelup.gitconnected.com/semantic-versioning-and-release-automation-on-gitlab-9ba16af0c21 target=_blank rel="noopener noreferrer">semantic releases</a></p><h3 id=gitlab-ci class=headerLink><a href=#gitlab-ci class=header-mark></a>Gitlab CI</h3><p>.gitlab-ci.yml</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-3 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>stages</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>fetch-version</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>testing</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>gen_fab</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>publish</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c>#https://levelup.gitconnected.com/semantic-versioning-and-release-automation-on-gitlab-9ba16af0c21</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>fetch-semantic-version</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>node:18</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>stage</span><span class=p>:</span><span class=w> </span><span class=l>fetch-version</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>only</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>refs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>master</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>alpha</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/^(([0-9]+)\.)?([0-9]+)\.x/</span><span class=w> </span><span class=c># This matches maintenance branches</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span><span class=w> </span><span class=c># This matches pre-releases</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>script</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>npx semantic-release --generate-notes false --dry-run</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>artifacts</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>paths</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>VERSION.txt</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tags</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>docker</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>generate-non-semantic-version</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>stage</span><span class=p>:</span><span class=w> </span><span class=l>fetch-version</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>except</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>refs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>master</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>alpha</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/^(([0-9]+)\.)?([0-9]+)\.x/</span><span class=w> </span><span class=c># This matches maintenance branches</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span><span class=w> </span><span class=c># This matches pre-releases</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>script</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>echo build-$CI_PIPELINE_ID &gt; VERSION.txt</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>artifacts</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>paths</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>VERSION.txt</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tags</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>docker</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>tests</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>ghcr.io/inti-cmnb/kicad7_auto:1.6.2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>stage</span><span class=p>:</span><span class=w> </span><span class=l>testing</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>script</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=s2>&#34;[ -f *.kicad_pcb ] &amp;&amp; kibot -c test.kibot.yaml&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tags</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>docker</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>pcb_outputs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>ghcr.io/inti-cmnb/kicad7_auto:1.6.2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>stage</span><span class=p>:</span><span class=w> </span><span class=l>gen_fab</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>script</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=s2>&#34;[ -f *.kicad_pcb ] &amp;&amp; kibot -c output.kibot.yaml&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>only</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>refs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>master</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>alpha</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=c># This matches maintenance branches</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/^(([0-9]+)\.)?([0-9]+)\.x/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=c># This matches pre-releases</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>artifacts</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=l>always</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>paths</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>Fabrication/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tags</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>docker</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>release</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>stage</span><span class=p>:</span><span class=w> </span><span class=l>publish</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>node:18</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>only</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>refs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>master</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>alpha</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=c># This matches maintenance branches</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/^(([0-9]+)\.)?([0-9]+)\.x/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=c># This matches pre-releases</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>script</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>npm install @semantic-release/gitlab @semantic-release/exec @semantic-release/changelog @semantic-release/git -D</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>npx semantic-release</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tags</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>docker</span></span></span></code></pre></div><h3 id=kibot class=headerLink><a href=#kibot class=header-mark></a>KiBot</h3><p><a href=https://github.com/INTI-CMNB/KiBot target=_blank rel="noopener noreferrer">KiBot</a> lets you automate almost anything that KiCad can do. I use it with docker to be able to run it in gitlab.</p><p>Here is the test and output configrations I use which are specific for JLCPCB but can be adjusted to almost any fab. There are also many <a href=https://github.com/INTI-CMNB/KiBot/tree/master/docs/samples target=_blank rel="noopener noreferrer">examples</a> on the KiBot github for other fabs.</p><p>test.kibot.yaml</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-4 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>kibot</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>preflight</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>run_erc</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>update_xml</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>run_drc</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>check_zone_fills</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ignore_unconnected</span><span class=p>:</span><span class=w> </span><span class=kc>false</span></span></span></code></pre></div><p>output.kibot.yaml</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-5 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl><span class=c># Gerber and drill files for JLCPCB, without stencil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># URL: https://jlcpcb.com/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kibot</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>globals</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>resources_dir</span><span class=p>:</span><span class=w> </span><span class=l>ci</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>filters</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>only_jlc_parts</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>comment</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Only parts with JLC (LCSC) code&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>generic</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>include_only</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>column</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;LCSC&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>regex</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;^C\d+&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>variants</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>rotated</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>comment</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Just a place holder for the rotation filter&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>kibom</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>variant</span><span class=p>:</span><span class=w> </span><span class=l>rotated</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>pre_transform</span><span class=p>:</span><span class=w> </span><span class=l>_rot_footprint</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># JLCPCB Gerber Output</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>outputs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>JLCPCB_gerbers</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>comment</span><span class=p>:</span><span class=w> </span><span class=l>Gerbers compatible with JLCPCB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>gerber</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>dir</span><span class=p>:</span><span class=w> </span><span class=l>JLCPCB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>options</span><span class=p>:</span><span class=w> </span><span class=cp>&amp;gerber_options</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>exclude_edge_layer</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>exclude_pads_from_silkscreen</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>plot_sheet_reference</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>plot_footprint_refs</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>plot_footprint_values</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>force_plot_invisible_refs_vals</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>tent_vias</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>use_protel_extensions</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>create_gerber_job_file</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>disable_aperture_macros</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>gerber_precision</span><span class=p>:</span><span class=w> </span><span class=m>4.6</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>use_gerber_x2_attributes</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>use_gerber_net_attributes</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>line_width</span><span class=p>:</span><span class=w> </span><span class=m>0.1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>subtract_mask_from_silk</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>layers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=c># Note: a more generic approach is to use &#39;copper&#39; but then the filenames</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=c># are slightly different.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>F.Cu</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>B.Cu</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>F.Paste</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>B.Paste</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>F.SilkS</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>B.SilkS</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>F.Mask</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>B.Mask</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>Edge.Cuts</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># JLCPCB drill files</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>JLCPCB_drill</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>comment</span><span class=p>:</span><span class=w> </span><span class=l>Drill files compatible with JLCPCB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>excellon</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>dir</span><span class=p>:</span><span class=w> </span><span class=l>JLCPCB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>options</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>pth_and_npth_single_file</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>pth_id</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;-PTH&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>npth_id</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;-NPTH&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>metric_units</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;%f%i.%x&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># zip all JLCPCB gerber and drill files together</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>JLCPCB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>comment</span><span class=p>:</span><span class=w> </span><span class=l>ZIP file for JLCPCB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>compress</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>dir</span><span class=p>:</span><span class=w> </span><span class=l>Fabrication/JLCPCB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>options</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>files</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>from_output</span><span class=p>:</span><span class=w> </span><span class=l>JLCPCB_gerbers</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>dest</span><span class=p>:</span><span class=w> </span><span class=l>/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>from_output</span><span class=p>:</span><span class=w> </span><span class=l>JLCPCB_drill</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>dest</span><span class=p>:</span><span class=w> </span><span class=l>/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># html ibom</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>ibom</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>comment</span><span class=p>:</span><span class=w> </span><span class=l>Interactive BOM</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>ibom</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>dir</span><span class=p>:</span><span class=w> </span><span class=l>Fabrication/ibom</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>options</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>dark_mode</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>name_format</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;index&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># JLCPCB assembly positions of components</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;JLCPCB_position&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>comment</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Pick and place file, JLCPCB style&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>position</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>dir</span><span class=p>:</span><span class=w> </span><span class=l>Fabrication/JLCPCB-BOM</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>options</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>variant</span><span class=p>:</span><span class=w> </span><span class=l>rotated</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;%f_cpl_jlc.%x&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>format</span><span class=p>:</span><span class=w> </span><span class=l>CSV</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>units</span><span class=p>:</span><span class=w> </span><span class=l>millimeters</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>separate_files_for_front_and_back</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>only_smd</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>columns</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>Ref</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Designator</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=l>Val</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=l>Package</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>PosX</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Mid X&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>PosY</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Mid Y&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>Rot</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Rotation</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>Side</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Layer</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># JLCPCB Bom for assembly or for LCSC order</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;JLCPCB_bom&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>comment</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;BoM for JLCPCB&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>bom</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>dir</span><span class=p>:</span><span class=w> </span><span class=l>Fabrication/JLCPCB-BOM</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>options</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;%f_%i_jlc.%x&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>exclude_filter</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;only_jlc_parts&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>ref_separator</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;,&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>columns</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>field</span><span class=p>:</span><span class=w> </span><span class=l>Value</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Comment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>field</span><span class=p>:</span><span class=w> </span><span class=l>References</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Designator</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=l>Footprint</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>field</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;LCSC&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;LCSC part number&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>field</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Quantity Per PCB&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;QTY&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>csv</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>hide_pcb_info</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>hide_stats_info</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>quote_all</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># PDF of Schematic with dracula theme</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;SchPrint&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>comment</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Print schematic PDF&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>pdf_sch_print</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>dir</span><span class=p>:</span><span class=w> </span><span class=l>Fabrication/PDFs</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>options</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>color_theme</span><span class=p>:</span><span class=w> </span><span class=l>dracula</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>background_color</span><span class=p>:</span><span class=w> </span><span class=kc>true</span></span></span></code></pre></div><h2 id=fabrication class=headerLink><a href=#fabrication class=header-mark></a>Fabrication</h2><p>After the pipeline runs successfully I have the following files in my repositories Fabrication folder:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-6 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl>├── ibom
+</span></span><span class=line><span class=cl>│   └── myproject-ibom.html      <span class=c1># interactive BOM</span>
+</span></span><span class=line><span class=cl>├── JLCPCB
+</span></span><span class=line><span class=cl>│   └── myproject-JLCPCB.zip     <span class=c1># gerbers for PCB order</span>
+</span></span><span class=line><span class=cl>├── JLCPCB-BOM
+</span></span><span class=line><span class=cl>│   ├── myproject_bom_jlc.csv    <span class=c1># BOM for assembly or LCDC order</span>
+</span></span><span class=line><span class=cl>│   └── myproject_cpl_jlc.csv    <span class=c1># Assembly position file</span>
+</span></span><span class=line><span class=cl>└── PDFs
+</span></span><span class=line><span class=cl>    └── myproject-schematic.pdf  <span class=c1># PDF of schematic</span></span></span></code></pre></div><h2 id=todo class=headerLink><a href=#todo class=header-mark></a>TODO</h2><ul><li>I have not used JLCPCB&rsquo;s assembly service with this export so it may not be correct</li><li>The DRC appears to be using the KiCad defaults and not the options I set in KiCad, I may need to pass the designs rules to KiBot somehow.</li><li>A PDF of the PCB would also be useful but requires defining which layers etc. in the config above.</li><li>I would like the interactive BOM be upload to a gitlab page</li><li>3d export?</li></ul><h2 id=eye-candy class=headerLink><a href=#eye-candy class=header-mark></a>Eye-Candy</h2><p>This is an export from KiCad into Blender which textures applied as well as animated.</p><div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading=eager referrerpolicy=strict-origin-when-cross-origin src="https://www.youtube.com/embed/svU7NyfJJKY?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 title="YouTube video"></iframe></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-11-12</span></div><div class=post-info-license></div></div><div class="post-info-line print:!tw-hidden"><div class=post-info-md></div><div class=post-info-share><button title="Share on Twitter" data-sharer=twitter data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-hashtags=PCB,KiCad,EE,Gitlab,JLCPCB,LCSC><svg class="icon" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645.0 138.72-105.583 298.558-298.558 298.558-59.452.0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055.0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421.0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391.0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04.0-57.828 46.782-104.934 104.934-104.934 30.213.0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></button><button title="Share on Facebook" data-sharer=facebook data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-hashtag=PCB><svg class="icon" viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14.0 55.52 4.84 55.52 4.84v61h-31.28c-30.8.0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg></button><button title="Share on Linkedin" data-sharer=linkedin data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><svg class="icon" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5.0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6.0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3.0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2.0 38.5 17.3 38.5 38.5.0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6.0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2.0 79.7 44.3 79.7 101.9V416z"/></svg></button><button title="Share on WhatsApp" data-sharer=whatsapp data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-web><svg class="icon" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4.0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3.0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2.0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2.0-101.7 82.8-184.5 184.6-184.5 49.3.0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5.0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8s-14.3 18-17.6 21.8c-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2s-9.7 1.4-14.8 6.9c-5.1 5.6-19.4 19-19.4 46.3.0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></button><button title="Share on Tumblr" data-sharer=tumblr data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-tags=PCB,KiCad,EE,Gitlab,JLCPCB,LCSC><svg class="icon" viewBox="0 0 320 512"><path d="M309.8 480.3c-13.6 14.5-50 31.7-97.4 31.7-120.8.0-147-88.8-147-140.6v-144H17.9c-5.5.0-10-4.5-10-10v-68c0-7.2 4.5-13.6 11.3-16 62-21.8 81.5-76 84.3-117.1.8-11 6.5-16.3 16.1-16.3h70.9c5.5.0 10 4.5 10 10v115.2h83c5.5.0 10 4.4 10 9.9v81.7c0 5.5-4.5 10-10 10h-83.4V360c0 34.2 23.7 53.6 68 35.8 4.8-1.9 9-3.2 12.7-2.2 3.5.9 5.8 3.4 7.4 7.9l22 64.3c1.8 5 3.3 10.6-.4 14.5z"/></svg></button><button title="Share on Hacker News" data-sharer=hackernews data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><svg class="icon" viewBox="0 0 448 512"><path d="M0 32v448h448V32H0zm21.2 197.2H21c.1-.1.2-.3.3-.4.0.1.0.3-.1.4zm218 53.9V384h-31.4V281.3L128 128h37.3c52.5 98.3 49.2 101.2 59.3 125.6 12.3-27 5.8-24.4 60.6-125.6H320l-80.8 155.1z"/></svg></button><button title="Share on Reddit" data-sharer=reddit data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><svg class="icon" viewBox="0 0 512 512"><path d="M201.5 305.5c-13.8.0-24.9-11.1-24.9-24.6.0-13.8 11.1-24.9 24.9-24.9 13.6.0 24.6 11.1 24.6 24.9.0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4.0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8.0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7.0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9.0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5.0 52.6 59.2 95.2 132 95.2 73.1.0 132.3-42.6 132.3-95.2.0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6.0-2.2-2.2-6.1-2.2-8.3.0-2.5 2.5-2.5 6.4.0 8.6 22.8 22.8 87.3 22.8 110.2.0 2.5-2.2 2.5-6.1.0-8.6-2.2-2.2-6.1-2.2-8.3.0zm7.7-75c-13.6.0-24.6 11.1-24.6 24.9.0 13.6 11.1 24.6 24.6 24.6 13.8.0 24.9-11.1 24.9-24.6.0-13.8-11-24.9-24.9-24.9z"/></svg></button><button title="Share on VK" data-sharer=vk data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-image=rendered-esp32-base><svg class="icon" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5.0-21.7-17.8-21.7h-58.9c-15 0-21.9 7.9-25.6 16.7.0.0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7.0-9.4-4.4-9.4-16.9V117.7c0-15-4.2-21.7-16.6-21.7h-92.6c-9.4.0-15 7-15 13.5.0 14.2 21.2 17.5 23.4 57.5v86.8c0 19-3.4 22.5-10.9 22.5-20 0-68.6-73.4-97.4-157.4-5.8-16.3-11.5-22.9-26.6-22.9H38.8c-16.8.0-20.2 7.9-20.2 16.7.0 15.6 20 93.1 93.1 195.5C160.4 378.1 229 416 291.4 416c37.5.0 42.1-8.4 42.1-22.9.0-66.8-3.4-73.1 15.4-73.1 8.7.0 23.7 4.4 58.7 38.1 40 40 46.6 57.9 69 57.9h58.9c16.8.0 25.3-8.4 20.4-25-11.2-34.9-86.9-106.7-90.3-111.5-8.7-11.2-6.2-16.2.0-26.2.1-.1 72-101.3 79.4-135.6z"/></svg></button><button title="Share on Xing" data-sharer=xing data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><svg class="icon" viewBox="0 0 384 512"><path d="M162.7 210c-1.8 3.3-25.2 44.4-70.1 123.5-4.9 8.3-10.8 12.5-17.7 12.5H9.8c-7.7.0-12.1-7.5-8.5-14.4l69-121.3c.2.0.2-.1.0-.3l-43.9-75.6c-4.3-7.8.3-14.1 8.5-14.1H1e2c7.3.0 13.3 4.1 18 12.2l44.7 77.5zM382.6 46.1l-144 253v.3L330.2 466c3.9 7.1.2 14.1-8.5 14.1h-65.2c-7.6.0-13.6-4-18-12.2l-92.4-168.5c3.3-5.8 51.5-90.8 144.8-255.2 4.6-8.1 10.4-12.2 17.5-12.2h65.7c8 0 12.3 6.7 8.5 14.1z"/></svg></button><button title="Share on Line" data-sharer=line data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><svg class="icon" role="img" viewBox="0 0 24 24"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></button><button title="Share on Pocket" data-sharer=pocket data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/><svg class="icon" viewBox="0 0 448 512"><path d="M407.6 64h-367C18.5 64 0 82.5.0 104.6v135.2C0 364.5 99.7 464 224.2 464c124 0 223.8-99.5 223.8-224.2V104.6c0-22.4-17.7-40.6-40.4-40.6zm-162 268.5c-12.4 11.8-31.4 11.1-42.4.0C89.5 223.6 88.3 227.4 88.3 209.3c0-16.9 13.8-30.7 30.7-30.7 17 0 16.1 3.8 105.2 89.3 90.6-86.9 88.6-89.3 105.5-89.3 16.9.0 30.7 13.8 30.7 30.7.0 17.8-2.9 15.7-114.8 123.2z"/></svg></button><button title="Share on 微博" data-sharer=weibo data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-image=rendered-esp32-base><svg class="icon" viewBox="0 0 512 512"><path d="M407 177.6c7.6-24-13.4-46.8-37.4-41.7-22 4.8-28.8-28.1-7.1-32.8 50.1-10.9 92.3 37.1 76.5 84.8-6.8 21.2-38.8 10.8-32-10.3zM214.8 446.7C108.5 446.7.0 395.3.0 310.4c0-44.3 28-95.4 76.3-143.7C176 67 279.5 65.8 249.9 161c-4 13.1 12.3 5.7 12.3 6 79.5-33.6 140.5-16.8 114 51.4-3.7 9.4 1.1 10.9 8.3 13.1 135.7 42.3 34.8 215.2-169.7 215.2zm143.7-146.3c-5.4-55.7-78.5-94-163.4-85.7-84.8 8.6-148.8 60.3-143.4 116s78.5 94 163.4 85.7c84.8-8.6 148.8-60.3 143.4-116zM347.9 35.1c-25.9 5.6-16.8 43.7 8.3 38.3 72.3-15.2 134.8 52.8 111.7 124-7.4 24.2 29.1 37 37.4 12 31.9-99.8-55.1-195.9-157.4-174.3zm-78.5 311c-17.1 38.8-66.8 60-109.1 46.3-40.8-13.1-58-53.4-40.3-89.7 17.7-35.4 63.1-55.4 103.4-45.1 42 10.8 63.1 50.2 46 88.5zm-86.3-30c-12.9-5.4-30 .3-38 12.9-8.3 12.9-4.3 28 8.6 34 13.1 6 30.8.3 39.1-12.9 8-13.1 3.7-28.3-9.7-34zm32.6-13.4c-5.1-1.7-11.4.6-14.3 5.4-2.9 5.1-1.4 10.6 3.7 12.9 5.1 2 11.7-.3 14.6-5.4 2.8-5.2 1.1-10.9-4-12.9z"/></svg></button><button title="Share on Blogger" data-sharer=blogger data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-description><svg class="icon" viewBox="0 0 448 512"><path d="M162.4 196c4.8-4.9 6.2-5.1 36.4-5.1 27.2.0 28.1.1 32.1 2.1 5.8 2.9 8.3 7 8.3 13.6.0 5.9-2.4 10-7.6 13.4-2.8 1.8-4.5 1.9-31.1 2.1-16.4.1-29.5-.2-31.5-.8-10.3-2.9-14.1-17.7-6.6-25.3zm61.4 94.5c-53.9.0-55.8.2-60.2 4.1-3.5 3.1-5.7 9.4-5.1 13.9.7 4.7 4.8 10.1 9.2 12 2.2 1 14.1 1.7 56.3 1.2l47.9-.6 9.2-1.5c9-5.1 10.5-17.4 3.1-24.4-5.3-4.7-5-4.7-60.4-4.7zm223.4 130.1c-3.5 28.4-23 50.4-51.1 57.5-7.2 1.8-9.7 1.9-172.9 1.8-157.8.0-165.9-.1-172-1.8-8.4-2.2-15.6-5.5-22.3-10-5.6-3.8-13.9-11.8-17-16.4-3.8-5.6-8.2-15.3-10-22C.1 423 0 420.3.0 256.3.0 93.2.0 89.7 1.8 82.6 8.1 57.9 27.7 39 53 33.4c7.3-1.6 332.1-1.9 340-.3 21.2 4.3 37.9 17.1 47.6 36.4 7.7 15.3 7-1.5 7.3 180.6.2 115.8.0 164.5-.7 170.5zm-85.4-185.2c-1.1-5-4.2-9.6-7.7-11.5-1.1-.6-8-1.3-15.5-1.7-12.4-.6-13.8-.8-17.8-3.1-6.2-3.6-7.9-7.6-8-18.3.0-20.4-8.5-39.4-25.3-56.5-12-12.2-25.3-20.5-40.6-25.1-3.6-1.1-11.8-1.5-39.2-1.8-42.9-.5-52.5.4-67.1 6.2-27 10.7-46.3 33.4-53.4 62.4-1.3 5.4-1.6 14.2-1.9 64.3-.4 62.8.0 72.1 4 84.5 9.7 30.7 37.1 53.4 64.6 58.4 9.2 1.7 122.2 2.1 133.7.5 20.1-2.7 35.9-10.8 50.7-25.9 10.7-10.9 17.4-22.8 21.8-38.5 3.2-10.9 2.9-88.4 1.7-93.9z"/></svg></button><button title="Share on 百度" data-sharer=baidu data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><svg class="icon" role="img" viewBox="0 0 24 24"><title>Baidu</title><path d="M9.154.0C7.71.0 6.54 1.658 6.54 3.707c0 2.051 1.171 3.71 2.615 3.71 1.446.0 2.614-1.659 2.614-3.71C11.768 1.658 10.6.0 9.154.0zm7.025.594C14.86.58 13.347 2.589 13.2 3.927c-.187 1.745.25 3.487 2.179 3.735 1.933.25 3.175-1.806 3.422-3.364.252-1.555-.995-3.364-2.362-3.674a1.218 1.218.0 00-.261-.03zM3.582 5.535a2.811 2.811.0 00-.156.008c-2.118.19-2.428 3.24-2.428 3.24-.287 1.41.686 4.425 3.297 3.864 2.617-.561 2.262-3.68 2.183-4.362-.125-1.018-1.292-2.773-2.896-2.75zm16.534 1.753c-2.308.0-2.617 2.119-2.617 3.616.0 1.43.121 3.425 2.988 3.362s2.553-3.238 2.553-3.988c0-.745-.62-2.99-2.924-2.99zm-8.264 2.478c-1.424.014-2.708.925-3.323 1.947-1.118 1.868-2.863 3.05-3.112 3.363-.25.309-3.61 2.116-2.864 5.42.746 3.301 3.365 3.237 3.365 3.237s1.93.19 4.171-.31c2.24-.495 4.17.123 4.17.123s5.233 1.748 6.665-1.616c1.43-3.364-.808-5.109-.808-5.109s-2.99-2.306-4.736-4.798c-1.072-1.665-2.348-2.268-3.528-2.257zm-2.234 3.84 1.542.024v8.197H7.758c-1.47-.291-2.055-1.292-2.13-1.462-.072-.173-.488-.976-.268-2.343.635-2.049 2.447-2.196 2.447-2.196h1.81zm3.964 2.39v3.881c.096.413.612.488.612.488h1.614v-4.343h1.689v5.782h-3.915c-1.517-.39-1.59-1.465-1.59-1.465v-4.317zm-5.458 1.147c-.66.197-.978.708-1.05.928-.076.22-.247.78-.1 1.269.294 1.095 1.248 1.144 1.248 1.144h1.37v-3.34z"/></svg></button><button title="Share on Evernote" data-sharer=evernote data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><svg class="icon" viewBox="0 0 384 512"><path d="M120.82 132.21c1.6 22.31-17.55 21.59-21.61 21.59-68.93.0-73.64-1-83.58 3.34-.56.22-.74.0-.37-.37L123.79 46.45c.38-.37.6-.22.38.37-4.35 9.99-3.35 15.09-3.35 85.39zm79 308c-14.68-37.08 13-76.93 52.52-76.62 17.49.0 22.6 23.21 7.95 31.42-6.19 3.3-24.95 1.74-25.14 19.2-.05 17.09 19.67 25 31.2 24.89A45.64 45.64.0 00312 393.45v-.08c0-11.63-7.79-47.22-47.54-55.34-7.72-1.54-65-6.35-68.35-50.52-3.74 16.93-17.4 63.49-43.11 69.09-8.74 1.94-69.68 7.64-112.92-36.77.0.0-18.57-15.23-28.23-57.95-3.38-15.75-9.28-39.7-11.14-62 0-18 11.14-30.45 25.07-32.2 81 0 90 2.32 101-7.8 9.82-9.24 7.8-15.5 7.8-102.78 1-8.3 7.79-30.81 53.41-24.14 6 .86 31.91 4.18 37.48 30.64l64.26 11.15c20.43 3.71 70.94 7 80.6 57.94 22.66 121.09 8.91 238.46 7.8 238.46C362.15 485.53 267.06 480 267.06 480c-18.95-.23-54.25-9.4-67.27-39.83zm80.94-204.84c-1 1.92-2.2 6 .85 7 14.09 4.93 39.75 6.84 45.88 5.53 3.11-.25 3.05-4.43 2.48-6.65-3.53-21.85-40.83-26.5-49.24-5.92z"/></svg></button><button title="Share on Skype" data-sharer=skype data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab"><svg class="icon" viewBox="0 0 448 512"><path d="M424.7 299.8c2.9-14 4.7-28.9 4.7-43.8.0-113.5-91.9-205.3-205.3-205.3-14.9.0-29.7 1.7-43.8 4.7C161.3 40.7 137.7 32 112 32 50.2 32 0 82.2.0 144c0 25.7 8.7 49.3 23.3 68.2-2.9 14-4.7 28.9-4.7 43.8.0 113.5 91.9 205.3 205.3 205.3 14.9.0 29.7-1.7 43.8-4.7 19 14.6 42.6 23.3 68.2 23.3 61.8.0 112-50.2 112-112 .1-25.6-8.6-49.2-23.2-68.1zm-194.6 91.5c-65.6.0-120.5-29.2-120.5-65 0-16 9-30.6 29.5-30.6 31.2.0 34.1 44.9 88.1 44.9 25.7.0 42.3-11.4 42.3-26.3.0-18.7-16-21.6-42-28-62.5-15.4-117.8-22-117.8-87.2.0-59.2 58.6-81.1 109.1-81.1 55.1.0 110.8 21.9 110.8 55.4.0 16.9-11.4 31.8-30.3 31.8-28.3.0-29.2-33.5-75-33.5-25.7.0-42 7-42 22.5.0 19.8 20.8 21.8 69.1 33 41.4 9.3 90.7 26.8 90.7 77.6.0 59.1-57.1 86.5-112 86.5z"/></svg></button><button title="Share on Trello" data-sharer=trello data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-description><svg class="icon" viewBox="0 0 448 512"><path d="M392.3 32H56.1C25.1 32 0 57.1.0 88c-.1.0.0-4 0 336 0 30.9 25.1 56 56 56h336.2c30.8-.2 55.7-25.2 55.7-56V88c.1-30.8-24.8-55.8-55.6-56zM197 371.3c-.2 14.7-12.1 26.6-26.9 26.6H87.4c-14.8.1-26.9-11.8-27-26.6V117.1c0-14.8 12-26.9 26.9-26.9h82.9c14.8.0 26.9 12 26.9 26.9v254.2zm193.1-112c0 14.8-12 26.9-26.9 26.9h-81c-14.8.0-26.9-12-26.9-26.9V117.2c0-14.8 12-26.9 26.8-26.9h81.1c14.8.0 26.9 12 26.9 26.9v142.1z"/></svg></button><button title="Share on Telegram" data-sharer=telegram data-url=https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/ data-title="CI/CD with KiCad and Gitlab" data-web><svg class="icon" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg></button><script>function shareOnMastodon(e,t){const o="share_mastodon_domain",i=localStorage.getItem(o)??"mastodon.social",n=prompt("Enter your Mastodon domain",i);if(n===null)return;localStorage.setItem(o,n);const a=e+`
+
+`+t,s=new URL("https://"+n);s.pathname="share",s.searchParams.append("text",a),window.open(s,"_blank","width=500,height=500,left=500,toolbar=0,status=0")}</script>
+<button title="Share on Mastodon" onclick='shareOnMastodon("CI/CD with KiCad and Gitlab","https://sschueller.github.io/posts/ci-cd-with-kicad-and-gitlab/")'><svg class="icon" viewBox="0 0 448 512"><path d="M433 179.11c0-97.2-63.71-125.7-63.71-125.7-62.52-28.7-228.56-28.4-290.48.0.0.0-63.72 28.5-63.72 125.7.0 115.7-6.6 259.4 105.63 289.1 40.51 10.7 75.32 13 103.33 11.4 50.81-2.8 79.32-18.1 79.32-18.1l-1.7-36.9s-36.31 11.4-77.12 10.1c-40.41-1.4-83-4.4-89.63-54a102.54 102.54.0 01-.9-13.9c85.63 20.9 158.65 9.1 178.75 6.7 56.12-6.7 105-41.3 111.23-72.9 9.8-49.8 9-121.5 9-121.5zm-75.12 125.2h-46.63v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.33V197c0-58.5-64-56.6-64-6.9v114.2H90.19c0-122.1-5.2-147.9 18.41-175 25.9-28.9 79.82-30.8 103.83 6.1l11.6 19.5 11.6-19.5c24.11-37.1 78.12-34.8 103.83-6.1 23.71 27.3 18.4 53 18.4 175z"/></svg></button></div></div></div><div class=post-info-more><section class=post-tags><svg class="icon" viewBox="0 0 640 512"><path d="M497.941 225.941 286.059 14.059A48 48 0 00252.118.0H48C21.49.0.0 21.49.0 48v204.118a48 48 0 0014.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882.0l204.118-204.118c18.745-18.745 18.745-49.137.0-67.882zM112 160c-26.51.0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882.0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397.0h48.721a48 48 0 0133.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137.0 67.882z"/></svg>&nbsp;<a href=/tags/pcb/>PCB</a>,&nbsp;<a href=/tags/kicad/>KiCad</a>,&nbsp;<a href=/tags/ee/>EE</a>,&nbsp;<a href=/tags/gitlab/>Gitlab</a>,&nbsp;<a href=/tags/jlcpcb/>JLCPCB</a>,&nbsp;<a href=/tags/lcsc/>LCSC</a></section><section class=print:!tw-hidden><span><button class="tw-text-fgColor-link-muted hover:tw-text-fgColor-link-muted-hover" onclick=window.history.back()>Back</button></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class="post-nav print:tw-hidden"><a href=/posts/3d-printer-nozzle-camera/ class=prev rel=prev title="3D Printer Nozzle Camera"><svg class="icon" viewBox="0 0 256 512"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9.0l22.6 22.6c9.4 9.4 9.4 24.6.0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6.0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9.0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>3D Printer Nozzle Camera</a>
+<a href=/posts/74-eletric-bus-charging-station/ class=next rel=next title="Zürich's new 74 bus fast charging station">Zürich's new 74 bus fast charging station<svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></a></div></div><div id=comments class="print:!tw-hidden tw-pt-32 tw-pb-8"><div id=utterances></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.</noscript></div></article></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreferrer" title="Hugo 0.154.5">Hugo</a>&nbsp;|&nbsp;Theme - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreferrer" title="DoIt 0.4.2"><svg class="icon" viewBox="0 0 576 512"><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1.0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7.0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174 402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7-43.2-43.2c-4.1-4.1-10.8-4.1-14.8.0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg> DoIt</a></div><div class=footer-line><svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 448c-110.532.0-2e2-89.451-2e2-2e2.0-110.531 89.451-2e2 2e2-2e2 110.532.0 2e2 89.451 2e2 2e2.0 110.532-89.451 2e2-2e2 2e2zm107.351-101.064c-9.614 9.712-45.53 41.396-104.065 41.396-82.43.0-140.484-61.425-140.484-141.567.0-79.152 60.275-139.401 139.762-139.401 55.531.0 88.738 26.62 97.593 34.779a11.965 11.965.0 011.936 15.322l-18.155 28.113c-3.841 5.95-11.966 7.282-17.499 2.921-8.595-6.776-31.814-22.538-61.708-22.538-48.303.0-77.916 35.33-77.916 80.082.0 41.589 26.888 83.692 78.277 83.692 32.657.0 56.843-19.039 65.726-27.225 5.27-4.857 13.596-4.039 17.82 1.738l19.865 27.17a11.947 11.947.0 01-1.152 15.518z"/></svg>2026<span class=author>&nbsp;<a href=/ target=_blank rel="noopener noreferrer"></a></span></div><div class=footer-line></div><div class=footer-line></div></div></footer><div class="print:!tw-hidden tw-flex tw-flex-col tw-fixed tw-right-4 tw-bottom-4 tw-gap-2"><a href=#back-to-top id=back-to-top-button class="tw-transition-opacity tw-opacity-0 tw-block tw-bg-bgColor-secondary tw-rounded-full" style=padding:.6rem;line-height:1.3rem;font-size:1rem title="Back to Top"><svg class="icon" viewBox="0 0 448 512"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg>
+</a><button id=toc-drawer-button class="tw-block tw-bg-bgColor-secondary tw-rounded-full md:tw-hidden" style=padding:.6rem;line-height:1.3rem;font-size:1rem>
+<svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
+</button><a href=#comments id=view-comments class="tw-block tw-bg-bgColor-secondary tw-rounded-full" style=padding:.6rem;line-height:1.3rem;font-size:1rem title="View Comments">
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1.0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3.0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4.0 256-93.1 256-208S397.4 32 256 32z"/></svg></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><script>window.config={comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"Comment",lightTheme:"github-light",repo:"sschueller/sschueller.github.io"}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},sharerjs:!0}</script><script src=/lib/sharer/sharer.min.js></script><script src=/lib/katex/katex.min.js defer></script><script src=/lib/katex/auto-render.min.js defer></script><script src=/js/katex.min.js defer></script><script src=/js/theme.min.js defer></script><script src=/js/utterances.min.js defer></script><script>var _paq=window._paq=window._paq||[];_paq.push(["setDoNotTrack",!0]),_paq.push(["disableCookies"]),_paq.push(["trackPageView"]),_paq.push(["enableLinkTracking"]),function(){e="https://stats2.tei.li/",_paq.push(["setTrackerUrl",e+"mtr"]),_paq.push(["setSiteId","1"]);var e,n=document,t=n.createElement("script"),s=n.getElementsByTagName("script")[0];t.async=!0,t.src=e+"mts",s.parentNode.insertBefore(t,s)}()</script><noscript><p><img referrerpolicy=no-referrer-when-downgrade src="https://stats2.tei.li//matomo.php?idsite=1&amp;rec=1" style=border:0 alt></p></noscript><script type=speculationrules>
+  {
+    "prerender": [
+      {
+        "where": { "href_matches": "/*" },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script></body></html>
