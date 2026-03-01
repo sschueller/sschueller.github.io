@@ -2,7 +2,7 @@
 weight: 2
 title: "Building a VBZ Display Clone"
 date: 2022-11-06T16:37:16+02:00
-lastmod: 2022-11-12T18:37:16+02:00
+lastmod: 2026-02-28T18:37:16+02:00
 author: "Stefan Schüller"
 authorLink: "https://github.com/sschueller/"
 description: ""
@@ -42,6 +42,11 @@ images:
 ---
 
 <!--more-->
+
+{{< admonition info "Update" true >}}
+I ended up making a real product out of this project which you can find here: 
+[Station Display](https://www.stationdisplay.com/). Although a lot of things have changed since I started this project most of the information here is still valid.
+{{< /admonition >}}
 
 ## Goal
 
