@@ -1,7 +1,7 @@
 [home]
   # amount of RSS pages
   # RSS 文章数目
-  rss = 12
+  rss = 15
   # Home page profile
   # 主页个人信息
   [home.profile]
@@ -36,7 +36,7 @@
     enable = true
     # special amount of posts in each home posts page
     # 主页每页显示文章数量
-    paginate = 12
+    paginate = 15
 # Social config in home page
 
 # 主页的社交信息设置

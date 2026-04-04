@@ -31,6 +31,9 @@
   [goldmark.extensions.passthrough.delimiters]
     block = [['\[', '\]'], ['$$', '$$']]
     inline = [['\(', '\)']]
+  [goldmark.parser]
+    [goldmark.parser.attribute]
+      block = true
 
 # Table Of Contents settings
 # 目录设置
