@@ -47,7 +47,7 @@ resources:
     src: gepon.png
 
 tags: ["FTTH", "Fiber", "Internet", "Switzerland", "Germany", "USA", "Free Market", "Regulation"]
-categories: ["opinion", "politics"]
+categories: ["opinion", "politics", "technology", "fiber"]
 
 toc:
   auto: false
