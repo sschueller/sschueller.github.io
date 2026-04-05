@@ -83,8 +83,6 @@ This Article is also available as a video (My first):
 
 ## The Paradox
 
-[![Paradox](paradox)](paradox)
-
 As mentioned, in Switzerland, you can get [25 Gigabit per second fiber internet](https://www.init7.net/de/internet/fiber7/) to your home, symmetric and dedicated. If you don't need such extreme speed, you can get 1 or 10 Gigabit from multiple competing providers for very little money. All over a connection that isn't shared with your neighbors. In fact, someone could offer 100 Gigabit or more today; there is nothing preventing this other than the cost of endpoint equipment.
 
 In the United States, if you're lucky enough to have fiber, you might get 1 Gigabit. But often it's shared with your neighbors. And you usually have exactly one choice of provider. Maybe two, if you count the cable company that offers slower speeds for the same price.
@@ -150,13 +148,9 @@ The United States took a different path, but the result is equally bad. Instead 
 
 In most American cities, you don't have a choice of fiber providers. You have whatever incumbent happens to serve your neighborhood. Comcast has one area. Spectrum has another. AT&T has a third.
 
-[![ISP Fiefdom USA](isp_fiefdom_map)](isp_fiefdom_map)
-
 This is marketed as competition. But it's not. It's a cartel. Each company gets its own protected territory, and consumers get no choice. If you don't like your provider, your only alternative is often DSL from the 1990s or a cellular hotspot.
 
 This is what happens when you let natural monopolies operate without oversight. They don't compete on price or quality. They extract rent.
-
-[!['Rent'](rent)](rent)
 
 And because these networks are built on the cheap using P2MP, or shared architecture, your "gigabit" connection is shared with your entire neighborhood. At 8 PM, when everyone streams Netflix, that gigabit becomes 200 megabits. Or 100. Or less.
 
@@ -201,8 +195,6 @@ In the United States, the majority of households have only one choice for high-s
 
 The "free market" promised innovation. It delivered rent-seeking. The incumbents have no incentive to upgrade because you have nowhere else to go.
 
-[![No Options](no-option)](no-option)
-
 American broadband prices have risen faster than inflation for decades. Speeds have increased only when a competitor, usually a municipal utility, forces the incumbent to respond.
 
 Without competition, there is no innovation. There is only profit extraction.
@@ -210,8 +202,6 @@ Without competition, there is no innovation. There is only profit extraction.
 ---
 
 ## The Oversight
-
-[![WEKO](weko)](weko)
 
 But here's the crucial part. Switzerland didn't arrive at this model by accident. It didn't happen because telecom companies were feeling generous. It happened because regulators forced it to happen.
 
@@ -242,8 +232,6 @@ Swisscom is a bit of a walking contradiction. Being majority state-owned, it's s
 ---
 
 ## The Answer
-
-[![Real Free Market](free-market.png)](free-market.png)
 
 This is the paradox that confuses so many people.
 
