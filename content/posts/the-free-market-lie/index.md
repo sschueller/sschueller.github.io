@@ -203,7 +203,7 @@ Without competition, there is no innovation. There is only profit extraction.
 
 ## The Oversight
 
-But here's the crucial part. Switzerland didn't arrive at this model by accident. It didn't happen because telecom companies were feeling generous. It happened because regulators forced it to happen.
+Switzerland didn't arrive at this model by accident nor did it happen because telecom companies were feeling generous. It happened because regulators forced it to happen.
 
 Back in 2008, when the industry sat down at the Round Table organized by the Federal Communications Commission, it was Swisscom, the incumbent itself, that pushed for the four-fiber Point-to-Point model. The company argued that a single fiber would create a monopoly and that regulation would be necessary.[^4]
 
