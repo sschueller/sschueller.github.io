@@ -223,7 +223,7 @@ Swisscom fought this all the way to the Federal Court. They lost. In 2021, the F
 Swisscom is 51% owned by the Swiss Confederation. So, in simple terms, 51% state-owned and 49% privately/institutionally owned. Whether this makes the fine "symbolic" is a matter of opinion.
 {{< /admonition >}}
 
-The result? Swisscom was forced to return to the four-fiber, Point-to-Point architecture it had originally championed.[^7] Competitors retained their direct, physical access to the fiber network. The walled garden was prevented.
+The result? Swisscom was forced to return to the four-fiber, Point-to-Point architecture it had originally championed.[^4] Competitors retained their direct, physical access to the fiber network. The walled garden was prevented.
 
 Whether intended or not, the effect of Swisscom's P2MP shift was clear: competitors would have been locked out of the physical infrastructure.
 
@@ -278,6 +278,4 @@ If you care about faster internet and lower prices, push your representatives to
 [^5]: Federal Administrative Court (BVGer) media release: *Swisscom must comply with fibre-optic standards* (December 2021) - https://www.bvger.ch/en/newsroom/media-releases/swisscom-must-comply-with-fibre-optic-standards-1063
 
 [^6]: COMCO (Swiss Competition Commission): *Swisscom fine for violating fibre-optic standards* (April 2024) - https://www.swissinfo.ch/eng/science/comco-gives-swisscom-2025-deadline-in-fibre-optic-dispute/76393735
-
-[^7]: Computerworld.ch: *Swisscom krebst zurueck* (February 2023) - confirms return to four-fiber Point-to-Point architecture - https://www.computerworld.ch/themen/technologie-und-innovation/swisscom-krebst-zurueck
 
