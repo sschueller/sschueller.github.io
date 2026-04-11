@@ -7,3 +7,6 @@ enableGitInfo = true
 enableEmoji = true
 
 theme = "DoIt"
+
+[params]
+  canonicalURL = "https://stefan.schueller.net"
